@@ -1,10 +1,13 @@
-package Linkedlist;
+package LinkedList;
+
+import LinkedList.ListNode;
+import LinkedList.ReorderList;
 
 public class ReorderList {
 
 	/**
-	 * Given a singly linked list L: L0???L1?????????Ln-1???Ln,
-		reorder it to: L0???Ln???L1???Ln-1???L2???Ln-2??????
+	 * Given a singly linked list L: L0->L1->...->Ln-1->Ln,
+		reorder it to: L0->Ln->L1->Ln-1->L2->Ln-2->...
 
 		You must do this in-place without altering the nodes' values.
 
@@ -16,59 +19,42 @@ public class ReorderList {
 	
 	//1. break the list into two part, find the n/2, second of the list
 	//2. reverse the tail
-	//3. insert the noe in tail list to front list one by one
+	//3. merge two list together, the better way is to insert the node in tail list to front list one by one
 	
 	public void reorderList(ListNode head) {
-		 if(head==null || head.next==null) return;
-		  
-		 ListNode p1=head;
-		 ListNode p2=head;
-		 //find the middle node
-		 while(p2!=null && p2.next!=null){
-			 p1=p1.next;
-			 p2=p2.next;
-			 if(p2!=null) p2=p2.next;
-		 }
-		 
-		 
-		 //when p2 goes to tail, p1 is the middle node
-		 
-		 ListNode head2=reverseList(p1);
-		 
-		 //insert
-		 p1=head;
-		 p2=head2;
-		 
-		//iterate and print the list
-			ListNode current=p1;
-			while(current!=null){			
-				System.out.println(current.val);
-				current=current.next;
-			}
-			System.out.println("------------------------");
-			current=p2;
-			while(current!=null){			
-				System.out.println(current.val);
-				current=current.next;
-			}
-		 //
-			
-		 ListNode p1Next=head.next;
-		 ListNode p2Next=head2.next;
-		 
-		 while(p1.next!=null && p2.next!=null){
-			 p1Next=p1.next;
-			 p2Next=p2.next;
-			 
-			 p1.next=p2;
-			 p2.next=p1Next;
-			 
-			 p1=p1Next;
-			 p2=p2Next;
-		 }
-		 
-			
-    }
+     
+        if(head == null) return;
+        if(head.next==null) return;
+        if(head.next.next == null) return;
+        //find middle
+        ListNode p1=head;
+        ListNode p2=head;
+        while(p2!=null && p2.next!=null){
+            p1=p1.next;
+            p2=p2.next.next;
+        }
+        //p1 is the head of second list
+        //don't need to set p1 previous node next to null; after reverse p1.next is null
+        p2 = reverseList(p1);
+        p1 = head;
+       
+        //odd number: p1: 1->2->null, p2: 3->2->null
+        //even number: p1: 1->2->3->null, p2: 4->3->null
+        //p1,p2 tail is always same node point to null.
+        
+        while(p2!=null && p2.next !=null){
+            ListNode p1Next = p1.next;
+            ListNode p2Next = p2.next;
+            p1.next = p2;
+            p2.next = p1Next;
+            
+            p1=p1Next;
+            p2=p2Next;
+            
+        }
+        
+    
+	}
 	
 	public ListNode reverseList(ListNode head) {
         if(head==null || head.next==null) return head;

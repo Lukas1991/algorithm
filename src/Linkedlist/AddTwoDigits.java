@@ -1,6 +1,6 @@
-package Linkedlist;
+package LinkedList;
 
-import Linkedlist.ListNode;
+import LinkedList.ListNode;
 
 public class AddTwoDigits {
 	
