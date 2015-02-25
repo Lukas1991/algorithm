@@ -1,4 +1,4 @@
-package list;
+package Linkedlist;
 
 public class ReverseList {
 //three pointer, previous, current, next

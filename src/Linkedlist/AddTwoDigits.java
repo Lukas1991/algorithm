@@ -1,4 +1,6 @@
-package list;
+package Linkedlist;
+
+import Linkedlist.ListNode;
 
 public class AddTwoDigits {
 	
@@ -59,9 +61,69 @@ public class AddTwoDigits {
     
     
     
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbersRecursive(ListNode l1, ListNode l2) {
         return addTwoNumbers(l1,l2,0); 
     }
     
 
+    public ListNode addTwoNumbersWhileLoop(ListNode l1, ListNode l2) {
+
+        if(l1 == null && l2 == null) return null;
+        if(l1==null) return l2;
+        if(l2==null) return l1;
+       ListNode p1=l1;
+       ListNode p2=l2;
+       int carry=0;
+       ListNode prel3=null;
+       ListNode newHead=null;
+      
+       while(p1!=null && p2!=null){
+           int sum=(p1.val+p2.val+carry)%10;
+           carry = (p1.val+p2.val+carry)/10;
+           ListNode l3=new ListNode(sum);
+           if(prel3!=null){
+               prel3.next=l3;
+               prel3=l3;
+           }else{
+               prel3=l3;
+               newHead=l3;
+           }
+           p1=p1.next;
+           p2=p2.next;
+           
+       }
+       
+       while(p1!=null){
+           int sum=(p1.val+carry)%10;
+           carry = (p1.val+carry)/10;
+           ListNode l3=new ListNode(sum);
+           
+               prel3.next=l3;
+               prel3=l3;
+           
+           p1=p1.next;
+       }
+       
+       while(p2!=null){
+           int sum=(p2.val+carry)%10;
+           carry = (p2.val+carry)/10;
+           ListNode l3=new ListNode(sum);
+          
+               prel3.next=l3;
+               prel3=l3;
+          
+           p2=p2.next;
+       }
+       
+       if(carry==1){
+           prel3.next=new ListNode(1);
+       }
+       else prel3.next=null;
+       
+       return newHead;
+       
+   
+    }
+    
+    
 }
