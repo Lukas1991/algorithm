@@ -61,6 +61,8 @@ public class ZigZagConversion {
 		// TODO Auto-generated method stub
 		String res=convert("PAYPALISHIRING", 3);
 		System.out.println(res);
+		String res1=convert("PAYPALISHIRING", 4);
+		System.out.println(res1);
 	}
 
 }
