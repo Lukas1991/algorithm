@@ -21,9 +21,11 @@ public class ValidPalindrome {
 		System.out.println('a'-'A');
 		//Stack<Character> st = new Stack<Character>();
 		String str="hey";
-		System.out.println(str.substring(0, 3));
+		System.out.println();
 		//str.indexOf(str)
 		//str.equals(anObject)
+		
+		
 	}
 
 }
