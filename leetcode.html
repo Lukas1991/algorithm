@@ -39,9 +39,12 @@ td:first-child {
 	 * time O(n^2), space O(1)	</td>
 </tr> 
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a></td>
-    <td>Comments</td>
+    <td>* Define an array dp[](size is s.length+1) such that dp[i]==true indicates 0-(i-1) can be segmented using dictionary<br>
+	 * Initial state dp[0] == true, return dp[s.length()]<br>
+	 * dp[k] refers to s.substring(0,k)<br>
+	 * O(n^2)</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
