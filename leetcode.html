@@ -16,6 +16,10 @@ th, td {
 td:first-child { 
     width: 10px;
 }
+.RED{
+color:red;
+}
+
 </style>
 
 </head>
@@ -40,7 +44,8 @@ td:first-child {
 </tr> 
 <tr>
     <td><input type="checkbox" checked></td>
-    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a>
+    <p class="RED">Word Break 2</p></td>
     <td>* Define an array dp[](size is s.length+1) such that dp[i]==true indicates 0-(i-1) can be segmented using dictionary<br>
 	 * Initial state dp[0] == true, return dp[s.length()]<br>
 	 * dp[k] refers to s.substring(0,k)<br>
@@ -67,8 +72,10 @@ td:first-child {
     <td><a href="http://www.programcreek.com/2012/12/leetcode-insert-interval/">8) Insert Interval</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-of-two-sum-in-java/">9) Two Sum</a></td>
+	<td>* Use HashMap to store the target value.<br>
+	* Time complexity of this solution: O(n).</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -199,8 +206,9 @@ td:first-child {
     <td><a href="http://www.programcreek.com/2014/02/leetcode-longest-common-prefix-java/">37) Longest Common Prefix</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-largest-number-java/">38) Largest Number</a></td>
+	<td>* convert int to string, sort strings. append strings from the largest</td>
 </tr>
 
 

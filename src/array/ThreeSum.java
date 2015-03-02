@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ThreeSum {
@@ -25,8 +26,62 @@ public class ThreeSum {
 	 * @param args
 	 */
 
+	 public List<List<Integer>> threeSum(int[] num) {
+		//A better solution is using two pointers instead of one. This makes time complexity of O(n^2).
+
+		//To avoid duplicate, we can take advantage of sorted arrays, i.e., move pointers by >1 to use same element only once.
+		 List<List<Integer>> result = new ArrayList<List<Integer>>();
+		 
+			if (num.length < 3)
+				return result;
+		 
+			// sort array
+			Arrays.sort(num);
+		 
+			for (int i = 0; i < num.length - 2; i++) {
+				// //avoid duplicate solutions
+				if (i == 0 || num[i] > num[i - 1]) {
+		 
+					int negate = -num[i];
+		 
+					int start = i + 1;
+					int end = num.length - 1;
+		 
+					while (start < end) {
+						//case 1
+						if (num[start] + num[end] == negate) {
+							ArrayList<Integer> temp = new ArrayList<Integer>();
+							temp.add(num[i]);
+							temp.add(num[start]);
+							temp.add(num[end]);
+		 
+							result.add(temp);
+							start++;
+							end--;
+							//avoid duplicate solutions
+							while (start < end && num[end] == num[end + 1])
+								end--;
+		 
+							while (start < end && num[start] == num[start - 1])
+								start++;
+						//case 2
+						} else if (num[start] + num[end] < negate) {
+							start++;
+						//case 3
+						} else {
+							end--;
+						}
+					}
+		 
+				}
+			}
+		 
+			return result;
+		    }
+	
+	
 	// O(n^2)
-	public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
+	public ArrayList<ArrayList<Integer>> threeSumOld(int[] num) {
 		int[] numbers = Arrays.copyOf(num, num.length);
 
 		ArrayList<ArrayList<Integer>> threeResult = new ArrayList<ArrayList<Integer>>();
@@ -164,8 +219,7 @@ public class ThreeSum {
 
 	public static void main(String[] args) {
 		ThreeSum sol = new ThreeSum();
-		ArrayList<ArrayList<Integer>> result = sol.threeSum(new int[] { 1, 1,
-				-2 });
+		//ArrayList<ArrayList<Integer>> result = sol.threeSum(new int[] { 1, 1,-2 });
 		System.out.println("Test");
 	}
 
