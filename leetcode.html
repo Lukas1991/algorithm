@@ -142,8 +142,10 @@ color:red;
     <td><a href="http://www.programcreek.com/2013/01/leetcode-distinct-subsequences-total-java/">23) Distinct Subsequences Total</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/02/leetcode-maximum-subarray-java/">24) Maximum Subarray</a></td>
+	<td>* DP, sum[i] track the max sum of A[0 - i], ends at i!!! Also need a global max sum<br>
+		* if sum[i-1]+A[i] < A[i], ignore sum[i-1], (can use a local newsum instead of sum[i-1])</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -216,5 +218,16 @@ color:red;
 
 
 <p><strong>2. Linked List</strong></p>
+
+<p><strong>6. Recursion</strong></p>
+<table style="width:100%">
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td>1) Letter Combinations of a Phone Number</a></td>
+	<td>* construct a dictionary to hold allowed characters for each digit<br>
+	 * from string last index N to 0, get previous listN-1, newlist.add(listN-1.get(i)+characters)<br>
+	 * base case: when index is 0, list.add(characters)</td>
+</tr>
+</table>
 </body>
 </html>
