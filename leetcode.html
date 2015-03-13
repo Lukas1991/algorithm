@@ -98,8 +98,9 @@ color:red;
     <td><a href="http://www.programcreek.com/2012/12/leetcode-merge-sorted-array-java/">12) Merge Sorted Array</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-valid-parentheses-java/">13) Valid Parentheses</a></td>
+	<td>* stack.push(left parentheses)</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -114,12 +115,15 @@ color:red;
     <td><a href="http://www.programcreek.com/2013/01/leetcode-search-insert-position/">16) Search Insert Position</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-longest-consecutive-sequence-java/">17) Longest Consecutive Sequence</a></td>
+	<td>* add all to hashset, check set.contains(element-1), set.contains(element+1) <br>
+		* if contains, remove that to avoid later duplicate search</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-valid-palindrome-java/">18) Valid Palindrome</a></td>
+	<td>* two pointers, start and end, compare</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -168,7 +172,7 @@ color:red;
     <td><a href="http://www.programcreek.com/2013/03/leetcode-palindrome-partitioning-java/">29) Palindrome Partitioning</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-reverse-words-in-a-string-java/">30) Reverse Words in a String </a></td>
 </tr>
 <tr>
@@ -184,16 +188,21 @@ color:red;
     <td><a href="http://www.programcreek.com/2014/02/leetcode-min-stack-java/" title="LeetCode – Min Stack (Java)">33) Min Stack</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-majority-element-java/" title="LeetCode – Majority Element (Java)">34) Majority Element</a></td>
+	<td>* Bit Manipulation<br>
+		* when count==0, count++, current=current<br>
+		* when count!=0, if same as current, count++, if different count--</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-combination-sum-java/" title="LeetCode – Combination Sum (Java)">35) Combination Sum (DFS)</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-java/" title="LeetCode – Best Time to Buy and Sell Stock (Java)">36) Best Time to Buy and Sell Stock </a></td>
+	<td>* Iterate arr, maxProfit=Math.max(maxProfit, price[i]-min)<br>
+		* min=Math.min(min,price[i])</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
