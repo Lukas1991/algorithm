@@ -1,3 +1,3 @@
 # algorithm
 
-second
+I love Algorithm!
