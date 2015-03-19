@@ -152,12 +152,14 @@ color:red;
 		* if sum[i-1]+A[i] < A[i], ignore sum[i-1], (can use a local newsum instead of sum[i-1])</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-remove-duplicates-from-sorted-array-java/">25) Remove Duplicates from Sorted Array</a></td>
+    <td>* keep a tail pointer, if A[i] == A[i-1] continue, else tail++, A[tail]=A[i]</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-remove-duplicates-from-sorted-array-ii-java/">26) Remove Duplicates from Sorted Array II</a></td>
+    <td>* if A[i] == A[tail] && A[i] == A[tail-1] continue, else tail++, A[tail]=A[i]</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -180,19 +182,22 @@ color:red;
     <td><a href="http://www.programcreek.com/2014/02/leetcode-find-minimum-in-rotated-sorted-array/">31) Find Minimum in Rotated Sorted Array </a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-find-peak-element/" title="LeetCode – Find Peak Element">32) Find Peak Element</a></td>
+    <td>* scan the array and find any element that is greater than its previous and next. <br>
+        * The first and last element are handled separately.</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-min-stack-java/" title="LeetCode – Min Stack (Java)">33) Min Stack</a></td>
+	<td>* another stack to save min</td>
 </tr>
 <tr>
     <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-majority-element-java/" title="LeetCode – Majority Element (Java)">34) Majority Element</a></td>
 	<td>* Bit Manipulation<br>
-		* when count==0, count++, current=current<br>
-		* when count!=0, if same as current, count++, if different count--</td>
+		* when count==0, count++, current=num[i]<br>
+		* when count!=0, if num[i] same as current; count++, if different count--</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -333,8 +338,9 @@ color:red;
 	  	* another NB solution, ones, twos, threes</td>
 </tr>
 <tr>
-	<td><input type="checkbox" ></td>
-    <td><a href="http://www.programcreek.com/2013/02/twitter-codility-problem-max-binary-gap/">2) Maximum Binary Gap</a></td>    
+	<td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/02/twitter-codility-problem-max-binary-gap/">2) Maximum Binary Gap</a></td> 
+    <td>* N & (1 &lt; &lt; i) , get N ith bit</td>   
 </tr>
 </table>
 

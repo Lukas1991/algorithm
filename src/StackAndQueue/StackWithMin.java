@@ -44,7 +44,8 @@ public class StackWithMin extends Stack<Integer>{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Stack<Integer> test = new Stack<Integer>();
+		test.pop();
 	}
 
 }
