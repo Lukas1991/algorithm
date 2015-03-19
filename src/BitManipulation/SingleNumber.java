@@ -1,4 +1,4 @@
-package array;
+package BitManipulation;
 
 import java.util.HashMap;
 import java.util.Map;
