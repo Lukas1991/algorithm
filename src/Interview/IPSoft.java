@@ -22,8 +22,23 @@ public class IPSoft {
 	* System.out.println(nonRepeated); // prints 6 
 	*
 	*/
-	//if other non-unique element occur twice or even times, use set. 
+	//if other non-unique element appears twice or even times, use set. 
 	public static int findNonRepeatedInt(int[] intArray){
+		if(intArray == null || intArray.length == 0){
+			return 0;
+		}
+		
+		int x=0;
+		
+		for(int element : intArray){
+			x = x ^ element;			
+		}
+		
+		return x;
+	}
+	
+	//if other non-unique element appears twice or even times, use set. 
+	public static int findNonRepeatedIntSet(int[] intArray){
 		if(intArray == null || intArray.length == 0){
 			return 0;
 		}
@@ -50,7 +65,7 @@ public class IPSoft {
 		
 	}
 	
-	//if other non-unique element occur any times, use map. 
+	//if other non-unique element appears any times, use map. 
 	public static int findNonRepeatedIntMap(int[] intArray){
 		if(intArray == null || intArray.length == 0){
 			return 0;
