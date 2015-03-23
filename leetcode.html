@@ -44,32 +44,52 @@ color:red;
 </tr> 
 <tr>
     <td><input type="checkbox" checked></td>
-    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a>
-    <p class="RED">Word Break 2</p></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a></td>
     <td>* Define an array dp[](size is s.length+1) such that dp[i]==true indicates 0-(i-1) can be segmented using dictionary<br>
 	 * Initial state dp[0] == true, return dp[s.length()]<br>
 	 * dp[k] refers to s.substring(0,k)<br>
 	 * O(n^2)</td>
 </tr>
+
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3.1) Word Break II</a></td>
+    <td>* use a dp array,List&lt;String&gt;[] to track actual words. when dp[i] not null, indicates 0-(i-1) can be segmented<br>
+	 * dp[i] contains the substrings in dict, which start from any previous segmented index, end to i-1<br>
+	 * which means: dp[k]!=null && dict.contains(s.substring(k, i))<br> 
+	 * After dp array is ready, dfs, root is the end word, "dog", find all paths from end to start    
+	</td>
+</tr>
+
+<tr>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-word-ladder/">4) Word Ladder</a></td>
+    <td>* Use breath-first or depth-first search to solve problems<br>
+	 * Use two queues, one for words and another for counting</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/">5) Median of Two Sorted Arrays</a></td>
+    <td>* findKth(), aKth=aLen * k/(aLen+bLen), bKth = k-aKth-1</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-regular-expression-matching-in-java/">6) Regular Expression Matching</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-merge-intervals/">7) Merge Intervals</a></td>
+	<td>* sort intervals by start<br>
+	 * two pointers, previous, current. If curr.start <= pre.end, merge these two. Else, add pre into result list.
+	</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-insert-interval/">8) Insert Interval</a></td>
+	<td>* Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].<br>
+	 * if [1,2] curr.end < newInterval.start<br>
+	 * else if [12,16] curr.start > newInterval.end<br>
+	 * else newInterval new with current</td>
 </tr>
 <tr>
     <td><input type="checkbox" checked></td>
@@ -94,8 +114,9 @@ color:red;
     <td><a href="http://www.programcreek.com/2012/12/leetcode-string-to-integer-atoi/">11) String to Integer</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-merge-sorted-array-java/">12) Merge Sorted Array</a></td>
+    <td>* move element of A and B backwards. i=Alen-1, j=Blen-1, k=Alen+Blen-1</td>
 </tr>
 <tr>
     <td><input type="checkbox" checked></td>
