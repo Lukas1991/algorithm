@@ -1,5 +1,8 @@
 package string;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ValidPalindrome {
 
 	/**
@@ -24,6 +27,11 @@ public class ValidPalindrome {
 		System.out.println();
 		//str.indexOf(str)
 		//str.equals(anObject)
+		
+		Set<Integer> set = new HashSet<Integer>();
+		set.add(1);
+		set.add(1);
+		System.out.println(set.size());
 		
 		
 	}
