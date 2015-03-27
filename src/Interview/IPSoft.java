@@ -22,7 +22,7 @@ public class IPSoft {
 	* System.out.println(nonRepeated); // prints 6 
 	*
 	*/
-	//if other non-unique element appears twice or even times, use set. 
+	//if other non-unique element appears twice or even times, use bit manipulation. 
 	public static int findNonRepeatedInt(int[] intArray){
 		if(intArray == null || intArray.length == 0){
 			return 0;
@@ -123,9 +123,7 @@ public class IPSoft {
 			
 		}
 		
-		throw new NoSuchFooException();
-		
-		
+		throw new NoSuchFooException();		
 	}
 	
 	
@@ -176,6 +174,7 @@ public class IPSoft {
 		int nonRepeated = findNonRepeatedInt(arr);
 		System.out.println(nonRepeated);
 		
+		StringBuilder sb = new StringBuilder("123");
 		
 		
 	}

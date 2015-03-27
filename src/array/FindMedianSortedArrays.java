@@ -25,7 +25,16 @@ public class FindMedianSortedArrays {
 		}
 	}
 	
-	
+	/**
+	 * findKth,总长度5+8=13，中数是第7个，找6个小的。k=6
+	 * A: [2,3,7,8,10]， aMid=2; A[aMid]=7
+	 * 			
+	 * B: [1,4,5,6,9,11,12,13]  bMid=3; B[bMid]=6
+	 * A[aMid] > B[bMid], 包括B[bMid]在内的B前半段的4个数[1,4,5,6]都是小的，k=6-4=2, 再找2个小的数.
+	 * 因为前四个小的数已经包括了6，所以B=[9,11,12,13],取B[bMid]之后的
+	 * A=[2,3,7]，再考虑一次A[aMid]，（以防A之前长度是偶数，那么A[aMid]在前半段）
+	 * 
+	 */
 	public static int findKth(int A[], int B[], int k, 
 			int aStart, int aEnd, int bStart, int bEnd) {
 		 System.out.println("k: "+k+" aStart: "+aStart+" aEnd: "+aEnd+" bStart: "+bStart+" bEnd: "+bEnd);
@@ -40,6 +49,7 @@ public class FindMedianSortedArrays {
 			if (k == 0)
 				return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
 		 
+			//find kth in a and kth in b	
 			int aMid = aLen * k / (aLen + bLen); // a's middle count
 			int bMid = k - aMid - 1; // b's middle count
 
