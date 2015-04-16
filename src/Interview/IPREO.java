@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * onsite: k way merge sorted stream. each time get smallest of K sorted stream. 
+ * find maximum consecutive character length, "aabacccee" longest is ccc, return 3.
+ */
 /**
  * This file contains one Interval class, and one solution IPREO class.
  * IPREO class contains a merge() method, which is the solution, and 3 test cases.
- * @author Chuyu Liu ( iris.liu.chuyu@gmail.com )
  *
  */
 
