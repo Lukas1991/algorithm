@@ -42,35 +42,33 @@ public class ThreeSum {
 				// //avoid duplicate solutions
 				if (i == 0 || num[i] > num[i - 1]) {
 		 
-					int negate = -num[i];
-		 
 					int start = i + 1;
 					int end = num.length - 1;
 		 
 					while (start < end) {
-						//case 1
-						if (num[start] + num[end] == negate) {
-							ArrayList<Integer> temp = new ArrayList<Integer>();
-							temp.add(num[i]);
-							temp.add(num[start]);
-							temp.add(num[end]);
-		 
-							result.add(temp);
-							start++;
-							end--;
-							//avoid duplicate solutions
-							while (start < end && num[end] == num[end + 1])
-								end--;
-		 
-							while (start < end && num[start] == num[start - 1])
-								start++;
-						//case 2
-						} else if (num[start] + num[end] < negate) {
-							start++;
-						//case 3
-						} else {
-							end--;
-						}
+						
+						if(num[i]+num[start]+num[end] < 0){
+	                        start ++;
+	                    }else if(num[i]+num[start]+num[end] > 0){
+	                        end --;
+	                    }else{ //==0
+	                        List<Integer> temp = new ArrayList<Integer>();
+	                        temp.add(num[i]);
+	                        temp.add(num[start]);
+	                        temp.add(num[end]);
+	                        result.add(temp);
+	                        
+	                        start++;
+	                        end--;
+	                      //avoid duplicate solutions
+	                        while(start<end && num[start]==num[start-1]){
+	                            start++;
+	                        }
+	                         while(start<end && num[end]==num[end+1]){
+	                            end--;
+	                        }
+	                    }
+						
 					}
 		 
 				}
@@ -79,7 +77,78 @@ public class ThreeSum {
 			return result;
 		    }
 	
-	
+	 /**
+	 * For example, given array S = {-1 2 1 -4}, and target = 1.
+	 * The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
+	 */
+	 public int threeSumClosest(int[] num, int target) {
+	        int min = Integer.MAX_VALUE;
+	        if (num.length < 3)
+				return 0;
+		    int result=0;
+			// sort array
+			Arrays.sort(num);
+		 
+			for (int i = 0; i < num.length - 2; i++) {
+				int start = i+1;
+				int end = num.length -1;
+				
+				while(start < end){
+					int sum = num[i]+num[start]+num[end];
+					int diff = Math.abs(sum-target);
+					if(diff == 0) return sum;
+					
+					if(diff < min){
+						min=diff;
+						result = sum;
+					}
+					if(sum < target){
+						start++;
+					}else{
+						end--;
+					}
+										
+				}
+			}
+	        
+			return result;
+	    }
+
+	 /**
+	  * O(n^3)
+	  */
+	 public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
+	        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	        if (num.length <4) return res;
+	        Arrays.sort(num);
+	        for (int i = 0; i < num.length-3; i++) {
+	            if (i > 0 && num[i-1] == num[i]) continue;
+	            for (int j = i+1; j < num.length-2; j++) {
+	                if (j>i+1 && num[j-1] == num[j]) continue;
+	                int start = j+1;
+	                int end = num.length-1;
+	                while (start < end) {
+	                    if (num[i] + num[j] + num[start] + num[end] < target) {
+	                        start++;
+	                    } else if (num[i] + num[j] + num[start] + num[end] > target) {
+	                        end--;
+	                    } else {
+	                        ArrayList<Integer> list = new ArrayList<Integer>();
+	                        list.add(num[i]);
+	                        list.add(num[j]);
+	                        list.add(num[start]);
+	                        list.add(num[end]);
+	                        res.add(list);
+	                        
+	                        do { start++; } while (start < end && num[start-1] == num[start]);
+	                        do { end--; } while (start < end && num[end+1] == num[end]);
+	                    }
+	                }
+	            }
+	        }
+	        return res;
+	    }
+	 
 	// O(n^2)
 	public ArrayList<ArrayList<Integer>> threeSumOld(int[] num) {
 		int[] numbers = Arrays.copyOf(num, num.length);

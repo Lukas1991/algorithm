@@ -19,34 +19,25 @@ public class MergeTwoSortedList {
 	 public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		 if(l1==null && l2==null){
 			 return null;
-		 }else if(l1==null){
-			 return l2;
-		 }else if(l2==null){
-			 return l1;
 		 }
-		 		
-		
+		 			
 		 ListNode paddingListNode=new ListNode(0);
 		 ListNode current=paddingListNode;
-		 ListNode l1Pnt=l1;
-		 ListNode l2Pnt=l2;
 				 
-		 while(l1Pnt !=null && l2Pnt !=null){
+		 while(l1 !=null && l2 !=null){
 			 
-			 if(l1Pnt.val<=l2Pnt.val){
-				 current.next=l1Pnt;
-				 current=current.next;
-				 l1Pnt=l1Pnt.next;
+			 if(l1.val<=l2.val){
+				 current.next=l1;				 
+				 l1=l1.next;
 			 }else{
-				 current.next=l2Pnt;
-				 current=current.next;
-				 l2Pnt=l2Pnt.next;
+				 current.next=l2;
+				 l2=l2.next;
 			 }
-			 
+			 current=current.next;
 		 }
 		 
-		 if(l1Pnt ==null) current.next=l2Pnt;
-		 if(l2Pnt ==null) current.next=l1Pnt;
+		 if(l1 ==null) current.next=l2;
+		 if(l2 ==null) current.next=l1;
 		 		 
 		 return paddingListNode.next;
 	    }

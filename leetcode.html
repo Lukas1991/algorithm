@@ -54,7 +54,7 @@ color:red;
 <tr>
     <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3.1) Word Break II</a></td>
-    <td>* use a dp array,List&lt;String&gt;[] to track actual words. when dp[i] not null, indicates 0-(i-1) can be segmented<br>
+    <td>* use a dp array,List&lt;String&gt;[] dp, to track actual words. when dp[i] not null, indicates 0-(i-1) can be segmented<br>
 	 * dp[i] contains the substrings in dict, which start from any previous segmented index, end to i-1<br>
 	 * which means: dp[k]!=null && dict.contains(s.substring(k, i))<br> 
 	 * After dp array is ready, dfs, root is the end word, "dog", find all paths from end to start    
@@ -73,8 +73,12 @@ color:red;
     <td>* findKth(), aKth=aLen * k/(aLen+bLen), bKth = k-aKth-1</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-regular-expression-matching-in-java/">6) Regular Expression Matching</a></td>
+	<td>* if j+1 is not *, then both of current chars should be matched, and continue to check both of next char<br>
+		* j+1 is *. try check s current chars match with the p char behind * , which * refers to 0 in s<br>
+		* j+1 is *, * refers to one or more in s. check current chars, move i forward
+	</td>
 </tr>
 <tr>
     <td><input type="checkbox" checked></td>
@@ -98,20 +102,28 @@ color:red;
 	* Time complexity of this solution: O(n).</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-3sum/">9) 3Sum</a></td>
+    <td>* using two pointers, start, end, check num[i]+num[start]+num[end] >=< 0<br>
+     * two place to avoid duplicates, num[i] > num[i - 1]; num[end] == num[end + 1], num[start] == num[start - 1]<br>
+     * O(n^2)
+    </td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/02/leetcode-4sum-java/">9) 4Sum</a></td>
+    <td>* O(n^3)</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/02/leetcode-3sum-closest-java/">10) 3Sum Closest</a></td>
+	<td>* two pointers, start, end. compare sum-target with min<br>
+		* O(n^2)</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-string-to-integer-atoi/">11) String to Integer</a></td>
+	<td>* trim, check +/-, validate Max,Min</td>
 </tr>
 <tr>
     <td><input type="checkbox" checked></td>
@@ -128,8 +140,11 @@ color:red;
     <td><a href="http://www.programcreek.com/2012/12/leetcode-implement-strstr-java/">14) Implement strStr()</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2012/12/leetcode-set-matrix-zeroes-java/">15) Set Matrix Zeroes</a></td>
+    <td>* use O(1) space <br>
+	 * have  boolean firstRowZero and firstColumnZero, use matrix's first row and first column as the flag arrays
+    </td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -147,16 +162,21 @@ color:red;
 	<td>* two pointers, start and end, compare</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-spiral-matrix-java/">19) Spiral Matrix</a></td>
+    <td>* If more than one row and column left, it can form a circle and we process the circle. <br>
+    	* Otherwise, if only one row or column left, we process that column or row ONLY.</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-search-a-2d-matrix-java/">20) Search a 2D Matrix</a></td>
+	<td>* 1. binary search to find in which row first.<br>
+	 	* 2. binary search of that row</td>
 </tr>
 <tr>
-    <td><input type="checkbox"></td>
+    <td><input type="checkbox" checked></td>
     <td><a href="http://www.programcreek.com/2013/01/leetcode-rotate-image-java/">21) Rotate Image</a></td>
+    <td>* rotate layer by layer</td>
 </tr>
 <tr>
     <td><input type="checkbox"></td>
@@ -243,11 +263,48 @@ color:red;
     <td><a href="http://www.programcreek.com/2014/02/leetcode-longest-common-prefix-java/">37) Longest Common Prefix</a></td>
 </tr>
 <tr>
-    <td><input type="checkbox" checked></td>
+    <td><input type="checkbox" ></td>
     <td><a href="http://www.programcreek.com/2014/02/leetcode-largest-number-java/">38) Largest Number</a></td>
 	<td>* convert int to string, sort strings. append strings from the largest</td>
 </tr>
+<tr>
+ 	<td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-combinations-java/" title="LeetCode – Combinations (Java)">39) Combinations (DFS)</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-compare-version-numbers-java/" title="LeetCode – Compare Version Numbers (Java)" target="_blank">40) Compare Version Numbers</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-gas-station-java/" title="LeetCode – Gas Station (Java)" target="_blank">41) Gas Station</a></td>
+	<td>* 1) if total of gas[] >= total of cost[], then there exists a start index to complete the circle.<br>
+	 * 2) if A can not reach C in a the sequence of A-->B-->C, then B can not make it either. use C as a new start
+	</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-candy-java/" title="LeetCode – Candy (Java)" target="_blank">42) Candy </a></td>
+    <td>* left to right, if ascending, plus one; if not ascending, assign 1<br>
+   		* right to left, if ascending, Max of current value and plus one; if not ascending, use the current value</td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-jump-game-java/" title="LeetCode – Jump Game (Java)" target="_blank">43) Jump Game</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-pascals-triangle-java/" title="LeetCode – Pascal’s Triangle (Java)" target="_blank">44) Pascal's Triangle</a></td>
+</tr>
 
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="" title="" >45) Find Missing Positive</a></td>
+    <td>* put A[i] in the place index=A[i]-1, so A[i] should equels to index+1, if not, swap<br>
+	    * if A[i] == A[A[i]-1], another duplicate values there, don't need to swap<br>
+	    * so conditions should be if(A[i]>0 && A[i]<=len && A[i]!=(i+1) && A[i]!=A[A[i]-1])
+	    </td>
+</tr>
 
 </table>
 

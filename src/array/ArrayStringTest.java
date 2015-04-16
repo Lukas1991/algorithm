@@ -95,44 +95,7 @@ public class ArrayStringTest {
 		
 	}
 	
-	public static int[][] rotate(int[][] image){
-		int n=image[0].length;
-		int[][] image2=new int[n][n];
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				image2[i][j]=image[n-1-j][i];
-			}
-		}
-		return image2;		
-	}
 	
-	public static int[][] matrixZero(int[][] image){
-		int m=image.length;
-		int n=image[0].length;
-		int[][] image2=image;
-		
-		int[] row=new int[m];
-		int[] column=new int[n];
-		
-		for(int i=0;i<m;i++){
-			for(int j=0;j<n;j++){
-				if(image[i][j]==0){
-					row[i]=1;
-					column[j]=1;
-				}
-			}
-		}
-		
-		for(int i=0;i<m;i++){
-			for(int j=0;j<n;j++){
-				if(row[i]==1 || column[j]==1)
-					image2[i][j]=0;				
-			}
-			
-		}
-		
-		return image2;
-	}
 	
 	public static void main(String[] args) {
 		
