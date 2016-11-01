@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Leetcode</title>
+<link rel="stylesheet" type="text/css" href="style.css"></link>
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+td:first-child { 
+    width: 10px;
+}
+.RED{
+color:red;
+}
+
+</style>
+
+</head>
+<body>
+<h3 style="text-align: center">Top Algorithms for coding interview</h3>
+
+<p><strong>1. String/Array/Matrix</strong></p>
+<table style="width:100%">
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-evaluate-reverse-polish-notation/">1) Evaluate Reverse Polish Notation</a></td>
+	<td>* postfix expression convert to infis expression, use a stack<br>
+	 * when meet a number, push it into the stack.<br>
+	 * when meet an operator, pop two numbers from stack, do the calculation, push back the result </td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/12/leetcode-solution-of-longest-palindromic-substring-java/">2) Longest Palindromic Substring</a></td>
+    <td>* Iterate the String, get longest palindrome with center of i<br>
+	 * get longest palindrome with center of i, i+1<br>
+	 * time O(n^2), space O(1)	</td>
+</tr> 
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3) Word Break</a></td>
+    <td>* Define an array main.java.dp[](size is s.length+1) such that main.java.dp[i]==true indicates 0-(i-1) can be segmented using dictionary<br>
+	 * Initial state main.java.dp[0] == true, return main.java.dp[s.length()]<br>
+	 * main.java.dp[k] refers to s.substring(0,k)<br>
+	 * O(n^2)</td>
+</tr>
+
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-word-break/">3.1) Word Break II</a></td>
+    <td>* use a main.java.dp array,List&lt;String&gt;[] main.java.dp, to track actual words. when main.java.dp[i] not null, indicates 0-(i-1) can be segmented<br>
+	 * main.java.dp[i] contains the substrings in dict, which start from any previous segmented index, end to i-1<br>
+	 * which means: main.java.dp[k]!=null && dict.contains(s.substring(k, i))<br>
+	 * After main.java.dp array is ready, dfs, root is the end word, "dog", find all paths from end to start
+	</td>
+</tr>
+
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-word-ladder/">4) Word Ladder</a></td>
+    <td>* Use breath-first or depth-first search to solve problems<br>
+	 * Use two queues, one for words and another for counting</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/">5) Median of Two Sorted Arrays</a></td>
+    <td>* findKth(), aKth=aLen * k/(aLen+bLen), bKth = k-aKth-1</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-regular-expression-matching-in-java/">6) Regular Expression Matching</a></td>
+	<td>* if j+1 is not *, then both of current chars should be matched, and continue to check both of next char<br>
+		* j+1 is *. try check s current chars match with the p char behind * , which * refers to 0 in s<br>
+		* j+1 is *, * refers to one or more in s. check current chars, move i forward
+	</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-merge-intervals/">7) Merge Intervals</a></td>
+	<td>* sort intervals by start<br>
+	 * two pointers, previous, current. If curr.start <= pre.end, merge these two. Else, add pre into result list.
+	</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-insert-interval/">8) Insert Interval</a></td>
+	<td>* Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].<br>
+	 * if [1,2] curr.end < newInterval.start<br>
+	 * else if [12,16] curr.start > newInterval.end<br>
+	 * else newInterval new with current</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-of-two-sum-in-java/">9) Two Sum</a></td>
+	<td>* Use HashMap to store the target value.<br>
+	* Time complexity of this solution: O(n).</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-3sum/">9) 3Sum</a></td>
+    <td>* using two pointers, start, end, check num[i]+num[start]+num[end] >=< 0<br>
+     * two place to avoid duplicates, num[i] > num[i - 1]; num[end] == num[end + 1], num[start] == num[start - 1]<br>
+     * O(n^2)
+    </td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/02/leetcode-4sum-java/">9) 4Sum</a></td>
+    <td>* O(n^3)</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/02/leetcode-3sum-closest-java/">10) 3Sum Closest</a></td>
+	<td>* two pointers, start, end. compare sum-target with min<br>
+		* O(n^2)</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-string-to-integer-atoi/">11) String to Integer</a></td>
+	<td>* trim, check +/-, validate Max,Min</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-merge-sorted-array-java/">12) Merge Sorted Array</a></td>
+    <td>* move element of A and B backwards. i=Alen-1, j=Blen-1, k=Alen+Blen-1</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-valid-parentheses-java/">13) Valid Parentheses</a></td>
+	<td>* stack.push(left parentheses)</td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-implement-strstr-java/">14) Implement strStr()</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-set-matrix-zeroes-java/">15) Set Matrix Zeroes</a></td>
+    <td>* use O(1) space <br>
+	 * have  boolean firstRowZero and firstColumnZero, use matrix's first row and first column as the flag arrays
+    </td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-search-insert-position/">16) Search Insert Position</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-longest-consecutive-sequence-java/">17) Longest Consecutive Sequence</a></td>
+	<td>* add all to hashset, check set.contains(element-1), set.contains(element+1) <br>
+		* if contains, remove that to avoid later duplicate search</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-valid-palindrome-java/">18) Valid Palindrome</a></td>
+	<td>* two pointers, start and end, compare</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-spiral-matrix-java/">19) Spiral Matrix</a></td>
+    <td>* If more than one row and column left, it can form a circle and we process the circle. <br>
+    	* Otherwise, if only one row or column left, we process that column or row ONLY.</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-search-a-2d-matrix-java/">20) Search a 2D Matrix</a></td>
+	<td>* 1. binary search to find in which row first.<br>
+	 	* 2. binary search of that row</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-rotate-image-java/">21) Rotate Image</a></td>
+    <td>* rotate layer by layer</td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-triangle-java/">22) Triangle</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-distinct-subsequences-total-java/">23) Distinct Subsequences Total</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/02/leetcode-maximum-subarray-java/">24) Maximum Subarray</a></td>
+	<td>* DP, sum[i] track the max sum of A[0 - i], ends at i!!! Also need a global max sum<br>
+		* if sum[i-1]+A[i] < A[i], ignore sum[i-1], (can use a local newsum instead of sum[i-1])</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-remove-duplicates-from-sorted-array-java/">25) Remove Duplicates from Sorted Array</a></td>
+    <td>* keep a tail pointer, if A[i] == A[i-1] continue, else tail++, A[tail]=A[i]</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/01/leetcode-remove-duplicates-from-sorted-array-ii-java/">26) Remove Duplicates from Sorted Array II</a></td>
+    <td>* if A[i] == A[tail] && A[i] == A[tail-1] continue, else tail++, A[tail]=A[i]</td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/02/leetcode-longest-substring-without-repeating-characters-java/">27) Longest Substring Without Repeating Characters</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/02/longest-substring-which-contains-2-unique-characters/">28) Longest Substring that contains 2 unique characters</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2013/03/leetcode-palindrome-partitioning-java/">29) Palindrome Partitioning</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-reverse-words-in-a-string-java/">30) Reverse Words in a String </a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-find-minimum-in-rotated-sorted-array/">31) Find Minimum in Rotated Sorted Array </a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-find-peak-element/" title="LeetCode – Find Peak Element">32) Find Peak Element</a></td>
+    <td>* scan the array and find any element that is greater than its previous and next. <br>
+        * The first and last element are handled separately.</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-min-stack-java/" title="LeetCode – Min Stack (Java)">33) Min Stack</a></td>
+	<td>* another stack to save min</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-majority-element-java/" title="LeetCode – Majority Element (Java)">34) Majority Element</a></td>
+	<td>* Bit Manipulation<br>
+		* when count==0, count++, current=num[i]<br>
+		* when count!=0, if num[i] same as current; count++, if different count--</td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-combination-sum-java/" title="LeetCode – Combination Sum (Java)">35) Combination Sum (DFS)</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-java/" title="LeetCode – Best Time to Buy and Sell Stock (Java)">36) Best Time to Buy and Sell Stock </a></td>
+	<td>* Iterate arr, maxProfit=Math.max(maxProfit, price[i]-min)<br>
+		* min=Math.min(min,price[i])</td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-ii-java/" title="LeetCode – Best Time to Buy and Sell Stock II  (Java)">36) Best Time to Buy and Sell Stock II</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-best-time-to-buy-and-sell-stock-iii-java/" title="LeetCode – Best Time to Buy and Sell Stock III (Java)">36)  Best Time to Buy and Sell Stock III (DP)</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox"></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-longest-common-prefix-java/">37) Longest Common Prefix</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/02/leetcode-largest-number-java/">38) Largest Number</a></td>
+	<td>* convert int to string, sort strings. append strings from the largest</td>
+</tr>
+<tr>
+ 	<td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-combinations-java/" title="LeetCode – Combinations (Java)">39) Combinations (DFS)</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-compare-version-numbers-java/" title="LeetCode – Compare Version Numbers (Java)" target="_blank">40) Compare Version Numbers</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-gas-station-java/" title="LeetCode – Gas Station (Java)" target="_blank">41) Gas Station</a></td>
+	<td>* 1) if total of gas[] >= total of cost[], then there exists a start index to complete the circle.<br>
+	 * 2) if A can not reach C in a the sequence of A-->B-->C, then B can not make it either. use C as a new start
+	</td>
+</tr>
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-candy-java/" title="LeetCode – Candy (Java)" target="_blank">42) Candy </a></td>
+    <td>* left to right, if ascending, plus one; if not ascending, assign 1<br>
+   		* right to left, if ascending, Max of current value and plus one; if not ascending, use the current value</td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-jump-game-java/" title="LeetCode – Jump Game (Java)" target="_blank">43) Jump Game</a></td>
+</tr>
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-pascals-triangle-java/" title="LeetCode – Pascal’s Triangle (Java)" target="_blank">44) Pascal's Triangle</a></td>
+</tr>
+
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td><a href="" title="" >45) Find Missing Positive</a></td>
+    <td>* put A[i] in the place index=A[i]-1, so A[i] should equels to index+1, if not, swap<br>
+	    * if A[i] == A[A[i]-1], another duplicate values there, don't need to swap<br>
+	    * so conditions should be if(A[i]>0 && A[i]<=len && A[i]!=(i+1) && A[i]!=A[A[i]-1])
+	    </td>
+</tr>
+
+</table>
+
+
+<p><strong>2. Linked List</strong></p>
+
+<p><strong>3. Tree &#038; Heap</strong></p>
+<table style="width:100%">
+
+<tr>	 
+	<td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-for-binary-tree-preorder-traversal-in-java/">1) Binary Tree Preorder Traversal </a></td>
+	<td></td>
+</tr>
+<tr>
+	<td><input type="checkbox" ></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-of-binary-tree-inorder-traversal-in-java/">2) Binary Tree Inorder Traversal</a></td>
+	<td></td>
+</tr>
+
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2012/12/leetcode-solution-of-iterative-binary-tree-postorder-traversal-in-java/">3) Binary Tree Postorder Traversal</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2012/12/leetcode-word-ladder/">4) Word Ladder</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2012/12/leetcode-validate-binary-search-tree-java/">5) Validate Binary Search Tree</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" checked></td>
+	<td><a href="http://www.programcreek.com/2013/01/leetcode-flatten-binary-tree-to-linked-list/">6) Flatten Binary Tree to Linked List</a></td>
+	<td>* pre-order traverse<br>
+		* use stack, push right node first, then push left node<br>
+		* move stack.pop() to p.right, set p.left to null</td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/01/leetcode-path-sum/">7) Path Sum</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" checked></td>
+	<td><a href="http://www.programcreek.com/2013/01/construct-binary-tree-from-inorder-and-postorder-traversal/">8) Construct Binary Tree from Inorder and Postorder Traversal</a></td>
+	<td>* last element in post-order array is root. we can find the root from in-order array, and get left subtree size<br>
+		* we can identify inorder left subtree, and postorder left subtree<br>
+		* we can identify inorder right subtree, and postorder right subtree</td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/01/leetcode-convert-sorted-array-to-binary-search-tree-java/">9) Convert Sorted Array to Binary Search Tree</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/01/leetcode-convert-sorted-list-to-binary-search-tree-java/">10) Convert Sorted List to Binary Search Tree</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/02/leetcode-minimum-depth-of-binary-tree-java/">11) Minimum Depth of Binary Tree</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/02/leetcode-binary-tree-maximum-path-sum-java/">12) Binary Tree Maximum Path Sum *</a></td>
+	<td></td>
+</tr>
+<tr>	 
+	<td><input type="checkbox" ></td>
+	<td><a href="http://www.programcreek.com/2013/02/leetcode-balanced-binary-tree-java/">13) Balanced Binary Tree</a></td>
+	<td></td>
+</tr>
+	 
+	 
+
+</table>
+
+
+<p><strong>6. Recursion</strong></p>
+<table style="width:100%">
+<tr>
+    <td><input type="checkbox" checked></td>
+    <td>1) Letter Combinations of a Phone Number</a></td>
+	<td>* construct a dictionary to hold allowed characters for each digit<br>
+	 * from string last index N to 0, get previous listN-1, newlist.add(listN-1.get(i)+characters)<br>
+	 * base case: when index is 0, list.add(characters)</td>
+</tr>
+</table>
+
+<p><strong>8. Bit Manipulation</strong></p>
+<table style="width:100%">
+<tr>
+	<td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2012/12/leetcode-solution-of-single-number-in-java/">1) Single Number</a></td>
+    <td>* XOR will return 1 only on two different bits. So if two numbers are the same, XOR will return 0. Finally only one number left.</td>
+</tr>
+<tr>
+	<td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2014/03/leetcode-single-number-ii-java/" title="LeetCode – Single Number II (Java)">1) Single Number II</a></td>
+	<td>* If you sum the ith bit of all numbers and mod 3, it must be either 0 or 1.<br> 
+	  	* This will be the ith bit of that "single number".<br>
+	  	* another NB solution, ones, twos, threes</td>
+</tr>
+<tr>
+	<td><input type="checkbox" checked></td>
+    <td><a href="http://www.programcreek.com/2013/02/twitter-codility-problem-max-binary-gap/">2) Maximum Binary Gap</a></td> 
+    <td>* N & (1 &lt; &lt; i) , get N ith bit</td>   
+</tr>
+</table>
+
+</body>
+</html>
