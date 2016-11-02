@@ -1,9 +1,7 @@
-package test.java.heap;
+package heap;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import heap.MedianFinder;
 
 
 public class MedianFinderTest {
