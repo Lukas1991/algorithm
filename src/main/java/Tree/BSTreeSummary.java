@@ -131,16 +131,6 @@ public class BSTreeSummary {
 		
 	}
 
-	private static class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-
-		public TreeNode(int val) {
-			this.val = val;
-		}
-	}
-
 	/**
 	 * 求二叉树中的节点个数递归解法： O(n)
 	 * （1）如果二叉树为空，节点个数为0 

@@ -1,23 +1,18 @@
 package Tree;
 
-class TreeNode{
-	int data;
-	TreeNode left;
-	TreeNode right;
-	TreeNode parent;
-	TreeNode(int data){
-		this.data=data;
-		left=null;right=null;
-	}
-	
-}
-
-
 public class findNextNode {
+	class TreeNode{
+		int data;
+		TreeNode left;
+		TreeNode right;
+		TreeNode parent;
+		TreeNode(int data){
+			this.data=data;
+			left=null;right=null;
+		}
 
-	/**
-	 * @param args
-	 */
+	}
+
 	public TreeNode inOrderSuccessor(TreeNode n){
 		if(n == null) return null;
 		//when n is root, or n has right child, return left most node of right child
