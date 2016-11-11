@@ -47,28 +47,27 @@ public class ExcelColumnToNumber {
         return result;
     }
 	
-	
-	
-	
-	 public int titleToNumber(String s) {
-         if(s==null) return 0;
-	        
-	        String str=s.trim().toUpperCase();
-	        if(str=="") return 0;
-	        
-	        int length=str.length();
-	        int sum=0;
-	        
-	        for(int i=0;i<length;i++){
-	            double power = (double) length-1.0-(double)i;
-	            sum += (str.charAt(i)-64) * Math.pow((double)26,power);	            
-	        }
-	        return sum;
-	        
-        
-        
-    }
-    
+
+	public int titleToNumber(String s) {
+		if (s == null || s.length() == 0) {
+			return 0;
+		}
+		s = s.toUpperCase();
+		int sum = 0;
+
+		for (int i=0; i<s.length(); i++) {
+			int num = convert(s.charAt(i));
+			int power = s.length() - i -1;
+			int res = (int) Math.pow(26,power);
+			sum += num * res;
+		}
+
+		return sum;
+	}
+
+	private int convert(char c) {
+		return c - 'A' + 1;  //c-65
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -77,10 +76,10 @@ public class ExcelColumnToNumber {
 		char aa='A'+1;
 		System.out.println(a);
 		System.out.println(aa);
-		
+
 		ExcelColumnToNumber e=new ExcelColumnToNumber();
 		System.out.println(e.convertToTitle(1378));
-		
+
 	}
 
 }

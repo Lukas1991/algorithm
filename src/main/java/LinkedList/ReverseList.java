@@ -3,15 +3,12 @@ package LinkedList;
 public class ReverseList {
 //three pointer, previous, current, next
 	public ListNode reverseList(ListNode head) {
-        if(head==null || head.next==null) return head;
         
         ListNode current=head;
         ListNode previous=null;
-        ListNode next=current.next;
         
         while(current!=null){
-        	
-        	next=current.next;
+			ListNode next=current.next;
         	current.next=previous;
         	previous=current;
         	current=next;       	       	
