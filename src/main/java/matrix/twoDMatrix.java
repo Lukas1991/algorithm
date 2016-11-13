@@ -346,6 +346,28 @@ public class twoDMatrix {
 		for(int i:res){
 			System.out.println(i);
 		}
+
+		/*//rotate a N*N matrix
+		int[][] image={{00,01,02,03},{10,11,12,13},{20,21,22,23},{30,31,32,33}};
+		int[][] image2=rotate(image);
+		int n=image2[0].length;
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				System.out.print(image2[i][j]+", ");
+			}
+			System.out.println();
+		}*/
+
+		/*//1.7 if an element in an M*N matrix is 0, its entire row and column is set to 0
+		int[][] image={{00,01,0,03,5},{10,0,12,13,4},{20,21,22,23,4},{30,31,32,33,4}};
+		int[][] image2=matrixZero(image);
+
+		for(int i=0;i<image2.length;i++){
+			for(int j=0;j<image2[0].length;j++){
+				System.out.print(image2[i][j]+", ");
+			}
+			System.out.println();
+		}*/
 	}
 
 }
