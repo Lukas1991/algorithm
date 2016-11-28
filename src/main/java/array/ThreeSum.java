@@ -22,8 +22,7 @@ public class ThreeSum {
 	 * For example, given array S = {-1 0 1 2 -1 -4},
 	 * 
 	 * A solution set is: (-1, 0, 1) (-1, -1, 2)
-	 * 
-	 * @param args
+	 *
 	 */
 
 	 public List<List<Integer>> threeSum(int[] num) {
@@ -113,6 +112,35 @@ public class ThreeSum {
 	        
 			return result;
 	    }
+
+	/**
+	 * nums[i] + nums[j] + nums[k] < target.
+	 * For example, given nums = [-2, 0, 1, 3], and target = 2.
+	 * Return 2. Because there are two triplets which sums are less than 2:
+	 * [-2, 0, 1]
+	 * [-2, 0, 3]
+	 * @return
+     */
+	public int threeSumSmaller(int[] nums, int target) {
+		int count = 0;
+		if (nums.length < 3) return 0;
+
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length - 2; i++) {
+			int j = i + 1;
+			int k = nums.length - 1;
+			while (j < k) {
+				if (nums[i] + nums[j] + nums[k] < target) {
+					count = count + (k - j); //因为数组排序了以后，如果加上num[k]小于目标值的话，那么加上一个更小的数必定也会小于目标值
+					j++;
+				} else {
+					k--;
+				}
+			}
+		}
+
+		return count;
+	}
 
 	 /**
 	  * O(n^3)

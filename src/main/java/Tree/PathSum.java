@@ -8,7 +8,6 @@ import java.util.List;
 public class PathSum {
 
 	/**
-	 * @param args
 	 */
 	public boolean hasPathSum(TreeNode root, int sum) {
         if(root == null) return false;
@@ -60,15 +59,15 @@ public class PathSum {
 	public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if(root == null) return res;
-        
-        pathSum(root, sum, new ArrayList<Integer>(), res);
+
+        dfs(root, sum, new ArrayList<Integer>(), res);
         return res;
     }
     
-    public void pathSum(TreeNode root, int sum, ArrayList<Integer> currList, List<List<Integer>>res){
+    public void dfs(TreeNode root, int sum, ArrayList<Integer> currList, List<List<Integer>>res){
         
         if(root == null) return;
-        if(root.left == null && root.right == null && root.val == sum){
+        if(root.left == null && root.right == null && root.val == sum) {
             currList.add(root.val);
             res.add(new ArrayList<Integer>(currList));
             currList.remove(currList.size()-1);
@@ -76,11 +75,9 @@ public class PathSum {
         }
         
         currList.add(root.val);
-        pathSum(root.left, sum-root.val, currList, res);
-        pathSum(root.right, sum-root.val, currList, res);
+        dfs(root.left, sum-root.val, currList, res);
+        dfs(root.right, sum-root.val, currList, res);
         currList.remove(currList.size()-1);
-        
-        
     }
 	
 	
