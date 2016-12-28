@@ -17,6 +17,23 @@ public class ReverseList {
 		return previous;
 		
     }
+
+	/**
+	 * recursive solution
+	 * @param head
+	 * @return
+     */
+	public ListNode reverseListRecursive(ListNode head) {
+		return reverse(head, null);
+	}
+
+	private ListNode reverse(ListNode curr, ListNode newNext) {
+		if (curr == null) return newNext;  //when curr is null, newNext is new Head
+
+		ListNode next = curr.next;
+		curr.next = newNext;
+		return reverse(next, curr);
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
