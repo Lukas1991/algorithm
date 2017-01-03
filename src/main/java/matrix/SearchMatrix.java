@@ -1,4 +1,4 @@
-package SortAndSearch;
+package matrix;
 
 public class SearchMatrix {
 	/**
