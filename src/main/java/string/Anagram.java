@@ -7,6 +7,61 @@ import java.util.List;
 public class Anagram {
 
     //438. Find All Anagrams in a String
+    public List<Integer> findAnagramsTwoPointers(String s, String p) {
+        int sSize = s.length(), pSize = p.length();
+        List<Integer> res = new ArrayList<>();
+        if(sSize < pSize) {
+            return res;
+        }
+
+        int[] target = new int[26];
+        for (char c : p.toCharArray()) {
+            target[c - 'a']++;
+        }
+
+        int[] tmp = new int[26];
+        //right start from 0
+        int left = 0, right = 0;
+
+        while (right < sSize) {
+            char c = s.charAt(right);
+            //skip the char not in P
+            if (target[c - 'a'] == 0) {
+                right++;
+                left = right;
+                tmp = new int[26];  //clear tmp array
+                continue;
+            }
+
+            if (tmp[c -'a'] == target[c -'a']) {
+                //move left to previous c's right
+                while (left < right && tmp[c-'a'] == target[c-'a']) {
+                    tmp[s.charAt(left) - 'a']--;
+                    left ++;
+                }
+            }
+
+            tmp[c - 'a']++;
+
+            if(right - left + 1 == pSize && check(tmp, target)) {
+                res.add(left);
+            }
+
+            right ++;
+        }
+
+        return res;
+    }
+
+    private boolean check(int[] set, int[] tmp) {
+        for (int i=0; i<set.length; i++) {
+            if (set[i] != tmp[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public List<Integer> findAnagramsSlidingWindow(String s, String p) {
         int sSize = s.length(), pSize = p.length();
         List<Integer> res = new ArrayList<>();
@@ -15,9 +70,8 @@ public class Anagram {
         }
 
         int[] set = new int[26];
-        for (int i=0; i<pSize; i++) {
-            int num = p.charAt(i) - 'a';
-            set[num]++;
+        for (char c : p.toCharArray()) {
+            set[c - 'a']++;
         }
 
         int[] tmp = new int[26];
@@ -42,16 +96,6 @@ public class Anagram {
 
         return res;
     }
-
-    private boolean check(int[] set, int[] tmp) {
-        for (int i=0; i<set.length; i++) {
-            if (set[i] != tmp[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     public List<Integer> findAnagrams(String s, String p) {
         int size = p.length();
