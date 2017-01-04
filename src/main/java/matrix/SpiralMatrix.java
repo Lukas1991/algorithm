@@ -3,70 +3,11 @@ package matrix;
 import java.util.ArrayList;
 import java.util.List;
 
-public class twoDMatrix {
+public class SpiralMatrix {
 
-	/**1. rotate Image
-	 * 2. set Matrix Zero. O(1) space
-	 * 3. Search Matrix
-	 * 4. Spiral Matrix I and II
-	 * @param args
+	/**
+	 * Spiral Matrix I and II
 	 */
-	//rotate in-place， layer by layer
-	public void rotate(int[][] matrix) {
-		int n=matrix[0].length;
-		for(int layer = 0; layer< n/2; layer++){
-			for(int j = layer; j < n-1-layer; j++){
-			    
-				//left top
-				int leftTop = matrix[layer][j];
-				//right top
-				int rightTop = matrix[j][n-1-layer];
-				matrix[j][n-1-layer] = leftTop;
-				//left bottom
-				int leftBottom = matrix[n-1-layer][n-1-j];
-				matrix[n-1-layer][n-1-j] = rightTop;
-				//right bottom
-				int rightBottom = matrix[n-1-j][layer];
-				matrix[n-1-j][layer] = leftBottom;
-				
-				matrix[layer][j] = rightBottom;
-			
-			}
-		}
-		
-    }
-	
-	 public void rotateDa(int[][] matrix) {
-	        int n = matrix.length;
-	        
-	        for (int layer = 0; layer < n/2; layer++) {
-	            int last = n - layer - 1;
-	            
-	            for (int i = layer; i < last; i++) {
-	                int offset = i - layer;
-	                //leftBottom
-	                int tmp = matrix[last-offset][layer]; // left to tmp
-	                
-	                matrix[last-offset][layer] = matrix[last][last-offset]; // bottom to left
-	                matrix[last][last-offset] = matrix[i][last]; // right to bottom
-	                matrix[i][last] = matrix[layer][i]; // top to right
-	                matrix[layer][i] = tmp;
-	            }
-	        }
-	    }
-	
-	
-	//create a new image matrix
-	public int[][] rotate2(int[][] matrix) {
-		int n=matrix[0].length;
-		int[][] image2=new int[n][n];
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				image2[i][j]=matrix[n-1-j][i];
-			}
-		}
-		return image2;	
-    }
 
 	/**
 	 * Spiral Matrix I
@@ -176,17 +117,5 @@ public class twoDMatrix {
 		for(int i:res){
 			System.out.println(i);
 		}
-
-		/*//rotate a N*N matrix
-		int[][] image={{00,01,02,03},{10,11,12,13},{20,21,22,23},{30,31,32,33}};
-		int[][] image2=rotate(image);
-		int n=image2[0].length;
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				System.out.print(image2[i][j]+", ");
-			}
-			System.out.println();
-		}*/
-
 	}
 }
