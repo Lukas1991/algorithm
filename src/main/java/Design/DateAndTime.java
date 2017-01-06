@@ -24,6 +24,10 @@ public class DateAndTime {
         return localDate;
     }
 
+    public static boolean isOpen(LocalTime time, LocalTime start, LocalTime end) {
+        return time.equals(start) || (time.isAfter(start) && time.isBefore(end));
+    }
+
     public static void main(String[] args) {
         Date now = new Date();
 
@@ -33,6 +37,8 @@ public class DateAndTime {
         System.err.println(getLocalTimeByTimeZone(laTimeZone, now));
         //LA's local date
         System.err.println(getLocalDateByTimeZone(laTimeZone, now));
+
+        System.err.println(isOpen(getLocalTimeByTimeZone(laTimeZone, now), LocalTime.of(9, 30), LocalTime.of(6, 00)));
 
         System.err.println(laTimeZone.getID() + " date " + getLocalDateByTimeZone(laTimeZone, now) +
             " time " + getLocalTimeByTimeZone(laTimeZone, now));
