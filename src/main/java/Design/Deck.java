@@ -49,8 +49,8 @@ public class Deck {
 		return cardsNumberLeft;
 	}
 	
-	//from the end of the array, randomly pick one element before the it, swap the index and it. leave
-	// the randomly picked one at the end of error
+	//from the end of the array, randomly pick one element before the tail, swap the index and tail. leave
+	// the randomly picked one at the end of array
 	public void shuffle(){
 		for(int i=cardsNumberLeft;i>=0;i--){
 			Random generator =  new Random();
@@ -71,10 +71,8 @@ public class Deck {
 	
 	
 	public static void main(String[] args){
-		
 		Deck deck = new Deck();
 		deck.shuffle();
-		
 	}
 	
 	
