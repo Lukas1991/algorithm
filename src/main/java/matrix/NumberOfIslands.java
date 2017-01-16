@@ -6,7 +6,58 @@ import java.util.List;
 
 public class NumberOfIslands {
 
+    /**
+     * with additional vistited matrix
+     * @param grid
+     * @return
+     */
     public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+
+        int m = grid.length;
+        int n = grid[0].length;
+        int count = 0;
+
+        boolean[][] visited = new boolean[m][n];
+
+        for (int i=0; i<m; i++) {
+            for (int j=0; j<n; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    count ++;
+                    merge(grid, i, j, visited);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void merge(char[][] grid, int i, int j, boolean[][] visited) {
+        int m = grid.length;
+        int n = grid[0].length;
+        if (i<0 || j<0 || i>=m || j>=n ) {
+            return;
+        }
+        if (grid[i][j] == '1' && !visited[i][j]) {
+            visited[i][j] = true;
+            int[] dx = {0, 1, -1, 0};
+            int[] dy = {1, 0, 0, -1};
+            for (int k=0; k<4; k++) {
+                int newx = dx[k] + i;
+                int newy = dy[k] + j;
+                merge(grid, newx, newy, visited);
+            }
+        }
+
+    }
+
+    /**
+     * mark the given grid[][]
+     * @param grid
+     * @return
+     */
+    public int numIslands2(char[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return 0;
         }
