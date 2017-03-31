@@ -106,6 +106,7 @@ public class StrobogrammaticNumber {
     }
 
     public static void main(String[] args) {
+    	//test
         StrobogrammaticNumber obj = new StrobogrammaticNumber();
 
         System.err.println(obj.findStrobogrammatic(1));
