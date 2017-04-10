@@ -145,4 +145,66 @@ public class NumberOfIslands {
 
         System.out.println(res);
     }
+
+    /**
+     * 463. Island Perimeter
+     * Solution 1: when we meet an island, perimeter + 4,
+     *             if the island has right neighbour, perimeter -2,
+     *             if the island has down neighbour, perimeter -2.
+     *
+     * Solution 2: perimeter of each island = (4 - neighbours) up,down,left,right
+     * @param grid
+     * @return
+     */
+    public int islandPerimeterBest(int[][] grid) {
+        int perimeter = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 1) {
+                    perimeter += 4;
+                    if (i+1 < grid.length && grid[i + 1][j] == 1) perimeter -= 2;// count down neighbours
+                    if (j+1 < grid[i].length && grid[i][j + 1] == 1) perimeter -= 2; // count right neighbours
+                }
+            }
+        }
+
+        return perimeter;
+    }
+
+    public int islandPerimeterSecond(int[][] grid) {
+        int perimeter = 0;
+        for (int i=0; i<grid.length; i++) {
+            for (int j=0; j<grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    int neighbors = getNeighbors(i, j, grid);
+                    perimeter += (4 - neighbors);
+                }
+            }
+        }
+        return perimeter;
+    }
+
+    private int getNeighbors(int i, int j, int[][] grid) {
+        int res = 0;
+        //up
+        if ((i-1 >= 0) &&grid[i-1][j] == 1) {
+            res++;
+        }
+        //down
+        if ((i+1 < grid.length) &&grid[i+1][j] == 1) {
+            res++;
+        }
+        //left
+        if ((j-1 >= 0) &&grid[i][j-1] == 1) {
+            res++;
+        }
+
+        //right
+        if ((j+1 < grid[0].length) &&grid[i][j+1] == 1) {
+            res++;
+        }
+
+        return res;
+    }
 }
