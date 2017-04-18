@@ -1,5 +1,10 @@
 package math;
 
+/**
+ * Power of Two
+ * Power of Three
+ * Power of Four
+ */
 public class Power {
 
 
@@ -36,7 +41,20 @@ public class Power {
 		return res;
 	}
 
-	public boolean isPowerOfThree(int n) {
+	//the regex checks if the string starts with 1, and followed by zero or more 0
+	public static boolean isPowerOfTwo(int n) {
+		return Integer.toBinaryString(n).matches("10*");
+	}
+
+	public static boolean isPowerOfThree(int num) {
+		return num > 0 && Integer.toString(num, 3).matches("10*");
+	}
+
+	public static boolean isPowerOfFour(int num) {
+		return num > 0 && Integer.toString(num, 4).matches("10*");
+	}
+
+	public boolean isPowerOfThreeLoop(int n) {
 		if (n <= 0) {
 			return false;
 		}
@@ -55,7 +73,7 @@ public class Power {
 	 * true are 3^0, 3^1 ... 3^19​, Since 3 is a prime number, the only divisors of 3^19​ are 3^0, 3^1 ... 3^19​, therefore all we
 	 * need to do is divide 3^19​​ by n. A remainder of 0 means n is a divisor of 3^19​, and therefore a power of three.
 	 */
-	public boolean isPowerOfThreeBest(int n) {
+	public boolean isPowerOfThreeFast(int n) {
 		return n > 0 && 1162261467 % n == 0;
 	}
 
@@ -71,6 +89,9 @@ public class Power {
 	}
 
 	public static void main(String[] args) {
-		System.err.println(getMaxNumberPowerOfThree());  //1162261467
+		//System.err.println(getMaxNumberPowerOfThree());  //1162261467
+
+		System.err.println(isPowerOfTwo(4));
+		System.err.println(isPowerOfTwo(6));
 	}
 }
