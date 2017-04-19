@@ -16,18 +16,6 @@ public class CategorizeProblem {
 
     private Map<Integer, Problem> googleProblems = new HashMap<>();
 
-    public static void main(String[] args) {
-        CategorizeProblem obj = new CategorizeProblem();
-        obj.getDpProblems("DP.txt");
-        obj.getGoogleProblems("Google.txt");
-
-        List<Problem> dps = obj.findDPInGoogle();
-        dps.stream()
-            .filter(p -> p.getDifficulty().equals(Problem.Difficulty.Medium))
-            .sorted((Problem p1, Problem p2) -> p1.getNumber() - p2.getNumber())
-            .forEach(p -> System.err.println(p.toString()));
-    }
-
     private Stream<String> getLinesFromFile(String file) throws IOException {
         URL url = getClass().getClassLoader().getResource(file);
         return Files.lines(Paths.get(url.getPath()));
@@ -66,5 +54,17 @@ public class CategorizeProblem {
             }
         });
         return problemList;
+    }
+
+    public static void main(String[] args) {
+        CategorizeProblem obj = new CategorizeProblem();
+        obj.getDpProblems("DP.txt");
+        obj.getGoogleProblems("Google.txt");
+
+        List<Problem> dps = obj.findDPInGoogle();
+        dps.stream()
+            .filter(p -> p.getDifficulty().equals(Problem.Difficulty.Medium))
+            .sorted((Problem p1, Problem p2) -> p1.getNumber() - p2.getNumber())
+            .forEach(p -> System.err.println(p.toString()));
     }
 }

@@ -37,9 +37,7 @@ public class Problem {
 
     @Override
     public String toString() {
-        return number +
-            "\t" + title + '\'' +
-            "\t" + difficulty;
+        return number + "\t" + title + "\t" + difficulty;
     }
 
     public enum Difficulty {Easy, Medium, Hard}
