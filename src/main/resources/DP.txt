@@ -1,0 +1,72 @@
+303	Range Sum Query - Immutable	27.9%	Easy
+276	Paint Fence 	34.2%	Easy
+53	Maximum Subarray	39.2%	Easy
+256	Paint House 	45.9%	Easy
+198	House Robber	38.1%	Easy
+121	Best Time to Buy and Sell Stock	40.2%	Easy
+70	Climbing Stairs	39.3%	Easy
+375	Guess Number Higher or Lower II	35.6%	Medium
+304	Range Sum Query 2D - Immutable	23.9%	Medium
+494	Target Sum	43.9%	Medium
+486	Predict the Winner	44.5%	Medium
+474	Ones and Zeroes	37.6%	Medium
+91	Decode Ways	19.3%	Medium
+95	Unique Binary Search Trees II	31.0%	Medium
+96	Unique Binary Search Trees	40.3%	Medium
+467	Unique Substrings in Wraparound String	31.3%	Medium
+464	Can I Win	23.7%	Medium
+120	Triangle	33.1%	Medium
+64	Minimum Path Sum	37.8%	Medium
+418	Sentence Screen Fitting 	27.4%	Medium
+416	Partition Equal Subset Sum	38.5%	Medium
+139	Word Break	29.1%	Medium
+351	Android Unlock Patterns 	43.2%	Medium
+152	Maximum Product Subarray	25.1%	Medium
+392	Is Subsequence	44.3%	Medium
+377	Combination Sum IV	41.7%	Medium
+63	Unique Paths II	31.3%	Medium
+213	House Robber II	33.5%	Medium
+413	Arithmetic Slices	54.9%	Medium
+357	Count Numbers with Unique Digits	45.6%	Medium
+343	Integer Break	45.4%	Medium
+338	Counting Bits	60.3%	Medium
+322	Coin Change	26.2%	Medium
+361	Bomb Enemy 	38.6%	Medium
+368	Largest Divisible Subset	33.5%	Medium
+309	Best Time to Buy and Sell Stock with Cooldown	40.2%	Medium
+221	Maximal Square	27.9%	Medium
+523	Continuous Subarray Sum	21.5%	Medium
+300	Longest Increasing Subsequence	37.8%	Medium
+279	Perfect Squares	35.9%	Medium
+516	Longest Palindromic Subsequence	42.0%	Medium
+376	Wiggle Subsequence	35.1%	Medium
+264	Ugly Number II	32.1%	Medium
+62	Unique Paths	40.1%	Medium
+446	Arithmetic Slices II - Subsequence	25.2%	Hard
+10	Regular Expression Matching	23.9%	Hard
+321	Create Maximum Number	24.3%	Hard
+363	Max Sum of Rectangle No Larger Than K	32.5%	Hard
+312	Burst Balloons	42.2%	Hard
+546	Remove Boxes	28.4%	Hard
+265	Paint House II 	37.7%	Hard
+188	Best Time to Buy and Sell Stock IV	24.1%	Hard
+174	Dungeon Game	23.3%	Hard
+403	Frog Jump	31.5%	Hard
+410	Split Array Largest Sum	35.1%	Hard
+140	Word Break II	22.7%	Hard
+132	Palindrome Partitioning II	23.8%	Hard
+123	Best Time to Buy and Sell Stock III	28.8%	Hard
+354	Russian Doll Envelopes	32.0%	Hard
+115	Distinct Subsequences	31.0%	Hard
+466	Count The Repetitions	26.2%	Hard
+97	Interleaving String	24.2%	Hard
+471	Encode String with Shortest Length 	41.8%	Hard
+472	Concatenated Words	29.7%	Hard
+87	Scramble String	28.6%	Hard
+85	Maximal Rectangle	27.0%	Hard
+72	Edit Distance	31.1%	Hard
+514	Freedom Trail	34.4%	Hard
+44	Wildcard Matching	19.6%	Hard
+517	Super Washing Machines	35.5%	Hard
+32	Longest Valid Parentheses	23.0%	Hard
+552	Student Attendance Record II	27.9%	Hard
