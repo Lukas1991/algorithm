@@ -11,59 +11,6 @@ import java.util.Queue;
 
 public class CourseSchedule {
 
-    /**
-     * Course Schedule 3, sort courses by end time, iterate courses If cannot use extra space, use the front part of courses array
-     * as the courses taken
-     *
-     * To find max from taken courses --> Another iteration, from 0 to lastTakenIndex
-     *
-     * Time complexity is O(n* count of taken) Space complexity is O(1)
-     */
-    public static int scheduleCourse2(int[][] courses) {
-        //sort by end time
-        Arrays.sort(courses, (a, b) -> a[1] - b[1]);
-
-        int lastTakenIndex = -1;
-
-        int time = 0;
-        for (int i = 0; i < courses.length; i++) {
-            int[] thisCourse = courses[i];
-            int thisDuration = thisCourse[0];
-
-            if (thisDuration + time <= thisCourse[1]) {
-                //move this course to front, don't need to swap, just replace the lastTakenIndex+1
-                lastTakenIndex++;
-                courses[lastTakenIndex] = thisCourse;
-
-                time = time + thisDuration;
-            } else {
-                //find max duration which is also > this duration
-                int maxDurationIndex = i;
-                for (int j = 0; j <= lastTakenIndex; j++) {
-                    if (courses[j][0] > courses[maxDurationIndex][0]) {
-                        maxDurationIndex = j;
-                    }
-                }
-
-                int maxDuration = courses[maxDurationIndex][0];
-                if (maxDuration > thisDuration) {
-                    courses[maxDurationIndex] = thisCourse;
-                    time = time + thisDuration - maxDuration;
-                }
-            }
-        }
-
-        return lastTakenIndex + 1;
-    }
-
-    public static void main(String[] args) {
-        int[][] courses = {
-            {100, 200}, {200, 1300}, {1000, 1250}, {2000, 3200}
-        };
-
-        CourseSchedule.scheduleCourse2(courses);
-    }
-
 	/**
 	 * BFS using Graph as Adjacency Lists
 	 * Time Complexity - O(V + E)， Space Complexity - O(V)
@@ -113,9 +60,8 @@ public class CourseSchedule {
 
         return canTake == numCourses;
     }
-
 	/**
-     * Topological sort in BFS
+	 * Topological sort in BFS
 	 */
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
 		int[] count = new int[numCourses];
@@ -186,10 +132,10 @@ public class CourseSchedule {
         Arrays.sort(courses, (a, b) -> a[1] - b[1]);
 
         //max heap, entry is the taken course's duration - course[0]
-        PriorityQueue<Integer> taken = new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> taken = new PriorityQueue<>((a,b) -> b-a);
 
         int time = 0;
-        for (int i = 0; i < courses.length; i++) {
+        for (int i=0; i < courses.length; i++) {
             int[] thisCourse = courses[i];
             int thisDuration = thisCourse[0];
 
@@ -209,5 +155,59 @@ public class CourseSchedule {
 
         return taken.size();
     }
+
+    /**
+     * Course Schedule 3, sort courses by end time, iterate courses
+     * If cannot use extra space, use the front part of courses array as the courses taken
+     *
+     * To find max from taken courses --> Another iteration, from 0 to lastTakenIndex
+     *
+     * Time complexity is O(n* count of taken)
+     * Space complexity is O(1)
+     */
+    public static int scheduleCourse2(int[][] courses) {
+        //sort by end time
+        Arrays.sort(courses, (a, b) -> a[1] - b[1]);
+
+        int lastTakenIndex = -1;
+
+        int time = 0;
+        for (int i=0; i < courses.length; i++) {
+            int[] thisCourse = courses[i];
+            int thisDuration = thisCourse[0];
+
+            if (thisDuration + time <= thisCourse[1]) {
+                //move this course to front, don't need to swap, just replace the lastTakenIndex+1
+                lastTakenIndex++;
+                courses[lastTakenIndex] = thisCourse;
+
+                time = time + thisDuration;
+            } else {
+                //find max duration which is also > this duration
+                int maxDurationIndex = i;
+                for (int j = 0; j <= lastTakenIndex; j++) {
+                    if (courses[j][0] > courses[maxDurationIndex][0]) {
+                        maxDurationIndex = j;
+                    }
+                }
+
+                int maxDuration = courses[maxDurationIndex][0];
+                if (maxDuration > thisDuration) {
+                    courses[maxDurationIndex] = thisCourse;
+                    time = time + thisDuration - maxDuration;
+                }
+            }
+        }
+
+        return lastTakenIndex + 1;
+    }
+
+	public static void main(String[] args) {
+        int[][] courses = {
+            {100, 200}, {200, 1300}, {1000, 1250}, {2000,3200}
+        };
+
+        CourseSchedule.scheduleCourse2(courses);
+	}
 
 }
