@@ -2,6 +2,7 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,7 +133,7 @@ public class CourseSchedule {
         Arrays.sort(courses, (a, b) -> a[1] - b[1]);
 
         //max heap, entry is the taken course's duration - course[0]
-        PriorityQueue<Integer> taken = new PriorityQueue<>((a,b) -> b-a);
+        PriorityQueue<Integer> taken = new PriorityQueue<>(Comparator.reverseOrder());
 
         int time = 0;
         for (int i=0; i < courses.length; i++) {
