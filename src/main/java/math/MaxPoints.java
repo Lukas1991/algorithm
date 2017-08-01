@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Slope of two points is (y1 - y2)/(x1 - x2) Case 1: x1=x2, slope is infinite Case 2: y1=y2, slope is 0 Case 3: we cannot use
- * double as slope because of percision, we use Irreducible fraction (最简分数)
+ * Slope of two points is (y1 - y2)/(x1 - x2).
+ * Case 1: x1=x2, slope is infinite.
+ * Case 2: y1=y2, slope is 0.
+ * Case 3: we cannot use double as slope because of percision, we use Irreducible fraction (最简分数)
  *
  * The greatest common divisor (gcd 最大公约数) is used for reducing fractions to be in lowest terms.
  */
@@ -57,7 +59,7 @@ public class MaxPoints {
 
             int max = map.values().stream().max(Comparator.naturalOrder()).orElse(0);
             max = Math.max(max, infiniteCount);
-            max = max + sameCount + 1;
+            max = max + sameCount + 1; //1 is for Pi itself
 
             maxPoints = Math.max(maxPoints, max);
         }
