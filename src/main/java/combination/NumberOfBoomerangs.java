@@ -33,10 +33,11 @@ public class NumberOfBoomerangs {
                 }
             }
 
-            for (int d : map.values()) {
-                res += d * (d - 1);
-            }
-
+            res += map.values().stream()
+                    .filter(a -> a > 1)
+                    .mapToInt(a -> a*(a-1))
+                    .sum();
+           
             map.clear();
         }
 
