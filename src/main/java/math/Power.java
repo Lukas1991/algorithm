@@ -8,30 +8,29 @@ package math;
 public class Power {
 
 
-	/**O(logn)
-	 * @param args
+	/**
+	 * O(logn)
+	 * Note: n=0, n<0, n = Integer.MIN_VALUE
 	 */
-	public double pow(double x, int n) {
-		if(n==0) return 1;
-		if(n<0){
-			return 1/value(x,-n);
-		}
-		return value(x,n);
-
-	}
- 
-    public double value(double x, int n) {
-		if(n==1) return x;
-		double pow = pow(x, n/2);
-		//if even
-		if(n%2 ==0){
-			return pow*pow;
-		}else{//odd
-			return pow*pow*x;
-		}
-
+	public static double myPow(double x, int n) {
+        if (n == 0) return 1;
+  
+        if (n > 0) {
+        	return (n%2 == 0) ? myPow(x*x, n/2) : x*myPow(x*x, n/2);   
+        } else {
+        	 x = 1/x;
+             if (n == Integer.MIN_VALUE) {
+            	//MIN is -2147483648, MAX is 2147483647, MAX has 1 less than abs(MIN)
+            	 n = Integer.MAX_VALUE;
+                 return x*x*myPow(x*x, n/2);
+             } else {
+            	 n = -n;
+                 return (n%2 == 0) ? myPow(x*x, n/2) : x*myPow(x*x, n/2); 
+             } 
+        }    
     }
-		    
+	
+    //Time limit Exceeded
 	public double pow2(double x, int n) {
 		double res = 1;
 		for(int i=1; i<=n ;i++){
@@ -87,11 +86,21 @@ public class Power {
 		}
 		return max;
 	}
-
+	
+	
 	public static void main(String[] args) {
 		//System.err.println(getMaxNumberPowerOfThree());  //1162261467
 
-		System.err.println(isPowerOfTwo(4));
-		System.err.println(isPowerOfTwo(6));
+		//System.err.println(isPowerOfTwo(4));
+		//System.err.println(isPowerOfTwo(6));
+		
+		int a = -2147483648;
+		
+		System.err.println(-a);
+		
+		System.err.println(Integer.MIN_VALUE);
+		System.err.println(Integer.MAX_VALUE);
+		//System.err.println(myPow(2.00000, Integer.MAX_VALUE));
+		//System.err.println(myPow(2.00000, Integer.MIN_VALUE));
 	}
 }
