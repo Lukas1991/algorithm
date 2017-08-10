@@ -29,16 +29,17 @@ public class sqrt {
 	}
 
 	public boolean isPerfectSquare(int num) {
-		int left = 1, right = num;
+		long left = 1;
+		long right = num;
 		while (left <= right) {
 			long mid = left + (right - left) / 2;
 			long a = mid * mid;
 			if (a == num) {
 				return true;
 			} else if (a > num) {
-				right = (int) mid - 1;
+				right = mid - 1;
 			} else {
-				left = (int) mid + 1;
+				left = mid + 1;
 			}
 		}
 		return false;
