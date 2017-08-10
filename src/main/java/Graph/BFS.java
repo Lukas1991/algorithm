@@ -12,7 +12,7 @@ public class BFS {
 			System.out.println("find in root");
 		}
 		
-		Queue q = new Queue();
+		CustomQueue q = new CustomQueue();
 		root.visited = true;
 		q.enqueue(root);
 		
@@ -39,7 +39,6 @@ public class BFS {
 	
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		GraphNode n1 = new GraphNode(1);
 		bfs(null,1);
 		bfs(n1,1);

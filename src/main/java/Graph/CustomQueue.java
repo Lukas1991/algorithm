@@ -1,6 +1,6 @@
 package Graph;
 
-public class Queue {
+public class CustomQueue {
 
 	/**
 	 * @param args

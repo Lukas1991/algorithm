@@ -1,31 +1,85 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 public class WordLadder {
 
-	/**Use breath-first or depth-first search to solve problems
-	 * Use two queues, one for words and another for counting
-	 * 
+	/**
+	 * Word Ladder 1
+	 * BFS, Level by level, for each level use List<String> currLevel
+	 * To avoid Time Limit Exceeded, convert wordList to a set, wordSet.contains(newStr) will take O(1)
+	 * To avoid infinite loop, once we find a transformed word, remove it from wordSet
 	 */
-	public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-		if (beginWord.equals(endWord)) return 1;
+	public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+		if (beginWord.equals(endWord))  return 0;
 
-		LinkedList<String> wordQueue = new LinkedList<>();
-		LinkedList<Integer> distanceQueue = new LinkedList<>();
+		Set<String> wordSet = new HashSet<>();
+		wordList.forEach(w -> wordSet.add(w));
+
+		List<String> currLevel = new ArrayList<>();
+		currLevel.add(beginWord);
+
+		int level = 0;
+		int minStep = Integer.MAX_VALUE;
+		boolean find = false;
+
+		while (!currLevel.isEmpty()) {
+			level++;
+			//System.err.println(currLevel.toString());
+
+			List<String> nextLevel = new ArrayList<>();
+			for (String begin : currLevel) {
+				if (begin.equals(endWord)) {
+					minStep = Math.min(minStep, level);
+					find = true;
+				} else {
+					char[] arr = begin.toCharArray();
+					for (int i = 0; i<arr.length; i++) {
+						char before = arr[i];
+						for (char c = 'a'; c<='z'; c++) {
+							if (c != before) {
+								arr[i] = c;
+								String newStr = new String(arr);
+								if (wordSet.contains(newStr)) {
+									nextLevel.add(newStr);
+									wordSet.remove(newStr);
+								}
+							}
+						}
+						arr[i] = before;
+					}
+				}
+			}
+
+			currLevel = nextLevel;
+		}
+
+		return find ? minStep : 0;
+	}
+
+	//Word Ladder 1, Use two queues, one for words and one for distance
+	public int ladderLengthQueue(String beginWord, String endWord, List<String> wordList) {
+		if (beginWord.equals(endWord)) return 0;
+
+		Set<String> wordDic = new HashSet<>();
+		wordList.forEach(w -> wordDic.add(w));
+
+		Queue<String> wordQueue = new LinkedList<>();
+		Queue<Integer> distanceQueue = new LinkedList<>();
 
 		wordQueue.add(beginWord);
 		distanceQueue.add(1);
-		wordList.remove(beginWord);
 
 		int minStep = Integer.MAX_VALUE;
 		while (!wordQueue.isEmpty()) {
-			String word = wordQueue.pop();
-			int currDistance = distanceQueue.pop();
+			String word = wordQueue.poll();
+			int currDistance = distanceQueue.poll();
 
 			if (word.equals(endWord)) {
 				minStep = Math.min(minStep, currDistance);
@@ -40,8 +94,8 @@ public class WordLadder {
 						char tmp = begins[i];
 						begins[i] = c;
 						String newStr = new String(begins);
-						if (wordList.contains(newStr)) {
-							wordList.remove(newStr);
+						if (wordDic.contains(newStr)) {
+							wordDic.remove(newStr);
 
 							wordQueue.add(newStr);
 							distanceQueue.add(currDistance + 1);
@@ -135,11 +189,12 @@ public class WordLadder {
 	public static void main(String[] args) {
 		WordLadder wordLadder = new WordLadder();
 
-		HashSet<String> dict = new HashSet<String>();
-		System.err.println(dict.toString());
-		dict.add("hot");dict.add("dot");dict.add("dog");dict.add("lot");dict.add("log");
-		wordLadder.ladderLength("hit", "cog", dict);
+		String[] arr = {"hot","dot","dog","lot","log","cog"};
+		List<String> wordList = Arrays.asList(arr);
 
+		int minStep = wordLadder.ladderLength("hit", "cog", wordList);
+		//int minStep = wordLadder.ladderLengthQueue("hit", "cog", wordList);
+		System.err.println(minStep);
 	}
 
 }
