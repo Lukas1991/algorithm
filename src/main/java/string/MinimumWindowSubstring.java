@@ -27,6 +27,7 @@ public class MinimumWindowSubstring {
 
             if (count == T.length()) {
 
+                //move left until tmp[left c] == set[left c]
                 while (set[S.charAt(left)] == 0 || tmp[S.charAt(left)] > set[S.charAt(left)]) {
                     if (tmp[S.charAt(left)] > set[S.charAt(left)]) {
                         tmp[S.charAt(left)]--;
