@@ -79,6 +79,27 @@ public class Permutation {
         }       
     }
 
+    //Another accepted helper3, check nums[i+1] == nums[i], move i to the next different number
+    private void helper3(int[] nums, List<Integer> tmp, List<List<Integer>> res, boolean[] used) {
+        if (tmp.size() == nums.length) {
+            res.add(new ArrayList<>(tmp));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (used[i])    continue;
+
+            tmp.add(nums[i]);
+            used[i] = true;
+            helper3(nums, tmp, res, used);
+            tmp.remove(tmp.size() - 1);
+            used[i] = false;
+
+            while (i+1 < nums.length && nums[i+1] == nums[i]) {
+                i++;
+            }
+        }
+    }
     
 	public String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
