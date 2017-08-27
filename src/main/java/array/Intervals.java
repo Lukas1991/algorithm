@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import tools.Interval;
+
 public class Intervals {
 
     /**
@@ -12,21 +14,6 @@ public class Intervals {
      *
      * If curr.start <= pre.end, merge these two. Else, add pre into result list.
      */
-    private class Interval {
-        int start;
-        int end;
-
-        Interval() {
-            start = 0;
-            end = 0;
-        }
-
-        Interval(int s, int e) {
-            start = s;
-            end = e;
-        }
-    }
-
     public List<Interval> merge(List<Interval> intervals) {
 
         if (intervals == null || intervals.size() == 0) {
@@ -83,11 +70,6 @@ public class Intervals {
         result.add(newInterval);
         return result;
 
-
-    }
-
-
-    public static void main(String[] args) {
 
     }
 
