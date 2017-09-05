@@ -19,7 +19,7 @@ public class ExpressionAddOperators {
 	 * 
 	 */
 	public List<String> addOperators(String num, int target) {
-		List<String> rst = new ArrayList<String>();
+		List<String> rst = new ArrayList<>();
 		if (num == null || num.length() == 0)
 			return rst;
 		helper(rst, "", num, target, 0, 0, 0);
@@ -34,10 +34,11 @@ public class ExpressionAddOperators {
 			return;
 		}
 		for (int i = pos; i < num.length(); i++) {
-			if (i != pos && num.charAt(pos) == '0')
+			if (i != pos && num.charAt(pos) == '0') {
 				break;
+			}
 			long cur = Long.parseLong(num.substring(pos, i + 1));
-			System.err.println("curr" + cur);
+			System.err.println("curr: " + cur);
 
 			if (pos == 0) {
 				helper(rst, path + cur, num, target, i + 1, cur, cur);
