@@ -3,80 +3,72 @@ package matrix;
 //Followup in https://segmentfault.com/a/1190000003819277#articleHeader11
 
 /**
- * 初始状态为0和1，那么变化后的状态无非有四个，{00，01，10，11}，其中低位表示当前状态, 高位表示下个状态，
- *
- *  1. current live, count < 2, next status die                 0<-1, 1
- *  2. current live, count ==2 or count ==3, next status live   1<-1, 3
- *  3. current live, count > 3, next status die                 0<-1, 1
- *  4. current die, count = 3, next status live                 1<-0, 2
- *
- *  if(board[y][x] == 1 || board[y][x] == 3), current status is live
+ * [2nd bit, 1st bit] = [next state, current state]
  */
 public class GameOfLife {
 
-
     public void gameOfLife(int[][] board) {
-        if (board == null || board.length == 0 || board[0].length == 0) {
+        int m = board.length;
+        if (m == 0) {
             return;
         }
+        int n = board[0].length;
 
-        int m = board[0].length;
-        int n = board.length;
-
-        for (int i=0; i<n; i++) { //y
-            for (int j=0; j<m; j++) { //x
-
-                int count = 0;
-                //左, 左上, 上, 右上, 右... 顺时针一圈, 共8个neighbors
-                int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1};
-                int[] dy = {0, 1, 1, 1, 0, -1, -1, -1};
-
-                for(int k=0; k<8; k++) {
-                    int x = j + dx[k];
-                    int y = i + dy[k];
-                    if (x >= 0 && x < m && y >= 0 && y < n) {
-                        if (board[y][x] == 1 || board[y][x] == 3) {
-                            count ++;
-                        }
-                    }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int status = board[i][j];   //current status
+                int count = count(board, i, j);
+                int next = 0;   //next status
+                if (status == 1 && (count == 2 || count == 3)) {
+                    next = 1;
+                } else if (status == 0 && count == 3) {
+                    next = 1;
                 }
 
-                if (board[i][j] == 1 || board[i][j] == 3) {
-                    if (count == 2 || count == 3) {
-                        board[i][j] = 3;
-                    } else {
-                        board[i][j] = 1;
-                    }
-                } else {
-                    if (count == 3) {
-                        board[i][j] = 2;
-                    }
-                }
-
+                //set 2nd bit as next, 1st bit still old status
+                board[i][j] = (next << 1) | status;
             }
         }
 
-        //get all cells' next status, get the higher digit
-        for (int i=0; i<n; i++) {
-            for (int j=0; j<m; j++) {
-                board[i][j] = board[i][j] >>1;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = (board[i][j] & 2) >> 1;
             }
         }
 
+    }
+
+    //count 8 neighbors
+    private int count(int[][] board, int i, int j) {
+        int count = 0;
+        int[] dx = {-1, -1, -1, 0, 1, 1, 1, 0};
+        int[] dy = {-1, 0, 1, 1, 1, 0, -1, -1};
+
+        for (int k = 0; k < dx.length; k++) {
+            int x = i + dx[k];
+            int y = j + dy[k];
+            if (x >= 0 && y >= 0 && x < board.length && y < board[0].length) {
+                int status = board[x][y] & 1;
+                if (status == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
 
         int[][] board = {
-                {1,1},
-                {1,0}
+            {1, 1},
+            {1, 0}
         };
         int m = board[0].length;
         int n = board.length;
 
-        for (int i=0; i<n; i++) {
-            for (int j=0; j<m; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 System.err.print(board[i][j] + ", ");
             }
             System.err.println();
@@ -87,8 +79,8 @@ public class GameOfLife {
 
         System.err.println("after:");
 
-        for (int i=0; i<n; i++) {
-            for (int j=0; j<m; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 System.err.print(board[i][j] + ", ");
             }
             System.err.println();
