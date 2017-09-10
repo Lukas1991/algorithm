@@ -1,6 +1,7 @@
 package Tree;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Level Order Traveral
@@ -12,15 +13,15 @@ public class SerializeTree {
         if (root == null) return "";
         StringBuilder sb = new StringBuilder();
 
-        LinkedList<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             if (node != null) {
                 sb.append(node.val + ",");
 
-                queue.add(node.left);
-                queue.add(node.right);
+                queue.offer(node.left);
+                queue.offer(node.right);
 
             } else {
                 sb.append("#,");
@@ -37,9 +38,9 @@ public class SerializeTree {
         String[] arr = data.split(",");
         if (arr.length == 0) return null;
 
-        LinkedList<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         TreeNode root = toNode(arr[0]);
-        queue.add(root);
+        queue.offer(root);
 
         int i = 0;
         while (!queue.isEmpty()) {
@@ -49,7 +50,7 @@ public class SerializeTree {
                 TreeNode left = toNode(arr[i]);
                 node.left = left;
                 if (left != null) {
-                    queue.add(left);
+                    queue.offer(left);
                 }
             }
             i++;
@@ -57,7 +58,7 @@ public class SerializeTree {
                 TreeNode right = toNode(arr[i]);
                 node.right = right;
                 if (right != null) {
-                    queue.add(right);
+                    queue.offer(right);
                 }
             }
         }
