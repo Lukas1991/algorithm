@@ -32,7 +32,7 @@ import java.util.Stack;
  * 14.判断二叉树是不是完全二叉树：isCompleteBinaryTree, isCompleteBinaryTreeRec
  * 
  */
-public class BSTreeSummary {
+public class BinaryTreeSummary {
 
 	/*
 	 			 1 
