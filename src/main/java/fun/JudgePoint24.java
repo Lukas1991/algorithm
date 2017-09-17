@@ -5,17 +5,6 @@ import java.util.List;
 
 public class JudgePoint24 {
     public boolean judgePoint24(int[] nums) {
-        int a = nums[0];
-        int b = nums[1];
-        int c = nums[2];
-        int d = nums[3];
-
-        boolean test = judgeGroupTwo(a, b, c, d) ||
-            judgeGroupTwo(a, c, b, d) ||
-            judgeGroupTwo(a, d, b, c);
-
-        if (test)   return true;
-
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (i == j) continue;
@@ -39,18 +28,18 @@ public class JudgePoint24 {
 
     private boolean judgeByOrder(int a, int b, int c, int d) {
         List<Double> left = cal(a, b);
+        //(a,b,c) d
         List<Double> left2 = cal(left, c);
         List<Double> res = cal(left2, d);
-        return judge(res);
-    }
+        if (judge(res)) {
+            return true;
+        }
 
-    private boolean judgeGroupTwo(int a, int b, int c, int d) {
-        List<Double> left = cal(a, b);
+        //(a,b) (c,d)
         List<Double> right = cal(c, d);
-
         for (int i = 0; i < left.size(); i++) {
             for (int j = 0; j < right.size(); j++) {
-                List<Double> res = cal(left.get(i), right.get(j));
+                res = cal(left.get(i), right.get(j));
                 if (judge(res)) {
                     return true;
                 }
