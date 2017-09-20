@@ -1,26 +1,55 @@
 package heap;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
- * Find Median from Data Stream
  * PriorityQueue implementation provides O(log(n)) time for the enqueing and dequeing methods (offer, poll, remove() and  add);
  * linear time for the remove(Object) and contains(Object) methods;
  * and constant time for the retrieval methods (peek,  element, and size).
  */
-public class MedianFinder {
+public class MedianSlidingWindow {
 
-    //The size of two heaps differs at most 1. maxHeap size always >= minHeap size
     PriorityQueue<Integer> maxHeap; //lower half
     PriorityQueue<Integer> minHeap; //higher half
 
-    public MedianFinder() {
+    //n⋅(log(k) + k) ~ n*k
+    public double[] medianSlidingWindow(int[] nums, int k) {
+        if (nums.length == 0 || nums.length < k) {
+            return new double[0];
+        }
         maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
         minHeap = new PriorityQueue<>();
+
+        LinkedList<Integer> deque = new LinkedList<>();
+        double[] res = new double[nums.length - k + 1];
+
+        for (int i = 0; i < k; i++) {
+            addNum(nums[i]);
+        }
+
+        //i = k
+        for (int i = k; i < nums.length; i++) {
+            res[i-k] = findMedian();
+            outQueue(nums[i-k]);
+            addNum(nums[i]);
+        }
+
+        res[nums.length-k] = findMedian();
+        return res;
     }
 
-    //time complexity: O(log(n))
+    //if both heap peek == a, remove from maxHeap, because maxHeap size always >= minHeap size
+    //take O(k) time
+    private void outQueue(int a) {
+        if (maxHeap.peek() >= a) {
+            maxHeap.remove(a);
+        } else if(minHeap.peek() <= a) {
+            minHeap.remove(a);
+        }
+    }
+
     public void addNum(int num) {
         maxHeap.offer(num);
         //move max to minHeap
@@ -31,7 +60,6 @@ public class MedianFinder {
         }
     }
 
-    //time complexity: O(1)
     public double findMedian() {
         if (maxHeap.size() == minHeap.size()) {
             if (maxHeap.isEmpty()) {
@@ -44,15 +72,4 @@ public class MedianFinder {
         }
     }
 
-    public static void main(String[] args) {
-        MedianFinder finder = new MedianFinder();
-        int[] numbers = {2,3,4};
-
-        for (int num : numbers) {
-            finder.addNum(num);
-        }
-
-        double result = finder.findMedian();
-        System.out.println(result);
-    }
 }
