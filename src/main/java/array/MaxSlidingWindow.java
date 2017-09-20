@@ -6,42 +6,47 @@ import java.util.LinkedList;
 
 public class MaxSlidingWindow {
     /**
-     * Queue 's first is always the max number in the window
+     * Deque, Queue 's first is always the max number in the window
      * when inQueue, remove from last, if smaller than num. Then offer()
      */
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0) {
+        if (nums.length == 0 || nums.length < k) {
             return new int[0];
         }
 
+        LinkedList<Integer> deque = new LinkedList<>();
         int[] res = new int[nums.length - k + 1];
-        LinkedList<Integer> queue = new LinkedList<>();
 
-        for (int i=0; i<k-1; i++) {
-            inQuene(queue, nums[i]);
+        for (int i = 0; i < k; i++) {
+            inQueue(deque, nums[i]);
         }
 
-        //k=3, i=2
-        for (int i=k-1; i<nums.length; i++) {
-            inQuene(queue, nums[i]);
-            res[i-k+1] = queue.peek();
-            outQuene(queue, nums[i-k+1]);
+        //i = k
+        for (int i = k; i < nums.length; i++) {
+            res[i-k] = deque.peekFirst();
+            outQueue(deque, nums[i-k]);
+            inQueue(deque, nums[i]);
+        }
+
+        if (!deque.isEmpty()) {
+            res[nums.length-k] = deque.peekFirst();
         }
 
         return res;
     }
 
-    private void inQuene(LinkedList<Integer> queue, int num) {
-        while (!queue.isEmpty() && queue.peekLast() < num) {
-            queue.pollLast();
+    private void inQueue(LinkedList<Integer> deque, int a) {
+        while(!deque.isEmpty() && deque.peekLast() < a) {
+            deque.removeLast();
         }
-        queue.offer(num);
-        //printQueue(queue);
+
+        deque.addLast(a);
+        //printQueue(deque);
     }
 
-    private void outQuene(LinkedList<Integer> queue, int num) {
-        if (queue.peekFirst() == num) {
-            queue.poll();
+    private void outQueue(LinkedList<Integer> deque, int a) {
+        if (!deque.isEmpty() && deque.peekFirst() == a) {
+            deque.removeFirst();
         }
     }
 
@@ -56,7 +61,8 @@ public class MaxSlidingWindow {
 
     public static void main(String[] args) {
         MaxSlidingWindow window = new MaxSlidingWindow();
-        int[] res = window.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3);
+        //int[] res = window.maxSlidingWindow(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3);
+        int[] res = window.maxSlidingWindow(new int[]{1,3,1,2,0,5}, 3);
         System.err.println("Result: " + Arrays.toString(res));
     }
 }
