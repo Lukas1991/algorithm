@@ -20,8 +20,8 @@ public class MedianFinder {
     //time complexity: O(log(n))
     public void addNum(int num) {
         maxHeap.offer(num);
-        int max = maxHeap.poll();
-        minHeap.offer(max);
+        //move max to minHeap
+        minHeap.offer(maxHeap.poll());
 
         if (maxHeap.size() < minHeap.size()) {
             maxHeap.offer(minHeap.poll());
@@ -31,7 +31,11 @@ public class MedianFinder {
     //time complexity: O(1)
     public double findMedian() {
         if (maxHeap.size() == minHeap.size()) {
-            return (maxHeap.peek() + minHeap.peek())/2.0;
+            if (maxHeap.isEmpty()) {
+                return 0.0;
+            } else {
+                return (maxHeap.peek() + minHeap.peek() ) / 2.0;
+            }
         } else {
             return maxHeap.peek();
         }
