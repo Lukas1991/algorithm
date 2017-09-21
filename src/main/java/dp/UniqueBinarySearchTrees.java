@@ -8,6 +8,7 @@ public class UniqueBinarySearchTrees {
 
     /**
      * 96. Unique Binary Search Trees
+     * Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
      */
     public int numTrees(int n) {
         if (n == 0) {
@@ -20,8 +21,8 @@ public class UniqueBinarySearchTrees {
             int count = 0;
             for (int j = 1; j <= i; j++) {
                 //j is root
-                int left = dp[j - 1];
-                int right = dp[i - j];
+                int left = dp[j - 1];//比j小的有j-1个, dp[j-1]种排列可能
+                int right = dp[i - j];//比j大的有i-j个, dp[i-j]种排列可能
                 count += left * right;
             }
             dp[i] = count;
