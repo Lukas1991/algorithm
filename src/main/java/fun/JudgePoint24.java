@@ -4,85 +4,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JudgePoint24 {
-    public boolean judgePoint24(int[] nums) {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (i == j) continue;
+	
+	public boolean judgePoint24(int[] nums) {
+		List<Double> list = new ArrayList<>();		
+        for (int v: nums) {
+        	list.add((double) v);
+        }
+        
+        return solve(list);
+    }
+	
+	
+	/**
+	 * 4个数选两个，加减乘除，结果和剩下两个数并到一起，A42 = 12，12*4种可能，还剩三个数。
+	 * 3个数选两个，加减乘除，结果和剩下的一个并到一起，A32 = 6， 6*4种可能，还剩两个数。 
+	 * 2个数加减乘除。 A22 = 2， 2*4种可能
+	 * 总共 12*4 * 6*4 * 2*4 = 9216种可能。
+	 */
+    private boolean solve(List<Double> nums) {
+        if (nums.size() == 0) return false;
+        if (nums.size() == 1) return Math.abs(nums.get(0) - 24) < 1e-6;
 
-                for (int k = 0; k < 4; k++) {
-                    if (k == i || k == j) continue;
-
-                    for (int p = 0; p < 4; p++) {
-                        if (p == i || p == j || p == k) continue;
-
-                        if(judgeByOrder(nums[i], nums[j], nums[k], nums[p])) {
-                            return true;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = 0; j < nums.size(); j++) {
+                if (i != j) {
+                	List<Double> list2 = new ArrayList<>();
+                	
+                	//add the rest in nums to list2, not i, not j, 
+                    for (int k = 0; k < nums.size(); k++) {
+                    	if (k != i && k != j) {
+                        	list2.add(nums.get(k));
+                        }     	
+                    }
+                    
+                    // i and j +-*/               
+                    for (int k = 0; k < 4; k++) {
+                        if (k < 2 && j > i) continue; //a+b, a*b are commutative 交换律
+                        
+                        if (k == 0) list2.add(nums.get(i) + nums.get(j));
+                        if (k == 1) list2.add(nums.get(i) * nums.get(j));
+                        if (k == 2) list2.add(nums.get(i) - nums.get(j));
+                        if (k == 3) {
+                            if (nums.get(j) != 0) {
+                            	list2.add(nums.get(i) / nums.get(j));
+                            } else {
+                                continue;
+                            }
                         }
+                        
+                        if (solve(list2)) return true;
+                        list2.remove(list2.size() - 1);
                     }
                 }
             }
         }
-
         return false;
-    }
-
-    private boolean judgeByOrder(int a, int b, int c, int d) {
-        List<Double> left = cal(a, b);
-        //(a,b,c) d
-        List<Double> left2 = cal(left, c);
-        List<Double> res = cal(left2, d);
-        if (judge(res)) {
-            return true;
-        }
-
-        //(a,b) (c,d)
-        List<Double> right = cal(c, d);
-        for (int i = 0; i < left.size(); i++) {
-            for (int j = 0; j < right.size(); j++) {
-                res = cal(left.get(i), right.get(j));
-                if (judge(res)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean judge(List<Double> res) {
-        for (double r : res) {
-            if (r == 24.0) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private List<Double> cal(List<Double> res, int a) {
-        List<Double> list = new ArrayList<>();
-        for(double d : res) {
-            list.addAll(cal(d, a));
-        }
-        return list;
-    }
-
-    private List<Double> cal(double a1, double b1) {
-        List<Double> list = new ArrayList<>();
-        list.add( a1 + b1);
-        list.add( a1 - b1);
-        list.add( a1 * b1);
-        list.add( a1 / b1);
-
-        list.add( b1 - a1);
-        list.add( b1 / a1);
-        return list;
-    }
-
-    private List<Double> cal(int a, int b) {
-        double a1 = a;
-        double b1 = b;
-
-        return cal(a1, b1);
     }
 
     public static void main(String[] args) {
