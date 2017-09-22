@@ -1,65 +1,57 @@
 package Tree;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MapSum {
+
+    Map<String, Integer> map;
     private TrieNode root;
 
     public MapSum() {
         root = new TrieNode();
+        map = new HashMap<>();
     }
 
+    //O(K), k is key's length
     public void insert(String key, int val) {
+        int diff = val - map.getOrDefault(key, 0);
+        map.put(key, val);
+
         TrieNode node = root;
         for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
-            if (node.keys[c - 'a'] == null) {
-                node.keys[c - 'a'] = new TrieNode();
+
+            if (!node.children.containsKey(c)) {
+                node.children.put(c, new TrieNode());
             }
-            node = node.keys[c - 'a'];
+
+            node = node.children.get(c);
+            node.sum += diff;
         }
-        node.isEnd = true;
-        node.val = val;
     }
 
+    //O(K), k is prefix's length
     public int sum(String prefix) {
         TrieNode node = root;
         for (int i = 0; i < prefix.length(); i++) {
             char c = prefix.charAt(i);
-            if (node.keys[c - 'a'] != null) {
-                node = node.keys[c - 'a'];
+
+            if (node.children.containsKey(c)) {
+                node = node.children.get(c);
             } else {
                 return 0;
             }
         }
-        return find(node);
+        return node.sum;
     }
 
-    private int find(TrieNode node) {
-        if (node == null) {
-            return 0;
-        }
-        TrieNode curr = node;
-        int count = 0;
-        if (curr.isEnd) {
-            count += curr.val;
-        }
-
-        for (TrieNode c : node.keys) {
-            if (c != null) {
-                count += find(c);
-            }
-        }
-        return count;
-    }
-
-
-    class TrieNode {
-        boolean isEnd;
-        int val;
-        //26 children
-        TrieNode[] keys;
+    private class TrieNode {
+        Map<Character, TrieNode> children;
+        int sum;
 
         public TrieNode() {
-            keys = new TrieNode[26];
+            children = new HashMap<>();
         }
     }
 
