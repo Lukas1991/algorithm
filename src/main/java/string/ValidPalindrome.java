@@ -77,9 +77,45 @@ public class ValidPalindrome {
         return true;
     }
 
+
+    /**
+     * 9. Palindrome Number
+     * Determine whether an integer is a palindrome. Do this without extra space. Negative is false.
+     */
+    public boolean isPalindrome(int x) {
+        if (x < 0)  return false;
+        int startBase = 1;
+        int endBase = 1;
+
+        int res = x;
+        while (res >=10) {
+            res = res / 10;
+            endBase = endBase * 10;
+        }
+
+        while (startBase < endBase) {
+            if (getDigit(x, startBase) == getDigit(x, endBase)) {
+                startBase *= 10;
+                endBase /= 10;
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private int getDigit(int x, int base) {
+        return (x / base) % 10;
+    }
+
+
     public static void main(String[] args) {
         ValidPalindrome obj = new ValidPalindrome();
-        System.err.println(obj.validPalindrome("abca"));
+        //System.err.println(obj.validPalindrome("abca"));
+
+        System.err.println(obj.isPalindrome(232));
+        System.err.println(obj.isPalindrome(2342));
     }
 
 }
