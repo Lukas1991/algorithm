@@ -70,8 +70,13 @@ public class WordBreak {
 
     /**
      * Use a cache.
-     * Time complexity : O(n^3).
-     * Space complexity : O(n^3).
+     * Time complexity : O(n^3). Size of recursion tree can go up to n^2. The creation of list takes n time.
+     * Space complexity : O(n^3). size of map can go up to n, and each value can contains a string list of size n.
+     *
+     * e.g. "aaa", ["a", "aa", "aaa"]
+     * map: 2 - a
+     *      1 - a a, aa,
+     *      0 - "a a a", "a aa", "aa a", "aaa"
      */
     public List<String> wordBreak2(String s, List<String> wordDict) {
         Set<String> dict = new HashSet<>(wordDict);
