@@ -28,7 +28,7 @@ public class KEmptySlots {
             int left = x - k - 1;
             int right = x + k + 1;
 
-            //scan x左边的K个,必须都不开花
+            //scan x左边, left开花, 而且从 left+1 到 x-1 必须都不开花
             if (left >= 1 && bloom[left]) {
                 int countNotBloom = countNotBloom(bloom, left + 1, x - 1);
                 if (countNotBloom == k) {
@@ -36,7 +36,7 @@ public class KEmptySlots {
                 }
             }
 
-            //scan x右边的K个,必须都不开花
+            //scan x右边, right开花, 而且从 x+1 到 right-1 必须都不开花
             if (right <= n && bloom[right]) {
                 int countNotBloom = countNotBloom(bloom, x + 1, right - 1);
                 if (countNotBloom == k) {
