@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UglyNumber {
-	
-	public boolean isUgly(int num) {
-        if (num == 0) return false;
-        while (num%2 == 0 || num%3 == 0 || num%5 == 0) {
-            if (num%2 == 0) {
-                num=num/2;
+
+    public boolean isUgly(int num) {
+        if (num <= 0)   return false;
+        while (num % 2 == 0 || num % 3 == 0 || num % 5 == 0) {
+            if (num % 2 == 0) {
+                num /= 2;
             }
-            if (num%3 == 0) {
-                num=num/3;
+
+            if (num % 3 == 0) {
+                num /= 3;
             }
-            if (num%5 == 0) {
-                num=num/5;
+
+            if (num % 5 == 0) {
+                num /= 5;
             }
-            
         }
-        return num==1;
+
+        return num == 1;
     }
 
 	/** 
@@ -28,26 +30,23 @@ public class UglyNumber {
 	 * l5 = list *5 : 1×5, 2×5, 3×5, 4×5, 5×5, …
 	 */
 	public int nthUglyNumber(int n) {
-		if (n<0) return 0;
-		List<Integer> list = new ArrayList<>();
-		list.add(1);
-		
-		int i=0, j=0, k=0;
-		
-		while (list.size() < n) {
-			int m2 = list.get(i) *2;
-			int m3 = list.get(j) *3;
-			int m5 = list.get(k) *5;
-			
-			int min = Math.min(m2, Math.min(m3, m5));
-			list.add(min);
-			
-			if (min == m2) i++;
-			if (min == m3) j++;
-			if (min == m5) k++;
-		}
-		
-		return list.get(n-1);
+        if (n <= 0) return 0;
+        int[] dp = new int[n];
+        dp[0] = 1;
+
+        int index2 = 0, index3 = 0, index5 = 0;
+        for (int i = 1; i < n; i++) {
+            int m2 = 2 * dp[index2];
+            int m3 = 3 * dp[index3];
+            int m5 = 5 * dp[index5];
+
+            dp[i] = Math.min(m2, Math.min(m3, m5));
+
+            if (dp[i] == m2) index2++;
+            if (dp[i] == m3) index3++;
+            if (dp[i] == m5) index5++;
+        }
+        return dp[n - 1];
 	}
 	
 	/**
@@ -85,6 +84,8 @@ public class UglyNumber {
     }
 	
 	public static void main(String[] args) {
+        UglyNumber obj = new UglyNumber();
+        obj.nthUglyNumber(10);
 	}
 
 }
