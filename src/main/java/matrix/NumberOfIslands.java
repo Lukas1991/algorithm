@@ -97,6 +97,7 @@ public class NumberOfIslands {
      */
     int[][] dirs = {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
 
+    //O(N * 4 * logN)
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
         List<Integer> result = new ArrayList<>();
         if(m <= 0 || n <= 0) return result;
@@ -106,8 +107,8 @@ public class NumberOfIslands {
         Arrays.fill(roots, -1);
 
         for(int[] p : positions) {
-            int id = n * p[0] + p[1];     // assume new point is isolated island
-            roots[id] = id;             // add new island
+            int currId = n * p[0] + p[1];     // assume new point is isolated island
+            roots[currId] = currId;             // add new island
             count++;
 
             for(int[] dir : dirs) {
@@ -117,9 +118,9 @@ public class NumberOfIslands {
                 if(x < 0 || x >= m || y < 0 || y >= n || roots[nb] == -1) continue;
 
                 int rootId = findIslandRootId(roots, nb);
-                if(id != rootId) {        // if neighbor is in another island
-                    roots[id] = rootId;   // union two islands
-                    id = rootId;          // current tree root = joined tree root
+                if(currId != rootId) {        // if neighbor is in another island
+                    roots[currId] = rootId;   // union two islands
+                    currId = rootId;          // current tree root = joined tree root
                     count--;
                 }
             }
@@ -129,11 +130,13 @@ public class NumberOfIslands {
         return result;
     }
 
+    //climb up the tree to find root, O(logN)
     private int findIslandRootId(int[] roots, int id) {
         while(id != roots[id]) {
             int parentId = roots[id];
-            roots[id] = roots[parentId];   // Path Compression, since they're in same island, can have same parent
-            id = parentId;
+            int parentparentId = roots[parentId];
+            roots[id] = parentparentId;   // Path Compression, since they're in same island, can have same parent
+            id = parentparentId;
         }
         return id;
     }
