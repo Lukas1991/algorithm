@@ -40,7 +40,7 @@ public class GraphValidTree {
 				return false;
 			} else {
 				//merge two root
-				p[root1] = root2;
+				p[root2] = root1;
 			}
 		}
 
@@ -48,12 +48,27 @@ public class GraphValidTree {
 		return edges.length == n-1;
 	}
 
-	// find root
+	// find root -> if p[i] == -1, i is the root
 	private int find(int[] p, int i) {
 		if (p[i] == -1) {
 			return i;
 		} else {
 			return find(p, p[i]);
+		}
+	}
+
+	//better with path compression, root[a] = a, root is itself
+	private int findRoot(int[] root, int a) {
+		if (root[a] == -1) {
+			root[a] = a;
+			return a;
+		} else {
+			while (root[a] != a) {
+				root[a] = root[root[a]];//path compression, same as numbers of island 2
+				a = root[a];
+			}
+
+			return a;
 		}
 	}
 }

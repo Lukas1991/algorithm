@@ -24,22 +24,9 @@ public class CountComponents {
             int r1 = findRoot(root, a);
             int r2 = findRoot(root, b);
 
-            if (r1 == -1 && r2 == -1) {
-                root[a] = a;
-                root[b] = a;
+            if (r1 != r2) {
+                root[r2] = r1;
                 count--;
-            } else if (r1 != -1 && r2 == -1) {
-                root[b] = r1;
-                count--;
-            } else if (r1 == -1 && r2 != -1) {
-                root[a] = r2;
-                count--;
-            } else {
-                //not in same group, union, merge
-                if (r1 != r2) {
-                    root[r2] = r1;
-                    count--;
-                }
             }
         }
 
@@ -48,7 +35,8 @@ public class CountComponents {
 
     private int findRoot(int[] root, int a) {
         if (root[a] == -1) {
-            return -1;
+            root[a] = a;
+            return a;
         } else {
             while (root[a] != a) {
                 root[a] = root[root[a]];//path compression, same as numbers of island 2
