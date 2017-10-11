@@ -11,16 +11,15 @@ public class KthLargestNumber {
      * use a min heap that will store the K-th largest values
      */
     public int findKthLargestHeap(int[] nums, int k) {
-
-        final PriorityQueue<Integer> pq = new PriorityQueue<>();
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
         for(int val : nums) {
-            pq.offer(val);
+            minHeap.offer(val);
 
-            if(pq.size() > k) {
-                pq.poll();
+            if(minHeap.size() > k) {
+                minHeap.poll();
             }
         }
-        return pq.peek();
+        return minHeap.peek();
     }
 
     /**
