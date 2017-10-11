@@ -37,7 +37,7 @@ public class MedianFinder {
             if (maxHeap.isEmpty()) {
                 return 0.0;
             } else {
-                return ((double) maxHeap.peek() + (double) minHeap.peek() ) / 2.0;
+                return (maxHeap.peek() + minHeap.peek()) / 2.0;
             }
         } else {
             return maxHeap.peek();
