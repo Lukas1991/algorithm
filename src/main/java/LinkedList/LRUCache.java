@@ -8,7 +8,6 @@ import java.util.Map;
 
  * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
  * set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
- * @param args
  */
 /**
  * use a double linked list, which enables quickly remove nodes.
@@ -36,8 +35,6 @@ public class LRUCache {
 
 	public LRUCache(int capacity) {
 		this.capacity = capacity;
-		head = null;
-		end = null;
 	}
 
 	public int get(int key) {
@@ -58,7 +55,7 @@ public class LRUCache {
 			addToHead(node);
 		} else {
 			Node node = new Node(key, value);
-			if (map.size() >= this.capacity) {
+			if (map.size() == capacity) {
 				map.remove(end.key);
 				remove(end);
 			}
