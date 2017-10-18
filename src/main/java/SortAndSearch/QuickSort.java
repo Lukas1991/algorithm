@@ -17,7 +17,7 @@ import java.util.Random;
  * (greater than x) after x. All this should be done in linear time.
  *
  * Time complexity of Quick Sort is O(nLogn) in average, O(n) best, O(n^2) worst
- *
+ * In place, no extra space.
  * Quick Sort is preferred over MergeSort for sorting Arrays, because 1) in-place sort, doesn't require extra storage. 2) Most practical implementations of Quick Sort use randomized version.
  */
 public class QuickSort {
