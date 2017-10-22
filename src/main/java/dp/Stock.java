@@ -129,6 +129,20 @@ public class Stock {
         
         return dp[k][n-1];
     }
+
+    //714. Best Time to Buy and Sell Stock with Transaction Fee
+    public int maxProfit(int[] prices, int fee) {
+        int precash = 0, prehold = -prices[0];
+
+        for (int i = 1; i < prices.length; i++) {
+            int cash = Math.max(precash, prehold + prices[i] - fee);
+            int hold = Math.max(prehold, precash - prices[i]);
+
+            precash = cash;
+            prehold = hold;
+        }
+        return Math.max(precash, prehold);
+    }
     
 	public static void main(String[] args) {
 	}
