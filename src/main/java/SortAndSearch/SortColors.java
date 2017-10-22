@@ -7,6 +7,7 @@ public class SortColors {
 
     /**
      * two pointers start and end, start 左边都是0, end右边都是2
+     * one-pass
      *
      * 一定先查num[i]==2. while的作用是可能num[end]就是2, swap之后相当于没变,end--,但是还可以swap
      */
