@@ -1,12 +1,12 @@
 package LinkedList;
 
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 public class LFU3 {
     class Node {
         int freq = 0;
-        LinkedHashSet<Integer> keys = new LinkedHashSet<>();
+        LinkedList<Integer> keys = new LinkedList<>();
         Node pre = null, next = null;
         public Node(int freq) {
             this.freq = freq;
@@ -51,7 +51,8 @@ public class LFU3 {
 
     private void increaseFreq(int key) {
         Node f = nodeMap.get(key);
-        f.keys.remove(key);
+        int index = f.keys.indexOf(key);
+        f.keys.remove(index);
 
         int newf = f.freq + 1;
         Node next = f.next;
@@ -80,13 +81,8 @@ public class LFU3 {
 
     private void removeLFU() {
         if (head == null)   return;
-        //set doesn't have set.get(0)
-        int lfu = 0;
-        for (int key: head.keys) {
-            lfu = key;
-            break;
-        }
-        head.keys.remove(lfu);
+        int lfu = head.keys.getFirst();
+        head.keys.removeFirst();
 
         if (head.keys.size() == 0) {
             remove(head);
