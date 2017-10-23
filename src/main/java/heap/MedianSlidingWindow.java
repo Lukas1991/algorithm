@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
- * PriorityQueue implementation provides O(log(n)) time for the enqueing and dequeing methods (offer, poll, remove() and  add);
+ * PriorityQueue implementation provides O(log(n)) time for the enqueing and dequeing methods (offer, poll);
  * linear time for the remove(Object) and contains(Object) methods;
  * and constant time for the retrieval methods (peek,  element, and size).
  */
@@ -40,13 +40,16 @@ public class MedianSlidingWindow {
         return res;
     }
 
-    //if both heap peek == a, remove from maxHeap, because maxHeap size always >= minHeap size
     //take O(k) time
     private void outQueue(int a) {
         if (maxHeap.peek() >= a) {
             maxHeap.remove(a);
         } else if(minHeap.peek() <= a) {
             minHeap.remove(a);
+        }
+
+        if (maxHeap.size() < minHeap.size()) {
+            maxHeap.offer(minHeap.poll());
         }
     }
 
