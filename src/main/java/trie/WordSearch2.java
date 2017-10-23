@@ -26,15 +26,18 @@ public class WordSearch2 {
 	TrieNode root;
 	
 	public List<String> findWords(char[][] board, String[] words) {
-		List<String> res = new ArrayList<>();
 		root = new TrieNode();
 		for (String s : words) {
 			addWord(s);
 		}
-		
+
+		List<String> res = new ArrayList<>();
+
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				dfs(board, i, j, root, res);
+				if (root.children.containsKey(board[i][j])) {
+					dfs(board, i, j, root, res);
+				}
 			}
 		}
 		
