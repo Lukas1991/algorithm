@@ -2,6 +2,9 @@ package StackAndQueue;
 
 import java.util.Stack;
 
+/**
+ * when push, check x <= maxStack.peek()
+ */
 public class MinStack {
     Stack<Integer> stack;
     Stack<Integer> minStack;
