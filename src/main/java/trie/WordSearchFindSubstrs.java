@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * O(n * k), n is str length, k is avarage or word length
+ * Time: O(n * k), n is str length, k is avarage or word length
+ * Space : O(m * k), m is dictionary size, k is average word length
  */
 public class WordSearchFindSubstrs {
     TrieNode root;
