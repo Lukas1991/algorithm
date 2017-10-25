@@ -1,6 +1,5 @@
 package tools;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +7,50 @@ import java.util.Random;
 
 public class RandomWeightedSelection {
 
-    public int getRandom(List<Integer> list) {
+    int sum;
 
+    Map<String, Integer> map = new HashMap<>();
+
+    Random random = new Random();
+
+    void put (String obj, int weight) {
+        if (weight == 0) {
+            if (map.containsKey(obj)) {
+                int oldWeight = map.remove(obj);
+                sum -= oldWeight;
+            }
+        } else {
+            if (map.containsKey(obj)) {
+                int oldWeight = map.get(obj);
+                sum -= oldWeight;
+            }
+            map.put(obj, weight);
+            sum += weight;
+        }
+    }
+
+    String getRandom() {
+        int r = random.nextInt(sum); //random doesn't have a nextLong
+
+        int count = 0;
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            count += entry.getValue();
+
+            if (count > r) {
+                return entry.getKey();
+            }
+        }
+
+        throw new RuntimeException("should never come to here");
+    }
+
+    //if use lombok, we can @Setter @VisibleForTesting
+    public int getSum() {
+        return sum;
+    }
+
+    //when input is weight list
+    public int getRandom(List<Integer> list) {
         int sum = 0;
         for (int a : list) {
             sum += a;
@@ -29,28 +70,34 @@ public class RandomWeightedSelection {
     }
 
     public static void main(String[] arg) {
+        test();
+    }
+
+    public static void test() {
         RandomWeightedSelection obj = new RandomWeightedSelection();
+        obj.put("A", 3);
+        obj.put("B", 30);
+        obj.put("A", 13);
+        obj.put("C", 5);
+        obj.put("B", 0);
+        obj.put("D", 0);
 
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(4);
-        list.add(2);
-
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<String, Integer> countMap = new HashMap<>();
 
         int total = 1000000;
-        while (total > 0) {
-            int a = obj.getRandom(list);
-            map.put(a, map.getOrDefault(a, 0) + 1);
-            total--;
+        for (int i = 0; i < total; i++) {
+            String s = obj.getRandom();
+            countMap.put(s, countMap.getOrDefault(s, 0) + 1);
         }
 
-        for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-            System.err.println(entry.getKey() + ", " + entry.getValue() /1000000.0);
+        //actual probability
+        for (Map.Entry<String, Integer> entry: countMap.entrySet()) {
+            System.err.println(entry.getKey() + ", " + entry.getValue() * 1.0 / total);
         }
 
-        for (int a : list) {
-            System.err.println(a/7.0);
+        //expected probability
+        for (Map.Entry<String, Integer> entry: obj.map.entrySet()) {
+            System.err.println(entry.getKey() + ", " + entry.getValue() * 1.0 / obj.getSum());
         }
     }
 }
