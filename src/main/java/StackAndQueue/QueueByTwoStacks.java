@@ -2,6 +2,7 @@ package StackAndQueue;
 
 import java.util.Stack;
 
+//232	Implement Queue using Stacks
 public class QueueByTwoStacks<T> {
 
     /**
@@ -13,6 +14,8 @@ public class QueueByTwoStacks<T> {
      */
     Stack<T> s1, s2;
 
+    T front;
+
     public QueueByTwoStacks() {
         s1 = new Stack<T>();
         s2 = new Stack<T>();
@@ -22,26 +25,30 @@ public class QueueByTwoStacks<T> {
         return s1.size() + s2.size();
     }
 
+    //Time complexity : O(1)
     public void add(T value) {
+        if (s1.isEmpty()) {
+            front = value;
+        }
         s1.push(value);
     }
 
+    //Time complexity : O(1)
     public T peek() {
-        if (!s2.isEmpty()) {
-            return s2.peek();
+        if (s2.isEmpty()) {
+            return front;
         } else {
-            shiftStack();
             return s2.peek();
         }
     }
 
+    //Time complexity: Amortized O(1), Worst-case O(n)
     public T remove() {
-        if (!s2.isEmpty()) {
-            return s2.pop();
-        } else {
+        if (s2.isEmpty()) {
             shiftStack();
-            return s2.pop();
         }
+
+        return s2.pop();
     }
 
     //transfer all in s1 to s2
