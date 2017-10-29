@@ -9,80 +9,77 @@ class TreeLinkNode {
 
 public class PopulateNextRight {
 
-    public void connect(TreeLinkNode root) {
+    /**
+     * 116. Populating Next Right Pointers in Each Node
+     * You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+     * level by level
+     */
+    public void connect1(TreeLinkNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeLinkNode cur = root;  //first node of each level
+
+        while (cur != null) {
+            TreeLinkNode head = cur.left;
+
+            while (cur != null) { //cur to the end of the level
+                cur.left.next = cur.right;
+                if (cur.next != null) {
+                    cur.right.next = cur.next.left;
+                }
+
+                cur = cur.next;
+            }
+
+            cur = head;
+        }
+    }
+
+    /**
+     * 117. Populating Next Right Pointers in Each Node II
+     * What if the given tree could be any binary tree?
+     * level by level
+     */
+    public void connect2(TreeLinkNode root) {
         if (root == null) {
             return;
         }
 
-        TreeLinkNode left = root.left;
-        TreeLinkNode right = root.right;
+        TreeLinkNode cur = root; //current node of current level
 
-        if (root.val == 7) {
-            int b = 1;
-        }
-        TreeLinkNode next = null;
-        TreeLinkNode curr = root.next;
-        while (curr != null) {
-            if (curr.left != null) {
-                next = curr.left;
-                break;
+        while (cur != null) {  //new level
+            TreeLinkNode head = null; //next level head
+            TreeLinkNode pre = null; //next level pre
+
+            while (cur != null) {  //to the end of current level
+                //left child
+                if (cur.left != null) {
+                    if (pre != null) {
+                        pre.next = cur.left;
+                    } else {
+                        head = cur.left;
+                    }
+
+                    pre = cur.left;
+                }
+
+                //right child
+                if (cur.right != null) {
+                    if (pre != null) {
+                        pre.next = cur.right;
+                    } else {
+                        head = cur.right;
+                    }
+
+                    pre = cur.right;
+                }
+
+                cur = cur.next;
             }
 
-            if (curr.right != null) {
-                next = curr.right;
-                break;
-            }
-
-            curr = curr.next;
+            cur = head;
         }
-
-
-        if (left != null) {
-            if (right != null) {
-                left.next = right;
-            } else {
-                left.next = next;
-            }
-        }
-
-        if (right != null) {
-            right.next = next;
-        }
-
-        connect(left);
-        connect(right);
     }
 
-    public static void main(String[] args) {
-        PopulateNextRight obj = new PopulateNextRight();
-        TreeLinkNode root = new TreeLinkNode(0);
-        TreeLinkNode n1 = new TreeLinkNode(1);
-        TreeLinkNode n3 = new TreeLinkNode(3);
-
-        root.left = n1;
-        root.right = n3;
-
-        TreeLinkNode n0 = new TreeLinkNode(0);
-        TreeLinkNode n7 = new TreeLinkNode(7);
-        n1.left = n0;
-        n1.right = n7;
-
-        TreeLinkNode n9 = new TreeLinkNode(9);
-        TreeLinkNode n11 = new TreeLinkNode(1);
-        n3.left = n9;
-        n3.right = n11;
-
-        n0.left = new TreeLinkNode(2);
-        n7.left = new TreeLinkNode(1);
-        n7.right = new TreeLinkNode(0);
-
-        n11.left = new TreeLinkNode(8);
-        n11.right = new TreeLinkNode(8);
-
-
-
-
-        obj.connect(root);
-        int a = 0;
-    }
 }
