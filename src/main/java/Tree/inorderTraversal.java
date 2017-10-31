@@ -18,20 +18,12 @@ public class inorderTraversal {
             return;
         }
 
-        if (root.left != null) {
-            inorder(root.left, res);
-        }
-
+        inorder(root.left, res);
         res.add(root.val);
-
-        if (root.right != null) {
-            inorder(root.right, res);
-        }
+        inorder(root.right, res);
     }
 
-
-
-    //iteratively
+    //iteratively !!!
     public List<Integer> inorderTraversalIterative(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
