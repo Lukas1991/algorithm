@@ -4,6 +4,12 @@ import java.util.Stack;
 
 /**
  * 331. Verify Preorder Serialization of a Binary Tree
+ *
+ * One way to serialize a binary tree is to use pre-order traversal.
+ * For example, the above binary tree can be serialized to the string "9,3,4,#,#,1,#,#,2,#,6,#,#", where # represents a null node.
+
+ Given a string of comma separated values, verify whether it is a correct preorder traversal serialization of a binary tree.
+ Find an algorithm without reconstructing the tree.
  */
 public class IsValidSerialization {
 
