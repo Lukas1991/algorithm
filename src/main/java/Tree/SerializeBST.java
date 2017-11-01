@@ -6,7 +6,7 @@ import java.util.Stack;
 public class SerializeBST {
 
     /**
-     * pre-order
+     * pre-order, use stack
      */
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -27,6 +27,7 @@ public class SerializeBST {
     }
 
     // Decodes your encoded data to tree.
+    //create node from queue's head, recursion，小的数拿出来放进一个新的queue, 大的数还保留在原来queue里
     public TreeNode deserialize(String data) {
         if (data == null || data.isEmpty()) return null;
         String[] arr = data.split(",");
