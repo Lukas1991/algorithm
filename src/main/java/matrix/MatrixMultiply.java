@@ -10,7 +10,35 @@ public class MatrixMultiply {
 	 * so (# of elements in A'row) -> A列数 and（# of elements in B's column）B行数 should be the same 
 	 * C has i rows and j columns, # of A rows, # of B columns
 	 */
+	/**
+	 * If A is an n × m matrix and B is an m × p matrix, the matrix product C is defined to be the n × p matrix.
+	 * Cij = sum of Aik * Bkj, k from 1 to m
+     */
 	public static int[][] multiply(int[][] A, int[][] B) {
+		int n = A.length;
+		int m = A[0].length;
+		int p = B[0].length;
+
+		int[][] C = new int[n][p];
+
+		for (int i = 0; i < n; i++) {
+			for (int k = 0; k < m; k++) {
+				if (A[i][k] != 0) {
+
+					for (int j = 0; j < p; j++) {
+						if (B[k][j] != 0) {
+							C[i][j] += A[i][k] * B[k][j];
+						}
+					}
+
+				}
+			}
+		}
+
+		return C;
+	}
+
+	public static int[][] multiply2(int[][] A, int[][] B) {
 		int aColumns = A[0].length;
 		int bRows = B.length;
 		if (aColumns != bRows) {
