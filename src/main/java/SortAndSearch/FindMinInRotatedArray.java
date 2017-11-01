@@ -33,7 +33,7 @@ public class FindMinInRotatedArray {
         int end = nums.length - 1;
 
         //the only difference!
-        while (nums[end] == nums[start] && end > start) {
+        while (nums[end] == nums[start] && start < end) {
             end--;
         }
 
