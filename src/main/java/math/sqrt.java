@@ -2,59 +2,94 @@ package math;
 
 public class sqrt {
 
-	
-	public int sqrt(int x) {
-        	    
-        int i=0,j=x/2+1;
-        while(i<=j){      	
-            double mid=(i+j)/2;
-            double r=mid*mid;
-            //System.out.println("i is: "+i+" j is: "+j+" mid is: "+mid+" r is: "+r);
-            if(r==x) return (int) mid;
-            if(r<x) i=(int) (mid+1);
-            if(r>x) j=(int) mid-1;
-        }
-        return j;
+	/**
+	 * One thing to note is that we have to use long for mid to avoid mid*mid
+	 * from overflow. Also, you can use long type for low and high to avoid type
+	 * casting for mid from long to int.
+	 */
+	public int mySqrt(int x) {
+		if (x == 0)
+			return 0;
+		if (x < 0)
+			return -1;
+
+		int left = 1, right = x;
+		while (left <= right) {
+			long mid = left + (right - left) / 2; // (left + right) may overflow
+			long a = mid * mid; // mid has to be long
+			if (a == x) {
+				return (int) mid;
+			} else if (a > x) {
+				right = (int) (mid - 1);
+			} else {
+				left = (int) (mid + 1);
+			}
+		}
+		return right;
 	}
-	
-	public int sqrtSLOW(int x) {
+
+	public boolean isPerfectSquare(int num) {
+		long left = 1;
+		long right = num;
+		while (left <= right) {
+			long mid = left + (right - left) / 2;
+			long a = mid * mid;
+			if (a == num) {
+				return true;
+			} else if (a > num) {
+				right = mid - 1;
+			} else {
+				left = mid + 1;
+			}
+		}
+		return false;
+	}
+
+	//Xk+1 = (Xk + n/Xk) / 2
+	public int sqrtNewton(int x) {
+		if (x == 0)
+			return 0;
 		
-		for(int i=0;i<=x/3+1;i++){
-            int r=i*i;
-            if(r==x) return i;
-            if(r>x){
-                return -1;
-            }
-        }
-        return -1;
-
+		long r = x;
+	    while (r*r > x) {
+	    	 r = (r + x/r) / 2;
+	    }
+	       
+	    return (int) r;
 	}
-	
-	 public int sqrtNewton(int x) {
-	       if (x == 0) return 0;
-	       final int SCALE = 100;
 
-	       double x1;
-	       double x0 = x / 2.0;
+	public int sqrt(int x) {
+		int i = 0;
+		int j = x / 2 + 1;
+		while (i <= j) {
+			double mid = (i + j) / 2;
+			double r = mid * mid;
+			// System.out.println("i is: "+i+" j is: "+j+" mid is: "+mid+" r is:
+			// "+r);
+			if (r == x)
+				return (int) mid;
+			if (r < x)
+				i = (int) mid + 1;
+			if (r > x)
+				j = (int) mid - 1;
+		}
+		return j;
+	}
 
-	       int i = 0;
-	       while (++i < SCALE) {
-	           x1 = x0 - (x0 * x0 - x) / (2 * x0);
-	           if (x0 == x1) break;
-	           x0 = x1;
-	       }
-	       return (int) x0;
-	   }
-	 
-	 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		sqrt s = new sqrt();
-		int result = s.sqrt(10);
-		//int result = s.sqrt(100000000);
-		System.out.println(result);
-		//double i=12499999;
-		//System.out.println(i*i);
+		// int result = s.sqrt(10);
+		// int result = s.mySqrt(1);
+		// int result = s.sqrt(100000000);
+		// System.out.println(result);
+		
+		//test integer overflow
+		System.out.println(2147483600 + 2147483600);
+		System.out.println(2147483600 * 2147483600);
+		
+		long a = 2147483600;
+		long i = a * a;
+		System.out.println(i);
 	}
 
 }

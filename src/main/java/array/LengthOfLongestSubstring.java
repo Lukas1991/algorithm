@@ -15,7 +15,7 @@ public class LengthOfLongestSubstring {
 	 * move the j index to the character next to 'a', so the new substring is from the new index j
 	 */
 	
-	public static int lengthOfLongestSubstring(String s) {
+	public static int lengthOfLongestSubstringOld(String s) {
 		boolean[] flag = new boolean[256];
 	 
 		int result = 0;
@@ -44,7 +44,36 @@ public class LengthOfLongestSubstring {
 	 
 		return result;
 	}
-	
+
+	public static int lengthOfLongestSubstring(String s) {
+		if (s == null || s.length() == 0) return 0;
+		int[] arr = new int[256];
+		int max = 1;
+
+		int i=0, j=1;
+		arr[s.charAt(0)] = 1;
+		while(j<s.length()) {
+			if (arr[s.charAt(j)] == 0) {
+				arr[s.charAt(j)] = 1;
+				j++;
+			} else {
+				int length = j-i;
+				max = Math.max(max, length);
+				//move i
+				while (i<=j && arr[s.charAt(j)] > 0) {
+					arr[s.charAt(i)] = arr[s.charAt(i)] - 1;
+					i++;
+				}
+				arr[s.charAt(j)] = 1;
+				j++;
+			}
+
+		}
+
+		int length = j-i;
+		max = Math.max(max, length);
+		return max;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

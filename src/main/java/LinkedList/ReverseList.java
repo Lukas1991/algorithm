@@ -3,15 +3,12 @@ package LinkedList;
 public class ReverseList {
 //three pointer, previous, current, next
 	public ListNode reverseList(ListNode head) {
-        if(head==null || head.next==null) return head;
         
         ListNode current=head;
         ListNode previous=null;
-        ListNode next=current.next;
         
         while(current!=null){
-        	
-        	next=current.next;
+			ListNode next=current.next;
         	current.next=previous;
         	previous=current;
         	current=next;       	       	
@@ -20,6 +17,23 @@ public class ReverseList {
 		return previous;
 		
     }
+
+	/**
+	 * recursive solution
+	 * @param head
+	 * @return
+     */
+	public ListNode reverseListRecursive(ListNode head) {
+		return reverse(head, null);
+	}
+
+	private ListNode reverse(ListNode curr, ListNode newNext) {
+		if (curr == null) return newNext;  //when curr is null, newNext is new Head
+
+		ListNode next = curr.next;
+		curr.next = newNext;
+		return reverse(next, curr);
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -9,71 +9,44 @@ import java.util.Queue;
 
 public class CloneGraph {
 
-	/**
-	 * @param args
-	 */
-	
-	class UndirectedGraphNode {
-		      int label;
-		      List<UndirectedGraphNode> neighbors;
-		      UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
-		  };
-	
-		  
-		  
-		  
-		  
-		  public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-		        if(node == null) return null;
-		        UndirectedGraphNode newHead = new UndirectedGraphNode(node.label);
-		        
-		        //use a map to flag whether a node has been visited or not
-		        Map<UndirectedGraphNode,UndirectedGraphNode> map=new HashMap<UndirectedGraphNode,UndirectedGraphNode>();
-		        
-		        Queue<UndirectedGraphNode> q = new LinkedList<UndirectedGraphNode>();
-		        q.add(node);
-		        map.put(node, newHead);
-		        
-		        while(q.size()>0){
-		            UndirectedGraphNode current = q.poll();
-		            ArrayList<UndirectedGraphNode> currentN = (ArrayList<UndirectedGraphNode>) current.neighbors;
-		            
-		            if(currentN != null && currentN.size() > 0){
-		                
-		                for(UndirectedGraphNode n : currentN){
-		                    if(!map.containsKey(n)){
-		                        //if not visited
-		                         UndirectedGraphNode newNode = new UndirectedGraphNode(n.label);
-		                         
-		                         map.get(current).neighbors.add(newNode);
-		                         map.put(n,newNode);
-		                         q.add(n);
-		                         
-		                    }else{
-		                         map.get(current).neighbors.add(map.get(n));
-		                    }
-		                    
-		                    
-		                    
-		                    
-		                    
-		                }
-		            }
-		            
-		            
-		            
-		        }
-		        
-		        
-		        return newHead;
-		               
-		    }
-			
-		  
-		  
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+    class UndirectedGraphNode {
+        int label;
+        List<UndirectedGraphNode> neighbors;
 
-	}
+        UndirectedGraphNode(int x) {
+            label = x;
+            neighbors = new ArrayList<>();
+        }
+    }
+
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
+
+        Queue<UndirectedGraphNode> q = new LinkedList<>();
+        q.offer(node);
+
+        Map<Integer, UndirectedGraphNode> map = new HashMap<>();
+        map.put(node.label, clone);
+
+        while (!q.isEmpty()) {
+            UndirectedGraphNode n1 = q.poll();
+            UndirectedGraphNode clone1 = map.get(n1.label);
+
+            for (UndirectedGraphNode n : n1.neighbors) {
+                if (!map.containsKey(n.label)) {
+                    map.put(n.label, new UndirectedGraphNode(n.label));
+                    q.offer(n);
+                }
+
+                clone1.neighbors.add(map.get(n.label));
+            }
+        }
+
+        return clone;
+    }
 
 }

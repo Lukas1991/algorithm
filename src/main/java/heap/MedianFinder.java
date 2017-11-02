@@ -5,6 +5,9 @@ import java.util.PriorityQueue;
 
 /**
  * Find Median from Data Stream
+ * PriorityQueue implementation provides O(log(n)) time for the enqueing and dequeing methods (offer, poll, remove() and  add);
+ * linear time for the remove(Object) and contains(Object) methods;
+ * and constant time for the retrieval methods (peek,  element, and size).
  */
 public class MedianFinder {
 
@@ -20,8 +23,8 @@ public class MedianFinder {
     //time complexity: O(log(n))
     public void addNum(int num) {
         maxHeap.offer(num);
-        int max = maxHeap.poll();
-        minHeap.offer(max);
+        //move max to minHeap
+        minHeap.offer(maxHeap.poll());
 
         if (maxHeap.size() < minHeap.size()) {
             maxHeap.offer(minHeap.poll());
@@ -31,7 +34,11 @@ public class MedianFinder {
     //time complexity: O(1)
     public double findMedian() {
         if (maxHeap.size() == minHeap.size()) {
-            return (maxHeap.peek() + minHeap.peek())/2.0;
+            if (maxHeap.isEmpty()) {
+                return 0.0;
+            } else {
+                return (maxHeap.peek() + minHeap.peek()) / 2.0;
+            }
         } else {
             return maxHeap.peek();
         }

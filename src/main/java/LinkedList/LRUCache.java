@@ -1,120 +1,108 @@
 package LinkedList;
 
 import java.util.HashMap;
+import java.util.Map;
 
-class DoubleLinkedListNode {
-public int val;
-public int key;
-public DoubleLinkedListNode pre;
-public DoubleLinkedListNode next;
+/**
+ * main.java.Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
 
-public DoubleLinkedListNode(int key, int value) {
-	val = value;
-	this.key = key;
-}
-
-
+ * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+ * set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+ */
+/**
+ * use a double linked list, which enables quickly remove nodes.
+ * get(key), if contains, remove this node from list, add it back to the head of the list
+ * set(key,value) if contains, update old value, remove it from list, add back to head
+ * 				if not contains, if in capacity, remove end, add it to head
+ * */
 public class LRUCache {
 
-	/**
-	 * main.java.Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
+	class Node {
+		int key;
+		int value;
+		Node pre;
+		Node next;
+		public Node(int key, int value) {
+			this.key = key;
+			this.value = value;
+		}
+	}
 
-	 * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
-	 * set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
-	 * @param args
-	 */
-	/**
-	 * use a double linked list, which enables quickly remove nodes.
-	 * get(key), if contains, remove this node from list, add it back to the head of the list
-	 * set(key,value) if contains, update old value, remove it from list, add back to head
-	 * 				if not contains, if in capacity, remove end, add it to head
-	 * */
-	private HashMap<Integer, DoubleLinkedListNode> map = new HashMap<Integer, DoubleLinkedListNode>();
-	private DoubleLinkedListNode head;
-	private DoubleLinkedListNode end;
 	private int capacity;
-	private int len;
-	
+	private Node head;
+	private Node end;
+	private Map<Integer, Node> map = new HashMap<>();
+
 	public LRUCache(int capacity) {
 		this.capacity = capacity;
-		len = 0;
-	}
-	
-	public int get(int key) {
-		if (map.containsKey(key)) {
-			DoubleLinkedListNode latest = map.get(key);
-			removeNode(latest);
-			setHead(latest);
-			return latest.val;
-		} else {
-			return -1;
-		}
 	}
 
-	public void removeNode(DoubleLinkedListNode node) {
-		DoubleLinkedListNode cur = node;
-		DoubleLinkedListNode pre = cur.pre;
-		DoubleLinkedListNode post = cur.next;
-	
-		if (pre != null) {
-			pre.next = post;
-		} else {
-			head = post;
+	public int get(int key) {
+		if (map.containsKey(key)) {
+			Node node = map.get(key);
+			remove(node);
+			addToHead(node);
+			return node.value;
 		}
-	
-		if (post != null) {
-			post.pre = pre;
-		} else {
-			end = pre;
-		}
-	}
-	
-	public void setHead(DoubleLinkedListNode node) {
-		node.next = head;
-		node.pre = null;
-		if (head != null) {
-			head.pre = node;
-		}
-	
-		head = node;
-		if (end == null) {
-			end = node;
-		}
+		return -1;
 	}
 
 	public void set(int key, int value) {
 		if (map.containsKey(key)) {
-			DoubleLinkedListNode oldNode = map.get(key);
-			oldNode.val = value;
-			removeNode(oldNode);
-			setHead(oldNode);
+			Node node = map.get(key);
+			node.value = value;
+			remove(node);
+			addToHead(node);
 		} else {
-			DoubleLinkedListNode newNode = 
-				new DoubleLinkedListNode(key, value);
-			if (len < capacity) {
-				setHead(newNode);
-				map.put(key, newNode);
-				len++;
-			} else {
+			Node node = new Node(key, value);
+			if (map.size() == capacity) {
 				map.remove(end.key);
-				end = end.pre;
-				if (end != null) {
-					end.next = null;
-				}
-	
-				setHead(newNode);
-				map.put(key, newNode);
+				remove(end);
 			}
+
+			addToHead(node);
+			map.put(key, node);
+		}
+
+	}
+
+	private void remove(Node node) {
+		Node preNode = node.pre;
+		Node nextNode = node.next;
+
+		if (preNode == null) {
+			head = nextNode;
+		} else {
+			preNode.next = nextNode;
+		}
+
+		if (nextNode == null) {
+			end = preNode;
+		} else {
+			nextNode.pre = preNode;
 		}
 	}
+
+	private void addToHead(Node node) {
+		if (head == null) {
+			head = node;
+			end = node;
+			node.pre = null;
+			node.next = null;
+		} else {
+			node.pre = null;
+			node.next = head;
+			head.pre = node;
+			head = node;
+		}
 	}
 
-
-	
-	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		LRUCache LRU = new LRUCache(1);
+		LRU.set(2,1);
+		System.err.println(LRU.get(2));
+		LRU.set(3,2);
+		System.err.println(LRU.get(2));
+		System.err.println(LRU.get(3));
 	}
-
 }

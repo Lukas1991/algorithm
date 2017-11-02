@@ -11,72 +11,60 @@ import java.util.Map;
 public class ThreeSum {
 
 	/**
-	 * Given an array S of n integers, are there elements a, b, c in S such that
-	 * a + b + c = 0? Find all unique triplets in the array which gives the sum
-	 * of zero.
-	 * 
-	 * Note: Elements in a triplet (a,b,c) must be in non-descending order. (ie,
-	 * a ≤ b ≤ c) //sorted The solution set must not contain duplicate triplets.
-	 * //no duplicate
+	 * Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0?
+	 * Find all unique triplets in the array which gives the sum of zero.
+	 *
+	 * Note: The solution set must not contain duplicate triplets.
 	 * 
 	 * For example, given array S = {-1 0 1 2 -1 -4},
 	 * 
 	 * A solution set is: (-1, 0, 1) (-1, -1, 2)
-	 * 
-	 * @param args
-	 */
+	 *
+	 * Use two pointers, time complexity of O(n^2).
+     */
+	public List<List<Integer>> threeSum(int[] nums) {
+		List<List<Integer>> result = new ArrayList<>();
+		if (nums.length < 3) {
+			return result;
+		}
 
-	 public List<List<Integer>> threeSum(int[] num) {
-		//A better solution is using two pointers instead of one. This makes time complexity of O(n^2).
+		Arrays.sort(nums);
 
-		//To avoid duplicate, we can take advantage of sorted arrays, i.e., move pointers by >1 to use same element only once.
-		 List<List<Integer>> result = new ArrayList<List<Integer>>();
-		 
-			if (num.length < 3)
-				return result;
-		 
-			// sort array
-			Arrays.sort(num);
-		 
-			for (int i = 0; i < num.length - 2; i++) {
-				// //avoid duplicate solutions
-				if (i == 0 || num[i] > num[i - 1]) {
-		 
-					int start = i + 1;
-					int end = num.length - 1;
-		 
-					while (start < end) {
-						
-						if(num[i]+num[start]+num[end] < 0){
-	                        start ++;
-	                    }else if(num[i]+num[start]+num[end] > 0){
-	                        end --;
-	                    }else{ //==0
-	                        List<Integer> temp = new ArrayList<Integer>();
-	                        temp.add(num[i]);
-	                        temp.add(num[start]);
-	                        temp.add(num[end]);
-	                        result.add(temp);
-	                        
-	                        start++;
-	                        end--;
-	                      //avoid duplicate solutions
-	                        while(start<end && num[start]==num[start-1]){
-	                            start++;
-	                        }
-	                         while(start<end && num[end]==num[end+1]){
-	                            end--;
-	                        }
-	                    }
-						
+		for (int i = 0; i < nums.length - 2; i++) {
+			//avoid duplicate solutions
+			if (i != 0 && nums[i - 1] == nums[i]) {
+				continue;
+			}
+
+			int j = i + 1;
+			int k = nums.length - 1;
+			while (j < k) {
+				int sum = nums[i] + nums[j] + nums[k];
+				if (sum < 0) {
+					j++;
+				} else if (sum > 0) {
+					k--;
+				} else {
+					List<Integer> list = new ArrayList<>();
+					list.add(nums[i]);
+					list.add(nums[j]);
+					list.add(nums[k]);
+					result.add(list);
+					j++;
+					k--;
+					//avoid duplicate solutions
+					while (j < k && nums[j - 1] == nums[j]) {
+						j++;
 					}
-		 
+					while (j < k && nums[k + 1] == nums[k]) {
+						k--;
+					}
 				}
 			}
-		 
-			return result;
-		    }
-	
+		}
+		return result;
+	}
+
 	 /**
 	 * For example, given array S = {-1 2 1 -4}, and target = 1.
 	 * The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
@@ -113,6 +101,35 @@ public class ThreeSum {
 	        
 			return result;
 	    }
+
+	/**
+	 * nums[i] + nums[j] + nums[k] < target.
+	 * For example, given nums = [-2, 0, 1, 3], and target = 2.
+	 * Return 2. Because there are two triplets which sums are less than 2:
+	 * [-2, 0, 1]
+	 * [-2, 0, 3]
+	 * @return
+     */
+	public int threeSumSmaller(int[] nums, int target) {
+		int count = 0;
+		if (nums.length < 3) return 0;
+
+		Arrays.sort(nums);
+		for (int i = 0; i < nums.length - 2; i++) {
+			int j = i + 1;
+			int k = nums.length - 1;
+			while (j < k) {
+				if (nums[i] + nums[j] + nums[k] < target) {
+					count = count + (k - j); //因为数组排序了以后，如果加上num[k]小于目标值的话，那么加上一个更小的数必定也会小于目标值
+					j++;
+				} else {
+					k--;
+				}
+			}
+		}
+
+		return count;
+	}
 
 	 /**
 	  * O(n^3)
