@@ -3,13 +3,13 @@ package trie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutocompleteSystem {
+public class AutoCompleteSystem {
     TrieNode root;
 
     String prechars = "";
 
     //takes O(k*l) time. We need to iterate over l sentences each of average length k, to create the trie for the given set of sentencess.
-    public AutocompleteSystem(String[] sentences, int[] times) {
+    public AutoCompleteSystem(String[] sentences, int[] times) {
         root = new TrieNode();
         for (int i = 0; i < sentences.length; i++) {
             insert(sentences[i], times[i]);
@@ -100,7 +100,7 @@ public class AutocompleteSystem {
     }
 
     public static void main(String[] args) {
-        AutocompleteSystem obj = new AutocompleteSystem(
+        AutoCompleteSystem obj = new AutoCompleteSystem(
             new String[]{"i love you", "island","ironman", "i love leetcode"}, new int[]{5,3,2,2});
 
         //System.err.println(obj.input('w').toString());
