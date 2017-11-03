@@ -1,18 +1,11 @@
 package Graph;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class CourseSchedule {
 
 	/**
+     * 207. Course Schedule - can finish
 	 * BFS using Graph as Adjacency Lists
 	 * Time Complexity - O(V + E)， Space Complexity - O(V)
 	 */
@@ -62,6 +55,7 @@ public class CourseSchedule {
         return canTake == numCourses;
     }
 	/**
+     * 210. Course Schedule II - find order
 	 * Topological sort in BFS
 	 */
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -118,6 +112,7 @@ public class CourseSchedule {
 	}
 
     /**
+     * 630. Course Schedule III
      * Course Schedule 3, sort courses by end time, iterate courses
      * If we meet a course we cannot take (time + duration > end time),
      * Find a course from the previous taken courses, which duration time is the longest/max, AND the duration is bigger than this course duration
