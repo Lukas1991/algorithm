@@ -13,10 +13,10 @@ public class ReadXMLFile {
     public static void main(String[] args) {
 
         try {
-            File fXmlFile = new File("/Users/chuyu/Desktop/Chuyu/algorithm/src/main/resources/ipadmin.xlf");
+            File xmlFile = new File("/Users/chuyu/Desktop/Chuyu/algorithm/src/main/resources/ipadmin.xlf");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
             NodeList nList = doc.getElementsByTagName("trans-unit");
@@ -25,19 +25,21 @@ public class ReadXMLFile {
 
             for (int i = 0; i < nList.getLength(); i++) {
 
-                Node nNode = nList.item(i);
+                Node node = nList.item(i);
 
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
 
-                    Element eElement = (Element) nNode;
+                    Element eElement = (Element) node;
 
                     String id = eElement.getAttribute("id");
                     String target = eElement.getElementsByTagName("target").item(0).getTextContent();
 
                     String line = String.format("\t\t\"%s\": \"%s\"", id, target);
+
                     if (i != nList.getLength() - 1) {
                         line = line + ",";
                     }
+
                     System.out.println(line);
                 }
             }
