@@ -13,6 +13,7 @@ public class MergeSort {
      * Extra Space: O(n)
      * Merge Sort is useful for sorting linked lists in O(nLogn) time. Merge sort accesses data sequentially and the need of random access is low.
      * Unlike array, in linked list, we can insert items in the middle in O(1) extra space and O(1) time. Therefore merge operation of merge sort can be implemented without extra space for linked lists.
+     *
      * merge sort is generally considered better when data is huge and stored in external storage.
      */
     public static int[] mergeSort(int[] arr) {
