@@ -1,4 +1,4 @@
-package tools;
+package Interview.twosigma;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,13 +7,14 @@ import java.util.Random;
 
 public class RandomWeightedSelection {
 
-    int sum;
+    private int sum;
 
-    Map<String, Integer> map = new HashMap<>();
+    //key is key, value is weight
+    private Map<String, Integer> map = new HashMap<>();
 
-    Random random = new Random();
+    private Random random = new Random();
 
-    void put (String obj, int weight) {
+    public void put (String obj, int weight) {
         if (weight == 0) {
             if (map.containsKey(obj)) {
                 int oldWeight = map.remove(obj);
@@ -29,8 +30,8 @@ public class RandomWeightedSelection {
         }
     }
 
-    String getRandom() {
-        int r = random.nextInt(sum); //random doesn't have a nextLong
+    public String getRandom() {
+        int r = random.nextInt(sum); //random doesn't have a nextLong, double ran = random.nextDouble() * sum;
 
         int count = 0;
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
@@ -77,11 +78,14 @@ public class RandomWeightedSelection {
         RandomWeightedSelection obj = new RandomWeightedSelection();
         obj.put("A", 3);
         obj.put("B", 30);
-        obj.put("A", 13);
+        obj.put("A", 15);
         obj.put("C", 5);
         obj.put("B", 0);
         obj.put("D", 0);
+        // A weight is 15, C is 5, total is 20
 
+
+        //get random for 10 thousand times, and count how many occourance of keys we get
         Map<String, Integer> countMap = new HashMap<>();
 
         int total = 1000000;
