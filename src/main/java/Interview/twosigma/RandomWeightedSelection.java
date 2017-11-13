@@ -14,6 +14,7 @@ public class RandomWeightedSelection {
 
     private Random random = new Random();
 
+    //O(1)
     public void put (String obj, int weight) {
         if (weight == 0) {
             if (map.containsKey(obj)) {
@@ -30,6 +31,7 @@ public class RandomWeightedSelection {
         }
     }
 
+    //O(n)
     public String getRandom() {
         int r = random.nextInt(sum); //random doesn't have a nextLong, double ran = random.nextDouble() * sum;
 
