@@ -4,17 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * main.java.Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
-
+ * Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
  * get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
  * set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
  */
+
 /**
- * use a double linked list, which enables quickly remove nodes.
+ * use a hashtable and a double linked list, which enables quickly remove nodes. It takes constant time to add and remove nodes from the head or tail.
+ *
+ * Head is most recently used, tail is the least recently used
+ *
  * get(key), if contains, remove this node from list, add it back to the head of the list
  * set(key,value) if contains, update old value, remove it from list, add back to head
  * 				if not contains, if in capacity, remove end, add it to head
- * */
+ *
+ */
 public class LRUCache {
 
 	class Node {
@@ -81,16 +85,16 @@ public class LRUCache {
 		} else {
 			nextNode.pre = preNode;
 		}
+
+		node.pre = null;
+		node.next = null;
 	}
 
 	private void addToHead(Node node) {
 		if (head == null) {
 			head = node;
 			end = node;
-			node.pre = null;
-			node.next = null;
 		} else {
-			node.pre = null;
 			node.next = head;
 			head.pre = node;
 			head = node;
