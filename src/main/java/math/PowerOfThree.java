@@ -1,10 +1,5 @@
 package math;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
 public class PowerOfThree {
 
     private static final int MAX_POWER_OF_THREE = 1162261467;
@@ -53,17 +48,6 @@ public class PowerOfThree {
 
         System.out.println(obj.isPowerOfThreeLoop(10));
         System.out.println(obj.isPower3(Integer.MAX_VALUE));
-    }
-
-    @Test
-    public void test() {
-        assertFalse(isPower3(0));
-
-        assertTrue(isPower3(1));
-        assertTrue(isPower3(3));
-
-        assertFalse(isPower3(10));
-        assertFalse(isPower3(Integer.MAX_VALUE));
     }
 
 }
