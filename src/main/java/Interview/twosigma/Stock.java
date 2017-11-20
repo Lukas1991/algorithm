@@ -1,4 +1,4 @@
-package dp;
+package Interview.twosigma;
 
 public class Stock {
 	
@@ -64,8 +64,29 @@ public class Stock {
         
         return sellpre;
     }
-	
-	/**
+
+    /**
+     * 123. Best Time to Buy and Sell Stock III,最多买卖两次
+     * Time O(n), Space O(1)
+     */
+    public int maxProfit3Best(int[] prices) {
+        int buy1 = Integer.MIN_VALUE;  //the first buy1 is a negative, so buy1 set to MIN_VALUE
+        int buy2 = Integer.MIN_VALUE;
+
+        int sell1 = 0;
+        int sell2 = 0;
+        for (int price : prices) {                     // Assume we only have 0 money at first
+            sell2 = Math.max(sell2, buy2 + price);     // The maximum if we've just sold 2nd stock so far.
+            buy2 = Math.max(buy2, sell1 - price);      // The maximum if we've just buy  2nd stock so far.
+
+            sell1 = Math.max(sell1, buy1 + price);     // The maximum if we've just sold 1nd stock so far.
+            buy1 = Math.max(buy1, -price);             // The maximum if we've just buy  1st stock so far.
+        }
+
+        return sell2; ///Since sell1 is initiated as 0, so sell2 will always higher than sell1.
+    }
+
+    /**
 	 * 123. Best Time to Buy and Sell Stock III,最多买卖两次
 	 * buy[i] 第i天买，或i天之后买，后面在max时最后一次卖 buy[i] = max(max - price, buy[i+1]), 从后往前扫，更新max
 	 * sell[i] 第i天卖，或i天之前卖过，前面在min时第一次买 sell[i] = max(price - min, sell[i-1]), 从前往后扫，更新min

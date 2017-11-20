@@ -1,4 +1,4 @@
-package string;
+package twosigma;
 
 import static org.junit.Assert.assertEquals;
 
