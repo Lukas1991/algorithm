@@ -1,4 +1,4 @@
-package LinkedList;
+package Interview.twosigma;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +60,12 @@ public class LRUCache {
 		} else {
 			Node node = new Node(key, value);
 			if (map.size() == capacity) {
-				map.remove(end.key);
-				remove(end);
+				if (end == null) { //means capacity is 0
+					return;
+				} else {
+					map.remove(end.key);
+					remove(end);
+				}
 			}
 
 			addToHead(node);
