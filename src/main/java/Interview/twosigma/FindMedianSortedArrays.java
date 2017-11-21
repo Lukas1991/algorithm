@@ -1,4 +1,4 @@
-package array;
+package Interview.twosigma;
 
 public class FindMedianSortedArrays {
 
@@ -9,19 +9,19 @@ public class FindMedianSortedArrays {
 	 * The overall run time complexity should be O(log (m+n)).
 	 * Solution:
 	 * http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/
-	 * @param A
-	 * @param B
-	 * @return
 	 */
-	public static double findMedianSortedArrays(int A[], int B[]) {
+	public double findMedianSortedArrays(int A[], int B[]) {
 		int m = A.length;
 		int n = B.length;
+
+		if (m + n == 0) {
+			return 0.0;
+		}
 	 
 		if ((m + n) % 2 != 0) // odd
 			return (double) findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1);
 		else { // even
-			return (findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1) 
-				+ findKth(A, B, (m + n) / 2 - 1, 0, m - 1, 0, n - 1)) * 0.5;
+			return (findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1) + findKth(A, B, (m + n) / 2 - 1, 0, m - 1, 0, n - 1)) / 2.0;
 		}
 	}
 	
@@ -35,8 +35,7 @@ public class FindMedianSortedArrays {
 	 * A=[2,3,7]，再考虑一次A[aMid]，（以防A之前长度是偶数，那么A[aMid]在前半段）
 	 * 
 	 */
-	public static int findKth(int A[], int B[], int k, 
-			int aStart, int aEnd, int bStart, int bEnd) {
+	private int findKth(int A[], int B[], int k, int aStart, int aEnd, int bStart, int bEnd) {
 		 System.out.println("k: "+k+" aStart: "+aStart+" aEnd: "+aEnd+" bStart: "+bStart+" bEnd: "+bEnd);
 			int aLen = aEnd - aStart + 1;
 			int bLen = bEnd - bStart + 1;
@@ -62,7 +61,7 @@ public class FindMedianSortedArrays {
 				k = k - (bMid - bStart + 1);  //all B first part is smaller 
 				aEnd = aMid;  //remove a second part
 				bStart = bMid + 1; //remove b first part
-				// a second part, b first part, find a new Kth 
+				// a first part, b second part, find a new Kth
 				
 			} else {
 				System.out.println("A[aMid]: "+A[aMid]+ " <= B[bMid]: "+B[bMid]);
@@ -75,15 +74,14 @@ public class FindMedianSortedArrays {
 		}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		FindMedianSortedArrays obj = new FindMedianSortedArrays();
 		//int a[]={1,6,7,11,13};
 		//int b[]={2,3,4,5,11,15,16};
 		
 		int a[]={1,6,7,11,13,14,20};
 		int b[]={2,11,15,16,17,18,19,20};
 		
-		double result=findMedianSortedArrays(a,b);
+		double result = obj.findMedianSortedArrays(a,b);
 		System.out.println(result);
 		//{1,2,3,4,5,6,7,11,11,11,13,15}
 		
@@ -97,10 +95,56 @@ public class FindMedianSortedArrays {
 		
 		//int a[]={1,6,7,11,13};
 		//int b[]={2,11,15,16,17,18};
-		
-		
-		
-		
+
 	}
 
+
+	public double findMedianSortedArrays2(int[] A, int[] B) {
+		int m = A.length;
+		int n = B.length;
+		if (m > n) { // to ensure m<=n, swap(A,B)
+			int[] temp = A;
+			A = B;
+			B = temp;
+			int tmp = m;
+			m = n;
+			n = tmp;
+		}
+		int iMin = 0, iMax = m, halfLen = (m + n + 1) / 2;
+		while (iMin <= iMax) {
+			int i = (iMin + iMax) / 2;
+			int j = halfLen - i;
+
+			if (i < iMax && B[j - 1] > A[i]) {
+				iMin = iMin + 1; // i is too small
+			} else if (i > iMin && A[i - 1] > B[j]) {
+				iMax = iMax - 1; // i is too big
+			} else { // i is perfect
+				int maxLeft = 0;
+				if (i == 0) {
+					maxLeft = B[j - 1];
+				} else if (j == 0) {
+					maxLeft = A[i - 1];
+				} else {
+					maxLeft = Math.max(A[i - 1], B[j - 1]);
+				}
+
+				if ((m + n) % 2 == 1) {
+					return maxLeft;
+				}
+
+				int minRight = 0;
+				if (i == m) {
+					minRight = B[j];
+				} else if (j == n) {
+					minRight = A[i];
+				} else {
+					minRight = Math.min(B[j], A[i]);
+				}
+
+				return (maxLeft + minRight) / 2.0;
+			}
+		}
+		return 0.0;
+	}
 }
