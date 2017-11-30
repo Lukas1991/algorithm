@@ -14,8 +14,19 @@ public class Fridge {
 
     public Fridge() {
         map.put("apple", new QueueWrapper(apples, "apple", 5));
-        map.put("banana", new QueueWrapper(bananas, "banana", 5));
-        map.put("pear", new QueueWrapper(pears, "pear", 5));
+        map.put("banana", new QueueWrapper(bananas, "banana", 3));
+        map.put("pear", new QueueWrapper(pears, "pear", 2));
+    }
+
+    public static void main(String[] args) {
+        Fridge fridge = new Fridge();
+
+        new Thread(new FridgeConsumer("apple", fridge)).start();
+        new Thread(new FridgeConsumer("banana", fridge)).start();
+        new Thread(new FridgeConsumer("pear", fridge)).start();
+
+        new Thread(new FridgeProducer("p1", fridge)).start();
+        new Thread(new FridgeProducer("p2", fridge)).start();
     }
 }
 
@@ -43,26 +54,7 @@ class FridgeConsumer implements Runnable {
     @Override
     public void run() {
         while (true) {
-
-            Queue<Integer> preferenceQueue = fridge.map.get(preference).queue;
-            if (!preferenceQueue.isEmpty()) {
-                preferenceQueue.poll();
-            } else {
-
-                for (Map.Entry<String, QueueWrapper> entry : fridge.map.entrySet()) {
-                    if (entry.getKey().equals(preference)) {
-                        continue;
-                    }
-
-                    Queue<Integer> queue = entry.getValue().queue;
-                    if (!queue.isEmpty()) {
-                        queue.poll();
-                        break;
-                    }
-
-                }
-
-            }
+            consume();
 
             try {
                 Thread.sleep(300);
@@ -72,32 +64,61 @@ class FridgeConsumer implements Runnable {
         }
 
     }
+
+    private void consume() {
+        Queue<Integer> preferenceQueue = fridge.map.get(preference).queue;
+        if (!preferenceQueue.isEmpty()) {
+            preferenceQueue.poll();
+            System.err.println("consumer: " + preference + " eat " + preference);
+        } else {
+
+            for (Map.Entry<String, QueueWrapper> entry : fridge.map.entrySet()) {
+                if (entry.getKey().equals(preference)) {
+                    continue;
+                }
+
+                Queue<Integer> queue = entry.getValue().queue;
+                if (!queue.isEmpty()) {
+                    queue.poll();
+                    System.err.println("consumer: " + preference + " eat " + entry.getKey());
+                    break;
+                }
+
+            }
+        }
+    }
 }
 
 class FridgeProducer implements Runnable {
+    String producerName;
     Fridge fridge;
 
-    public FridgeProducer(Fridge fridge) {
+    public FridgeProducer(String producerName, Fridge fridge) {
+        this.producerName = producerName;
         this.fridge = fridge;
     }
 
     @Override
     public void run() {
         while (true) {
-
-            for (Map.Entry<String, QueueWrapper> entry : fridge.map.entrySet()) {
-                Queue<Integer> queue = entry.getValue().queue;
-
-                if (queue.size() < entry.getValue().max) {
-                    //buy
-                    queue.offer(1);
-                }
-            }
+            produce();
 
             try {
                 Thread.sleep(250);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private void produce() {
+        for (Map.Entry<String, QueueWrapper> entry : fridge.map.entrySet()) {
+            Queue<Integer> queue = entry.getValue().queue;
+
+            if (queue.size() < entry.getValue().max) {
+                //buy
+                queue.offer(1);
+                System.err.println("producer: " +  producerName + " buy " + entry.getKey());
             }
         }
     }
