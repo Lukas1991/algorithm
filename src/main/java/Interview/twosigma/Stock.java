@@ -144,7 +144,7 @@ public class Stock {
             int localMax = -prices[0];//0天买
             for (int j = 1; j < n; j++) {
                 dp[i][j] = Math.max(dp[i][j-1], prices[j] + localMax);//j天hold，或者j天卖
-                localMax = Math.max(localMax, dp[i-1][j-1] -prices[j]);//j天买，之前有i-1次交易
+                localMax = Math.max(localMax, dp[i-1][j-1] - prices[j]);//j天买，之前有i-1次交易
             }
         }
         
