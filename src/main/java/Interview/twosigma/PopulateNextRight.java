@@ -1,4 +1,4 @@
-package Tree;
+package Interview.twosigma;
 
 
 class TreeLinkNode {
@@ -15,20 +15,20 @@ public class PopulateNextRight {
      * level by level
      */
     public void connect1(TreeLinkNode root) {
-        if (root == null) {
-            return;
-        }
+        
         TreeLinkNode cur = root;  //first node of each level
 
         while (cur != null) {
-            TreeLinkNode head = cur.left;
+            TreeLinkNode head = cur.left;  //next level head
 
             while (cur != null) { //cur to the end of the level
-                cur.left.next = cur.right;
-                if (cur.next != null) {
-                    cur.right.next = cur.next.left;
-                }
-
+            		if (cur.left != null) {
+            			cur.left.next = cur.right;
+                    if (cur.next != null) {
+                        cur.right.next = cur.next.left;
+                    }
+            		}
+                
                 cur = cur.next;
             }
 
@@ -42,10 +42,7 @@ public class PopulateNextRight {
      * level by level
      */
     public void connect2(TreeLinkNode root) {
-        if (root == null) {
-            return;
-        }
-
+       
         TreeLinkNode cur = root; //current node of current level
 
         while (cur != null) {  //new level
