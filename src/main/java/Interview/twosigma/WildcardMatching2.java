@@ -1,8 +1,8 @@
 package Interview.twosigma;
 
 /**
- * '?' Matches single character 0-9 or A-Z.
- * '*' Matches at least 1 sequence of characters (do not include the empty sequence).
+ * '?' Matches single character 0-9.
+ * '*' Matches at least 1 sequence of characters 0-9 or A-Z (do not include the empty sequence).
  *
  */
 public class WildcardMatching2 {
