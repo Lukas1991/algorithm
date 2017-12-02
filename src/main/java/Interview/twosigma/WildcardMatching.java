@@ -1,4 +1,4 @@
-package string;
+package Interview.twosigma;
 
 /**
  * '?' Matches any single character.
@@ -15,7 +15,7 @@ public class WildcardMatching {
      * The basic idea is to have one pointer for the string and one pointer for the pattern.
      * for each iteration, at least one pointer advance one step.
      */
-    public static boolean isMatch(String s, String p) {
+    public boolean isMatch(String s, String p) {
         int i = 0;  //s index
         int j = 0;  //p index
         int starInP = -1;
@@ -50,6 +50,43 @@ public class WildcardMatching {
         return j == p.length();
     }
 
+    public boolean isMatchDPOptimize(String s, String p) {
+        int ls = s.length();
+        int lp = p.length();
+        
+        boolean[] pre = new boolean[lp+1];
+        pre[lp] = true;
+
+        //if p ends with *
+        for (int j = lp - 1; j >= 0; j--) {
+            if (p.charAt(j) == '*') {
+                pre[j] = true;
+            } else {
+                break;
+            }
+        }
+
+        for (int i = ls - 1; i>=0; i--) {
+        		boolean[] cur = new boolean[lp+1];
+        		
+            for (int j = lp - 1; j>=0; j--) {
+                if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?') {
+                		cur[j] = pre[j+1];
+                } else if (p.charAt(j) == '*') {
+                    //match * as 1 char || match * as empty
+                		cur[j] = pre[j] || cur[j+1];
+                } else {
+                		cur[j] = false;
+                }
+            }
+            
+            pre = cur;
+        }
+
+        return pre[0];
+    }
+    
+    //DP
     public boolean isMatchDP(String s, String p) {
         int ls = s.length();
         int lp = p.length();
@@ -57,7 +94,7 @@ public class WildcardMatching {
         dp[ls][lp] = true;
 
         //if p ends with *
-        for(int j = lp - 1; j >= 0; j--) {
+        for (int j = lp - 1; j >= 0; j--) {
             if (p.charAt(j) == '*') {
                 dp[ls][j] = true;
             } else {
@@ -85,7 +122,7 @@ public class WildcardMatching {
 //        System.err.println(isMatch("c", "*?*")); //true
 //        System.err.println(isMatch("aaaa", "***a")); //true
 //        System.err.println(isMatch("abed", "?b*d**"));  //true
-        System.err.println(isMatch("abcyc", "?b*c"));  //true
+        //System.err.println(isMatch("abcyc", "?b*c"));  //true
         //System.err.println(isMatch("geeksforgeeks", "g*for*eks"));
     }
 }
