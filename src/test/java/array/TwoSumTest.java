@@ -2,11 +2,8 @@ package array;
 
 import org.junit.Test;
 
-import heap.MedianFinder;
 
 public class TwoSumTest {
-
-	private MedianFinder medianFinder = new MedianFinder();
 
 	@Test
 	public void test() {
