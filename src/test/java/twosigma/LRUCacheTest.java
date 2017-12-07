@@ -1,6 +1,6 @@
 package twosigma;
 
-import Interview.twosigma.LRUCache;
+import LinkedList.LRUCache;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

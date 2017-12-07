@@ -1,4 +1,4 @@
-package Interview.twosigma;
+package dp;
 
 /**
  * '?' Matches single character 0-9.
@@ -93,10 +93,10 @@ public class WildcardMatching2 {
         dp[ls][lp] = true;
 
         for (int i = ls - 1; i>=0; i--) {
-        		char cs = s.charAt(i);
+			char cs = s.charAt(i);
         		
             for (int j = lp - 1; j>=0; j--) {
-            		char cp = p.charAt(j);           
+				char cp = p.charAt(j);
             		
                 if (cs == cp || (cp == '?' && Character.isDigit(cs))) {
                     dp[i][j] = dp[i+1][j+1];

@@ -1,7 +1,9 @@
 package twosigma;
 
-import Interview.twosigma.WildcardMatching2;
+import dp.WildcardMatching2;
 import org.junit.Test;
+
+import java.util.Random;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -59,5 +61,24 @@ public class WildcardMatching2Test {
 	public void testInvalidChar() {
 		assertFalse(matching.isMatchDP("a", "*"));
 		assertFalse(matching.isMatchDP("a", "?"));
+	}
+	
+	private String getRandomString() {
+		Random random = new Random();
+		int len = random.nextInt(6);
+		char[] arr = new char[len];
+		
+		String set = "0123456789abcdefghijklmnopqrstuvwxyz?*";
+		
+		for (int i = 0; i < len; i++) {
+			arr[i] = set.charAt(random.nextInt(set.length()));
+		}
+		
+		return new String(arr);
+	}
+	
+	@Test
+	public void testRandom() {
+		System.out.println(getRandomString());
 	}
 }

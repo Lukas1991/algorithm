@@ -1,9 +1,9 @@
 package twosigma;
 
-import static org.junit.Assert.assertEquals;
-
-import Interview.twosigma.FindMedianSortedArrays;
+import array.FindMedianSortedArrays;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class FindMedianSortedArraysTest {
 

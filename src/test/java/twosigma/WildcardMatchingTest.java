@@ -1,6 +1,6 @@
 package twosigma;
 
-import Interview.twosigma.WildcardMatching;
+import dp.WildcardMatching;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

@@ -1,9 +1,9 @@
 package twosigma;
 
-import static org.junit.Assert.assertEquals;
-
-import Interview.twosigma.Stock;
+import dp.Stock;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class StockTest {
 
