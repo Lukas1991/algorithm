@@ -1,4 +1,4 @@
-package Interview.twosigma;
+package dp;
 
 public class Stock {
 	

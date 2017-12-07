@@ -1,4 +1,4 @@
-package Interview.twosigma;
+package array;
 
 public class FindMedianSortedArrays {
 

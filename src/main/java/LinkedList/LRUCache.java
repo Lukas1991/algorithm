@@ -1,4 +1,4 @@
-package Interview.twosigma;
+package LinkedList;
 
 import java.util.HashMap;
 import java.util.Map;
