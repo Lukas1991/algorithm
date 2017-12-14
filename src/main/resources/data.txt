@@ -1,0 +1,61 @@
+    10	Regular Expression Matching	24.3%	Hard
+	76	Minimum Window Substring	26.2%	Hard
+	291	Word Pattern II 	38.1%	Hard
+	297	Serialize and Deserialize Binary Tree	34.1%	Hard
+	146	LRU Cache	18.9%	Hard
+	432	All O`one Data Structure	28.1%	Hard
+	262	Trips and Users	18.3%	Hard
+	699	Falling Squares	37.1%	Hard
+	37	Sudoku Solver	31.2%	Hard
+	140	Word Break II	24.0%	Hard
+	23	Merge k Sorted Lists	27.8%	Hard
+
+
+	39	Combination Sum	40.1%	Medium
+	17	Letter Combinations of a Phone Number	35.5%	Medium
+	49	Group Anagrams	36.7%	Medium
+	648	Replace Words	47.4%	Medium
+	249	Group Shifted Strings 	42.9%	Medium
+	22	Generate Parentheses	46.6%	Medium
+	54	Spiral Matrix	26.7%	Medium
+	133	Clone Graph	25.2%	Medium
+	534	Design TinyURL	0.0%	Medium
+	8	String to Integer (atoi)	13.9%	Medium
+	535	Encode and Decode TinyURL	74.1%	Medium
+	636	Exclusive Time of Functions	44.0%	Medium
+	450	Delete Node in a BST	37.2%	Medium
+	208	Implement Trie (Prefix Tree)	29.7%	Medium
+	186	Reverse Words in a String II 	28.0%	Medium
+	139	Word Break	30.9%	Medium
+	254	Factor Combinations 	43.5%	Medium
+	380	Insert Delete GetRandom O(1)	39.5%	Medium
+	138	Copy List with Random Pointer	26.0%	Medium
+	36	Valid Sudoku	36.7%	Medium
+	207	Course Schedule	33.0%	Medium
+	230	Kth Smallest Element in a BST	44.6%	Medium
+	33	Search in Rotated Sorted Array	32.1%	Medium
+	516	Longest Palindromic Subsequence	42.6%	Medium
+	91	Decode Ways	20.1%	Medium
+	78	Subsets	42.8%	Medium
+	337	House Robber III	44.1%	Medium
+	161	One Edit Distance 	31.6%	Medium
+	373	Find K Pairs with Smallest Sums	31.0%	Medium
+	692	Top K Frequent Words	40.8%	Medium
+	24	Swap Nodes in Pairs	38.7%	Medium
+	735	Asteroid Collision	36.7%	Medium
+
+
+	202	Happy Number	41.1%	Easy
+	155	Min Stack	29.9%	Easy
+	121	Best Time to Buy and Sell Stock	42.2%	Easy
+	125	Valid Palindrome	26.6%	Easy
+	242	Valid Anagram	47.0%	Easy
+	266	Palindrome Permutation 	57.6%	Easy
+	206	Reverse Linked List	46.2%	Easy
+	104	Maximum Depth of Binary Tree	53.5%	Easy
+	171	Excel Sheet Column Number	47.8%	Easy
+	1	Two Sum	36.4%	Easy
+	690	Employee Importance	52.6%	Easy
+	13	Roman to Integer	47.0%	Easy
+	290	Word Pattern	33.2%	Easy
+	733	Flood Fill	49.3%	Easy
