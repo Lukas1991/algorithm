@@ -264,8 +264,11 @@ var items = [
         "id": 337,
         "title": "House Robber III",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "从上往下递归，每个点算偷这个点的钱 include，和不偷这个点的钱 exclude\n"
+                       + "不改变TreeNode结构的话，就返回int[2], res[0] = include, res[1]=exlude \n"
+                       + "每个点 include = left exclude + right exclude + this.val \n"
+                       + "exclude = max(left include, left exclude) + max(right include, right exclude)",
     },
     {
         "id": 161,
@@ -300,7 +303,8 @@ var items = [
         "title": "Asteroid Collision",
         "difficulty": "Medium",
         "done": 1,
-        "description": "use stack",
+        "description": "从左往右扫，左边扫完地放stack里，右边新元素跟stack.peek() 比较。\n"
+                       + "只有stack.peek>0 (向右移) && 新元素<0（向左移）才有可能碰撞",
     },
     {
         "id": 202,

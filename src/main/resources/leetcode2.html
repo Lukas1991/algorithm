@@ -25,7 +25,7 @@
     <template id="item-template">
         <li class="item">
             <label class="item-done">
-                <input type="radio" name="radio">
+                <input type="checkbox" name="radio">
                 <span class="checkmark"></span>
             </label>
             <div class="item-id"></div>
@@ -54,15 +54,24 @@
     }
 
     function showNotDone() {
-        var newItemArray = [];
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.done === 0) {
-                newItemArray.push(item);
-            }
-        }
+        var itemsList = document.getElementById('itemsList');
 
-        show(newItemArray);
+        // for (var i = 0; i < items.length; i++) {
+        //     var item = items[i];
+        //     var tmpl = document.getElementById('item-template').content.cloneNode(true);
+        //
+        //     tmpl.querySelector('.item-id').innerText = item.id;
+        //     tmpl.querySelector('.item-title').innerText = item.title;
+        //
+        //     tmpl.querySelector('.item-difficulty').classList.add(item.difficulty);
+        //     tmpl.querySelector('.item-difficulty').innerText = item.difficulty;
+        //
+        //     tmpl.querySelector('.item-description').innerText = item.description;
+        //
+        //     tmpl.querySelector('.item-done').firstElementChild.checked = item.done;
+        //
+        //     itemsList.appendChild(tmpl);
+        // }
     }
 
     function showAll() {
