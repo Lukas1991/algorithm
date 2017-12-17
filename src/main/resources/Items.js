@@ -103,8 +103,8 @@ var items = [
         "id": 648,
         "title": "Replace Words",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "Trie 存所有的root"
     },
     {
         "id": 249,
@@ -288,8 +288,8 @@ var items = [
         "id": 692,
         "title": "Top K Frequent Words",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "map存word count，minHeap存前k个most frequency word"
     },
     {
         "id": 24,
