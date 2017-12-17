@@ -11,66 +11,63 @@ public class ReplaceWord {
 
 	public String replaceWords(List<String> dict, String sentence) {
 		root = new TrieNode();
-		for (String s : dict) {
-			addWord(s);
+		for (String word: dict) {
+			addWord(word);
 		}
 
-		String[] arr = sentence.split(" ");
+		String[] arr = sentence.split("\\s");
+
 		for (int i = 0; i < arr.length; i++) {
-			String word = arr[i];
-			int index = findPrefix(word);
-			if (index != -1) {
-				String sub = word.substring(0, index);
-				arr[i] = sub;
+			String str = arr[i];
+			String prefix = getPrefix(str);
+			if (prefix != null) {
+				arr[i] = prefix;
 			}
 		}
 
 		return String.join(" ", arr);
 	}
 
-	// return -1 if word does't have a root.
-	// return end index when find the root
-	private int findPrefix(String word) {
-		TrieNode curr = root;
-		for (int i = 0; i < word.length(); i++) {
-			char c = word.charAt(i);
-			if (curr.children.containsKey(c)) {
-				TrieNode node = curr.children.get(c);
-				if (node.isEnd) {
-					return i + 1;
-				} else {
-					curr = node;
-				}
 
-			} else {
-				return -1;
+	//return the prefix return null if word does't have a root.
+	private String getPrefix(String str) {
+		TrieNode current = root;
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if (!current.children.containsKey(c)) {
+				return null;
+			}
+
+			current = current.children.get(c);
+			if (current.word != null) {
+				return current.word;
 			}
 		}
 
-		return -1;
+		return null;
 	}
 
-	/** Adds a word into the data structure. */
-	public void addWord(String word) {
-		TrieNode curr = root;
+	private void addWord(String word) {
+		TrieNode current = root;
+
 		for (int i = 0; i < word.length(); i++) {
 			char c = word.charAt(i);
-			if (!curr.children.containsKey(c)) {
-				curr.children.put(c, new TrieNode());
+			if (!current.children.containsKey(c)) {
+				current.children.put(c, new TrieNode());
 			}
 
-			curr = curr.children.get(c);
+			current = current.children.get(c);
 		}
 
-		curr.isEnd = true;
+		current.word = word;
 	}
 
 	class TrieNode {
-		boolean isEnd;
+		String word;
 		Map<Character, TrieNode> children;
 
 		public TrieNode() {
-			this.children = new HashMap<>();
+			children = new HashMap<>();
 		}
 	}
 

@@ -9,10 +9,7 @@ public class PathSumIII {
 
     public int pathSum(TreeNode root, int sum) {
         if (root == null) return 0;
-        int count = pathSumStartWith(root, sum);
-
-        count = count + pathSum(root.left, sum) + pathSum(root.right, sum);
-        return count;
+        return pathSumStartWith(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
     }
 
     public int pathSumStartWith(TreeNode root, int sum) {
