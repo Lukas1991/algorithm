@@ -2,17 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Leetcode</title>
     <link rel="stylesheet" href="leetcode.css">
 </head>
 
-<script type="text/javascript" src="Items.js"></script>
+<script type="text/javascript" src="Uber.js"></script>
 
 <body>
 
 <div>
-    <div id="company-name"></div>
-    <div id="company-total"></div>
+    <div class="company-header">
+        <div id="company-name" class="company-name"></div>
+        <div id="company-total" class="company-total"></div>
+        <div id="done-total" class="done-total"></div>
+    </div>
+
 
     <label class="switch">
         <input id="showNotDone" type="checkbox" onclick="onToogleSwitch()">
@@ -31,6 +34,10 @@
             <div class="item-id"></div>
             <div class="item-title"></div>
             <div class="item-difficulty"></div>
+            <div class="item-again">
+                <input type="checkbox" name="radio">
+            </div>
+
             <div class="item-description"></div>
         </li>
     </template>
@@ -39,6 +46,7 @@
 
 <script>
     console.log(company, items);
+    document.title = company;
     showAll();
 
     document.getElementById('company-name').innerHTML = company;
@@ -91,8 +99,8 @@
     }
 
     function show(items) {
+        var doneCount = 0;
         var itemsList = document.getElementById('itemsList');
-        console.log(itemsList.childElementCount);
 
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
@@ -105,11 +113,17 @@
             tmpl.querySelector('.item-difficulty').innerText = item.difficulty;
 
             tmpl.querySelector('.item-description').innerText = item.description;
-
+            tmpl.querySelector('.item-again').firstElementChild.checked = item.again;
             tmpl.querySelector('.item-done').firstElementChild.checked = item.done;
+
+            if (item.done === 1) {
+                doneCount++;
+            }
 
             itemsList.appendChild(tmpl);
         }
+
+        document.getElementById('done-total').innerHTML = "Done: " + doneCount;
     }
 </script>
 

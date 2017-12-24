@@ -159,8 +159,11 @@ var items = [
         "id": 636,
         "title": "Exclusive Time of Functions",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "stack 存之前剩下的fid, 记录上一个开始时间preime\n" +
+                       "如果新遇到log是start, stack.peek的时间加上time - preTime, preTime = time\n" +
+                       "如果新遇到log是end, stack.peek的时间加上time - preTime + 1, preTime = time + 1 (因为time是end time)",
     },
     {
         "id": 450,
@@ -201,8 +204,9 @@ var items = [
         "id": 380,
         "title": "Insert Delete GetRandom O(1)",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "ArrayList, and Map -(key is number, value is its index in array).\n"
+                       + "When Insert, add to list end. When remove, move the number to list end, remove from end.",
     },
     {
         "id": 138,
@@ -243,8 +247,11 @@ var items = [
         "id": 516,
         "title": "Longest Palindromic Subsequence",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "dp[i][j]: the longest palindromic subsequence's length of substring(i, j)\n"
+                       + "dp[i][j] = dp[i+1][j-1] + 2 if s.charAt(i) == s.charAt(j)\n"
+                       + "otherwise, dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])",
     },
     {
         "id": 91,

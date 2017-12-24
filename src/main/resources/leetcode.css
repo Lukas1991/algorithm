@@ -1,12 +1,29 @@
+.company-header {
+    display: table;
+    width: 100%;
+}
+
+.company-name, .company-total, .done-total {
+    display: table-cell;
+    height: 50px;
+    width: 20%;
+    font-size: larger;
+}
+
 .item {
     display:table;
     width: 100%;
 }
-.item-id, .item-title, .item-description {
+.item-id, .item-title, .item-description, .item-again {
     height: 50px;
     display:table-cell;
 }
 .item-done {
+    width: 20px;
+    color: red;
+    padding: 0px;
+}
+.item-again {
     width: 20px;
     color: red;
     padding: 0px;
