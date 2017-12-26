@@ -96,8 +96,9 @@ var items = [
         "id": 49,
         "title": "Group Anagrams",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "方法1, map key=sort string, 时间复杂度O(NKlogK), K是string平均长度\n"
+                       + "方法2, count string里面char出现次数， count = int[26], map key=Arrays.toString(count), O(NK)",
     },
     {
         "id": 648,
@@ -108,10 +109,10 @@ var items = [
     },
     {
         "id": 249,
-        "title": "Group Shifted Strings ",
+        "title": "Group Shifted Strings",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "每个string shift to fisrt char is a, 作为key, 存入map",
     },
     {
         "id": 22,
@@ -176,15 +177,16 @@ var items = [
         "id": 208,
         "title": "Implement Trie (Prefix Tree)",
         "difficulty": "Medium",
-        "done": 0,
+        "done": 1,
         "description": "",
     },
     {
         "id": 186,
         "title": "Reverse Words in a String II ",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "1 reverse entire string. 2, reverse each word. 3 reverse last word",
     },
     {
         "id": 139,
@@ -197,8 +199,11 @@ var items = [
         "id": 254,
         "title": "Factor Combinations ",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "Backtracking方法, getFactors(n, start, tmp list, result list).\n"
+                       + "i从start到n, if(n%i == 0), getFactors(n/i, start=i, tmp, result)\n"
+                       + "初始start=2, 终止条件n=1. 注意只有tmp size > 1才放入result list, 以避免放入n本身",
     },
     {
         "id": 380,
@@ -212,7 +217,8 @@ var items = [
         "id": 138,
         "title": "Copy List with Random Pointer",
         "difficulty": "Medium",
-        "done": 0,
+        "done": 1,
+        "again": 1,
         "description": "",
     },
     {
@@ -281,15 +287,17 @@ var items = [
         "id": 161,
         "title": "One Edit Distance ",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "找到第一个不同的char，比较两个string的长度，有三种可能，1 replace, 2 delete char from s, 3 detele char from t ",
     },
     {
         "id": 373,
         "title": "Find K Pairs with Smallest Sums",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "minHeap 放Pair(i:nums1 index, j:nums2 index, sum), nums1[0] 跟nums2各个组成的Pair 放进minHeap\n"
+                       + "每拿出一个min pair, 把nums1[i+1], nums2[j]组成的Pair 放入minHeap",
     },
     {
         "id": 692,
