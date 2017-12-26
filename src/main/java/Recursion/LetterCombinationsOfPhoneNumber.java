@@ -1,61 +1,68 @@
 package Recursion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LetterCombinationsOfPhoneNumber {
 
-	/**construct a dictionary to hold allowed characters for each digit
-	 * from string last index N to 0, get listN-1, list.add(listN-1.get(i)+characters)
-	 * when index is 0, list.add(characters)
+	/**
+	 * Construct a dictionary to hold allowed characters for each digit
 	 */
-	public ArrayList<String> letterCombinations(String digits) { 
-		
+	public List<String> letterCombinations(String digits) {
+		if(digits == null || digits.length()==0) return new ArrayList<>();
+
 		String[] dic = {"","","abc","def","ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-		if(digits == null || digits.length()==0) return new ArrayList<String>();
-		
-		return letterCombinations(digits, digits.length()-1, dic);
-		
-		
-	}
-	
-	public ArrayList<String> letterCombinations(String digits, int index, String[] dic) { 
-		
-		ArrayList<String> list = new ArrayList<String>();
-		//base case
-		if(index == 0){
-			int number = digits.charAt(0) - '0';
-			char[] chars = dic[number].toCharArray();			
-			for(char c:chars){
-				list.add(String.valueOf(c));
-				System.out.println(String.valueOf(c));
-			}
-			
-		}else{
-			
-			int number = digits.charAt(index) - '0';	
-			char[] chars = dic[number].toCharArray();
-			ArrayList<String> preList = letterCombinations(digits, index-1, dic);
-						
-			for(char c:chars){				
-				for(int i=0;i<preList.size();i++){
-					String str = preList.get(i);					
-					list.add(str+c);
-					System.out.println(str+c);
+
+		List<String> res = new ArrayList<>();
+		res.add("");
+
+		for (int i = 0; i < digits.length(); i++) {
+			char c = digits.charAt(i);
+			int number = c - '0';
+			String string = dic[number];
+
+			List<String> res2 = new ArrayList<>();
+			for (int j = 0; j < string.length(); j++) {
+				for (String pre : res) {
+					res2.add(pre + string.charAt(j));
 				}
-				
 			}
-			
+			res = res2;
 		}
 
-		return list;
+		return res;
+	}
+
+	public List<String> letterCombinationsDFS(String digits) {
+		if(digits == null || digits.length()==0) return new ArrayList<>();
+
+		String[] dic = {"","","abc","def","ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+		List<String> res = new ArrayList<>();
+
+		helper(dic, digits, 0, "", res);
+		return res;
+	}
+
+	private void helper(String[] dic, String digits, int start, String tmp, List<String> res) {
+		if (start == digits.length()) {
+			res.add(tmp);
+		} else {
+			char c = digits.charAt(start);
+			int number = c - '0';
+			String string = dic[number];
+
+			for (int j = 0; j < string.length(); j++) {
+				helper(dic, digits, start+1, tmp + string.charAt(j), res);
+			}
+		}
 	}
 	
-	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		String digits = "22";
+		String digits = "23";
 		LetterCombinationsOfPhoneNumber obj = new LetterCombinationsOfPhoneNumber();
-		obj.letterCombinations(digits);
+		List<String> res = obj.letterCombinations(digits);
+		System.err.println(res.toString());
 	}
 
 }

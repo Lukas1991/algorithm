@@ -89,8 +89,8 @@ var items = [
         "id": 17,
         "title": "Letter Combinations of a Phone Number",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "两种方法，Iterative 和 DFS",
     },
     {
         "id": 49,
@@ -132,8 +132,9 @@ var items = [
         "id": 133,
         "title": "Clone Graph",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "Map, Queue. clone过的点都放map里, 如果遇到之前clone过的，不用再放queue里",
     },
     {
         "id": 534,
