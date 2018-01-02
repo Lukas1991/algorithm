@@ -240,8 +240,9 @@ var items = [
         "id": 230,
         "title": "Kth Smallest Element in a BST",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "In order travser the tree",
     },
     {
         "id": 33,
