@@ -82,8 +82,8 @@ var items = [
         "id": 39,
         "title": "Combination Sum",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "BackTracking",
     },
     {
         "id": 17,
@@ -265,8 +265,10 @@ var items = [
         "id": 91,
         "title": "Decode Ways",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "dp, 1. s.charAt(i) == 0, dp[i] = 0\n"
+                       + "2. s.substring(i, i+2) <= 26, dp[i] = dp[i+1] + dp[i+2]\n"
+                       + "3. dp[i] = dp[i+1]",
     },
     {
         "id": 78,
