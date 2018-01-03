@@ -118,8 +118,10 @@ var items = [
         "id": 22,
         "title": "Generate Parentheses",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "BackTracking, helper(String tmp, left, right, n, res)\n"
+                        + "if (left < n) helper(tmp + (, left+1, right, n, res)\n"
+                        + "if (left > right) helper(tmp + ), left, right+1, n, res)",
     },
     {
         "id": 54,
@@ -226,8 +228,10 @@ var items = [
         "id": 36,
         "title": "Valid Sudoku",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "boolean[][] rows = new boolean[9][9],\n" +
+                        "boolean[][] cols, boolean[][] blocks\n" +
+                        "blockIndex = i/3 * 3 + j/3",
     },
     {
         "id": 207,
@@ -274,8 +278,8 @@ var items = [
         "id": 78,
         "title": "Subsets",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "BackTracking, helper(int[] nums, List<List<Integer>> res, List<Integer> tmp, int start)",
     },
     {
         "id": 337,
@@ -314,8 +318,8 @@ var items = [
         "id": 24,
         "title": "Swap Nodes in Pairs",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "dummyHead, prepre, pre, cur",
     },
     {
         "id": 735,
