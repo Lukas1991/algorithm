@@ -127,8 +127,8 @@ var items = [
         "id": 54,
         "title": "Spiral Matrix",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "4个变量，rowStart, rowEnd, colStart, colEnd",
     },
     {
         "id": 133,
