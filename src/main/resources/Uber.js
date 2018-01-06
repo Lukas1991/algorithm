@@ -156,8 +156,8 @@ var items = [
         "id": 535,
         "title": "Encode and Decode TinyURL",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "Map, key is tinyUrl, tinyUrl is generated randomly",
     },
     {
         "id": 636,
@@ -173,8 +173,13 @@ var items = [
         "id": 450,
         "title": "Delete Node in a BST",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "Once the node is found, have to handle the below 4 cases\n"
+                       + "     * 1. node doesn’t have left or right - return null\n"
+                       + "     * 2. node only has left subtree - return the left subtree\n"
+                       + "     * 3. node only has right subtree - return the right subtree\n"
+                       + "     * 4. node has both left and right - find the minimum value in the right subtree, set that value to the currently found node, then recursively delete the minimum value in the right subtree",
     },
     {
         "id": 208,
@@ -237,8 +242,10 @@ var items = [
         "id": 207,
         "title": "Course Schedule",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "1, create count[] array and unlockMap\n"
+                       + "2, count[i] == 0, queue.offer(i)\n"
+                       + "3. while queue not empty, queue poll, unlockMap.get, count[j]--, count[j] == 0, queue.offer(j)",
     },
     {
         "id": 230,
@@ -252,8 +259,10 @@ var items = [
         "id": 33,
         "title": "Search in Rotated Sorted Array",
         "difficulty": "Medium",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "二分find smallest index in array, 就是数组rotate了多少. \n"
+                       + "realMid = (mid + rotate) % size, 根据nums[realMid]移动 e = mid - 1/s = mid + 1",
     },
     {
         "id": 516,
