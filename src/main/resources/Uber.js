@@ -75,8 +75,8 @@ var items = [
         "id": 23,
         "title": "Merge k Sorted Lists",
         "difficulty": "Hard",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "minHeap 存K个list head",
     },
     {
         "id": 39,

@@ -13,29 +13,30 @@ public class MergeKSortedList {
         }
 
         // accending order:
-        PriorityQueue<ListNode> pq = new PriorityQueue<>(lists.length, (o1, o2) -> o1.val - o2.val);
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(lists.length, (o1, o2) -> o1.val - o2.val);
 
         // QUEUE doesn't allow null
         for (ListNode list : lists) {
             if (list != null) {
-                pq.offer(list);
+                minHeap.offer(list);
             }
         }
 
-        ListNode head = new ListNode(0);
-        ListNode current = head;
+        ListNode dummyHead = new ListNode(0);
+        ListNode current = dummyHead;
 
-        while (!pq.isEmpty()) {
+        while (!minHeap.isEmpty()) {
             // get smallest ListNode in the queue
-            ListNode temp = pq.poll();
+            ListNode temp = minHeap.poll();
             current.next = temp;
-            current = current.next;
+
             if (temp.next != null) {
-                pq.offer(temp.next);
+                minHeap.offer(temp.next);
             }
+            current = current.next;
         }
 
-        return head.next;
+        return dummyHead.next;
     }
 
 }
