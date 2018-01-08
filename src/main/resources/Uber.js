@@ -19,8 +19,9 @@ var items = [
         "id": 291,
         "title": "Word Pattern II ",
         "difficulty": "Hard",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "BackTracking",
     },
     {
         "id": 297,
@@ -427,8 +428,8 @@ var items = [
         "id": 290,
         "title": "Word Pattern",
         "difficulty": "Easy",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "description": "Map, key is char, value is string",
     },
     {
         "id": 733,

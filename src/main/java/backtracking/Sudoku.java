@@ -1,4 +1,4 @@
-package array;
+package backtracking;
 
 public class Sudoku {
 
