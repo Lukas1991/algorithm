@@ -61,8 +61,9 @@ var items = [
         "id": 37,
         "title": "Sudoku Solver",
         "difficulty": "Hard",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "Backtracking. For each blank cell, try 1-9. 如果试的数字is valid, 那么继续solve, 不然试下一个数",
     },
     {
         "id": 140,
