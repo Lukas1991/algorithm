@@ -12,8 +12,10 @@ var items = [
         "id": 76,
         "title": "Minimum Window Substring",
         "difficulty": "Hard",
-        "done": 0,
-        "description": "",
+        "done": 1,
+        "again": 1,
+        "description": "左右两指针，count. 先移动右指针，count判断是否第一次收集到全部char\n" +
+                        "再移动左指针，直到count[left char] == set[left char], 计算substring长度",
     },
     {
         "id": 291,
@@ -64,7 +66,9 @@ var items = [
         "difficulty": "Hard",
         "done": 1,
         "again": 1,
-        "description": "Backtracking. For each blank cell, try 1-9. 如果试的数字is valid, 那么继续solve, 不然试下一个数",
+        "description": "Backtracking. For each blank cell, try 1-9. 如果试的数字is valid, 那么继续solve, 不然试下一个数\n" +
+                        "blockRowStart = (row / 3) * 3; blockColStart = (col / 3) * 3; \n" +
+                        "if (board[blockRowStart + i / 3][blockColStart + i % 3] == c) ",
     },
     {
         "id": 140,

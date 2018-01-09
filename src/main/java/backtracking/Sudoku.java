@@ -73,12 +73,12 @@ public class Sudoku {
 	}
 
 	private boolean isValid(char[][] board, int row, int col, char c) {
-		int blkrow = (row / 3) * 3;
-		int	blkcol = (col / 3) * 3;
+		int blockRowStart = (row / 3) * 3;
+		int	blockColStart = (col / 3) * 3;
 		for (int i = 0; i < 9; i++) {
 			if (board[row][i] == c) return false;
 			if (board[i][col] == c) return false;
-			if (board[blkrow + i / 3][blkcol + i % 3] == c)  return false;
+			if (board[blockRowStart + i / 3][blockColStart + i % 3] == c)  return false;
 		}
 
 		return true;

@@ -3,9 +3,7 @@ package string;
 public class MinimumWindowSubstring {
 
     public String minWindow(String S, String T) {
-        if (S.length() == 0) return "";
         String result = "";
-
 
         int[] set = new int[256];
         for (int i = 0; i < T.length(); i++) {
@@ -14,9 +12,10 @@ public class MinimumWindowSubstring {
 
         int[] tmp = new int[256];
         int count = 0;
-        int left = 0, right = 0, minSize = Integer.MAX_VALUE;
+        int left = 0;
+        int minSize = Integer.MAX_VALUE;
 
-        for (right = 0; right < S.length(); right++) {
+        for (int right = 0; right < S.length(); right++) {
             //T doesn't contain
             if (set[S.charAt(right)] == 0) continue;
 
@@ -37,13 +36,13 @@ public class MinimumWindowSubstring {
 
                 int winSize = right - left + 1;
                 if (winSize < minSize) {
-                    result = S.substring(left, right+1);
+                    result = S.substring(left, right + 1);
                     minSize = winSize;
                 }
             }
         }
 
-     return result;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -51,6 +50,6 @@ public class MinimumWindowSubstring {
         String s = "ADOBECODEBANC";
         String t = "ABC";
 
-        System.err.println(min.minWindow(s, t));
+        System.err.println(min.minWindow("aa", "aa"));
     }
 }
