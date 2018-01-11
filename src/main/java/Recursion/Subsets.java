@@ -62,7 +62,7 @@ public class Subsets {
 
     public static void main(String[] args) {
         Subsets obj = new Subsets();
-        int[] nums = {5, 5, 5};
+        int[] nums = {1, 2, 2};
         List<List<Integer>> res = obj.subsetsWithDup(nums);
 
         for (List<Integer> list : res) {

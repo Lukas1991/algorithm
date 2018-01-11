@@ -1,0 +1,84 @@
+42	Trapping Rain Water	37.4%	Hard
+675	Cut Off Trees for Golf Event	27.0%	Hard
+711	Number of Distinct Islands II 	42.0%	Hard
+239	Sliding Window Maximum	33.9%	Hard
+460	LFU Cache	24.8%	Hard
+297	Serialize and Deserialize Binary Tree	34.3%	Hard
+23	Merge k Sorted Lists	27.9%	Hard
+126	Word Ladder II	14.6%	Hard
+517	Super Washing Machines	36.5%	Hard
+146	LRU Cache	19.1%	Hard
+579	Find Cumulative Salary of an Employee 	27.2%	Hard
+17	Letter Combinations of a Phone Number	35.7%	Medium
+138	Copy List with Random Pointer	26.0%	Medium
+238	Product of Array Except Self	50.1%	Medium
+200	Number of Islands	36.0%	Medium
+127	Word Ladder	19.8%	Medium
+2	Add Two Numbers	28.3%	Medium
+380	Insert Delete GetRandom O(1)	39.7%	Medium
+449	Serialize and Deserialize BST	42.6%	Medium
+240	Search a 2D Matrix II	39.0%	Medium
+98	Validate Binary Search Tree	23.9%	Medium
+49	Group Anagrams	37.1%	Medium
+139	Word Break	31.0%	Medium
+215	Kth Largest Element in an Array	40.1%	Medium
+236	Lowest Common Ancestor of a Binary Tree	29.9%	Medium
+3	Longest Substring Without Repeating Characters	24.6%	Medium
+5	Longest Palindromic Substring	25.2%	Medium
+725	Split Linked List in Parts	48.3%	Medium
+48	Rotate Image	40.5%	Medium
+692	Top K Frequent Words	41.5%	Medium
+186	Reverse Words in a String II 	28.4%	Medium
+529	Minesweeper	49.7%	Medium
+102	Binary Tree Level Order Traversal	41.5%	Medium
+15	3Sum	21.8%	Medium
+78	Subsets	43.3%	Medium
+535	Encode and Decode TinyURL	74.0%	Medium
+545	Boundary of Binary Tree 	32.2%	Medium
+73	Set Matrix Zeroes	36.3%	Medium
+516	Longest Palindromic Subsequence	42.8%	Medium
+199	Binary Tree Right Side View	42.0%	Medium
+8	String to Integer (atoi)	13.9%	Medium
+451	Sort Characters By Frequency	51.4%	Medium
+508	Most Frequent Subtree Sum	52.3%	Medium
+89	Gray Code	42.0%	Medium
+355	Design Twitter	25.8%	Medium
+553	Optimal Division	55.1%	Medium
+536	Construct Binary Tree from String 	42.9%	Medium
+534	Design TinyURL	0.0%	Medium
+537	Complex Number Multiplication	63.9%	Medium
+662	Maximum Width of Binary Tree	38.1%	Medium
+663	Equal Tree Partition 	36.5%	Medium
+640	Solve the Equation	39.0%	Medium
+694	Number of Distinct Islands 	45.2%	Medium
+646	Maximum Length of Pair Chain	47.5%	Medium
+742	Closest Leaf in a Binary Tree 	32.7%	Medium
+396	Rotate Function	33.6%	Medium
+738	Monotone Increasing Digits	41.8%	Medium
+121	Best Time to Buy and Sell Stock	42.4%	Easy
+204	Count Primes	26.6%	Easy
+155	Min Stack	30.2%	Easy
+538	Convert BST to Greater Tree	49.0%	Easy
+414	Third Maximum Number	28.0%	Easy
+189	Rotate Array	25.1%	Easy
+167	Two Sum II - Input array is sorted	47.2%	Easy
+532	K-diff Pairs in an Array	28.2%	Easy
+119	Pascal's Triangle II	37.7%	Easy
+606	Construct String from Binary Tree	49.8%	Easy
+387	First Unique Character in a String	47.2%	Easy
+1	Two Sum	36.7%	Easy
+617	Merge Two Binary Trees	67.7%	Easy
+21	Merge Two Sorted Lists	39.9%	Easy
+682	Baseball Game	58.6%	Easy
+661	Image Smoother	46.1%	Easy
+20	Valid Parentheses	33.8%	Easy
+206	Reverse Linked List	46.4%	Easy
+160	Intersection of Two Linked Lists	30.9%	Easy
+645	Set Mismatch	40.0%	Easy
+438	Find All Anagrams in a String	34.0%	Easy
+459	Repeated Substring Pattern	38.2%	Easy
+235	Lowest Common Ancestor of a Binary Search Tree	39.6%	Easy
+234	Palindrome Linked List	33.3%	Easy
+242	Valid Anagram	47.1%	Easy
+746	Min Cost Climbing Stairs	44.7%	Easy
+141	Linked List Cycle	35.2%	Easy

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="leetcode.css">
+</head>
+
+<script type="text/javascript" src="Amazon.js"></script>
+
+<body>
+
+<div>
+    <div class="company-header">
+        <div id="company-name" class="company-name"></div>
+        <div id="company-total" class="company-total"></div>
+        <div id="done-total" class="done-total"></div>
+    </div>
+
+
+    <label class="switch">
+        <input id="showNotDone" type="checkbox" onclick="onToogleSwitch()">
+        <span class="slider round"></span>
+    </label>
+</div>
+
+
+<div id="itemsList">
+    <template id="item-template">
+        <li class="item">
+            <label class="item-done">
+                <input type="checkbox" name="radio">
+                <span class="checkmark"></span>
+            </label>
+            <div class="item-id"></div>
+            <div class="item-title"></div>
+            <div class="item-difficulty"></div>
+            <div class="item-again">
+                <input type="checkbox" name="radio">
+            </div>
+
+            <div class="item-description"></div>
+        </li>
+    </template>
+</div>
+
+
+<script>
+    console.log(company, items);
+    document.title = company;
+    showAll();
+
+    document.getElementById('company-name').innerHTML = company;
+    document.getElementById('company-total').innerHTML = "Total: " + items.length;
+
+    function onToogleSwitch() {
+        var checkBox = document.getElementById("showNotDone");
+        if (checkBox.checked == true) {
+            showNotDone();
+        } else {
+            showAll();
+        }
+    }
+
+    function showNotDone() {
+        var itemsList = document.getElementById('itemsList');
+
+        // for (var i = 0; i < items.length; i++) {
+        //     var item = items[i];
+        //     var tmpl = document.getElementById('item-template').content.cloneNode(true);
+        //
+        //     tmpl.querySelector('.item-id').innerText = item.id;
+        //     tmpl.querySelector('.item-title').innerText = item.title;
+        //
+        //     tmpl.querySelector('.item-difficulty').classList.add(item.difficulty);
+        //     tmpl.querySelector('.item-difficulty').innerText = item.difficulty;
+        //
+        //     tmpl.querySelector('.item-description').innerText = item.description;
+        //
+        //     tmpl.querySelector('.item-done').firstElementChild.checked = item.done;
+        //
+        //     itemsList.appendChild(tmpl);
+        // }
+    }
+
+    function showAll() {
+        items.sort(function (b, a) {
+            var a1 = a.difficulty.toLowerCase();
+            var b1 = b.difficulty.toLowerCase();
+            if (a1 < b1) {
+                return -1;
+            } else if (a1 > b1) {
+                return 1;
+            } else {
+                return a.id - b.id;
+            }
+        });
+
+        show(items);
+    }
+
+    function show(items) {
+        var doneCount = 0;
+        var itemsList = document.getElementById('itemsList');
+
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var tmpl = document.getElementById('item-template').content.cloneNode(true);
+
+            tmpl.querySelector('.item-id').innerText = item.id;
+            tmpl.querySelector('.item-title').innerText = item.title;
+
+            tmpl.querySelector('.item-difficulty').classList.add(item.difficulty);
+            tmpl.querySelector('.item-difficulty').innerText = item.difficulty;
+
+            tmpl.querySelector('.item-description').innerText = item.description;
+            tmpl.querySelector('.item-again').firstElementChild.checked = item.again;
+            tmpl.querySelector('.item-done').firstElementChild.checked = item.done;
+
+            if (item.done === 1) {
+                doneCount++;
+            }
+
+            itemsList.appendChild(tmpl);
+        }
+
+        document.getElementById('done-total').innerHTML = "Done: " + doneCount;
+    }
+</script>
+
+</body>
+
+</html>
