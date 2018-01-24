@@ -1,5 +1,4 @@
-package SortAndSearch;
-
+package twoPointer;
 
 public class SortColors {
 
