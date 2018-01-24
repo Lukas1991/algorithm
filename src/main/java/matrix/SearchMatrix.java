@@ -8,7 +8,7 @@ public class SearchMatrix {
 	 * [10, 11, 16, 20],
 	 * [23, 30, 34, 50]]
 	 *
-	 * Binary Search - O(log(mn))
+	 * Binary Search - O(log(mn)) = O(logm + logn)
      */
 	public boolean searchMatrix(int[][] matrix, int target) {
 		if (matrix == null || matrix.length == 0) return false;
@@ -59,6 +59,41 @@ public class SearchMatrix {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * searches for a value in an m x n matrix, return the occurrence of it.
+	 *
+	 * Integers in each row are sorted from left to right.
+	 * Integers in each column are sorted from up to bottom.
+	 * No duplicate integers in each row or column.
+	 *
+	 * Search the matrix from top right corner - O(m+n)
+	 */
+	public int searchMatrix22(int[][] matrix, int target) {
+		if (matrix == null || matrix.length == 0)   return 0;
+
+		int rows = matrix.length;
+		int cols = matrix[0].length;
+
+		int row = 0;
+		int col = cols - 1;
+
+		int count = 0;
+		while (row < rows && col >= 0) {
+			int val = matrix[row][col];
+			if (val == target) {
+				count++;
+				col--;
+				row++;
+			} else if (val > target) {
+				col--;
+			} else {
+				row++;
+			}
+		}
+
+		return count;
 	}
 
 	public static void main(String[] args) {

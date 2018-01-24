@@ -38,7 +38,6 @@ public class QuickSort {
         }
 
         return arr;
-
     }
 
     private int partition(int[] arr, int start, int end) {
