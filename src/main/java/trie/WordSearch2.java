@@ -35,9 +35,7 @@ public class WordSearch2 {
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
-				if (root.children.containsKey(board[i][j])) {
-					dfs(board, i, j, root, res);
-				}
+                dfs(board, i, j, root, res);
 			}
 		}
 		
@@ -45,7 +43,8 @@ public class WordSearch2 {
     }
 	
 	private void dfs(char[][] board, int i, int j, TrieNode node, List<String> res) {
-		if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] == '*') {
+
+        if (i < 0 || j < 0 || i >= board.length || j >= board[0].length || board[i][j] == '*') {
 			return;
 		}
 		
@@ -53,14 +52,14 @@ public class WordSearch2 {
 		
 		if (node.children.containsKey(c)) {
 			TrieNode next = node.children.get(c);
-			
+
             if (next.word != null) { //found one word
                 res.add(next.word);
                 next.word = null;  //mark as null to avoid duplicates
                 //do not return; //continue dfs because words may contain "oath", "oathx", some words with same prefix, and prefix is also a word
             }
-            
-			board[i][j] = '*'; //mark as visited
+
+            board[i][j] = '*'; //mark as visited
 			
 			dfs(board, i-1, j, next, res);
 			dfs(board, i+1, j, next, res);
@@ -68,10 +67,7 @@ public class WordSearch2 {
 			dfs(board, i, j+1, next, res);
 			
 			board[i][j] = c;
-		} else {
-			return;
 		}
-		
 	}
 	
 	public void addWord(String word) {
