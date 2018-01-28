@@ -1,23 +1,11 @@
 package Graph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
 public class CloneGraph {
-
-    class UndirectedGraphNode {
-        int label;
-        List<UndirectedGraphNode> neighbors;
-
-        UndirectedGraphNode(int x) {
-            label = x;
-            neighbors = new ArrayList<>();
-        }
-    }
 
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null) {
