@@ -6,8 +6,9 @@ import java.util.PriorityQueue;
 
 /**
  * PriorityQueue implementation provides O(log(n)) time for the enqueing and dequeing methods (offer, poll);
- * linear time for the remove(Object) and contains(Object) methods;
- * and constant time for the retrieval methods (peek,  element, and size).
+ * O(n) for the remove(Object) and contains(Object) methods;
+ *
+ * O(n * k)
  */
 public class MedianSlidingWindow {
 
