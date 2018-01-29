@@ -22,7 +22,11 @@ public class MaximalRectangle {
                 }
             }
         }
-        
+
+//        for (int i = 0; i<rows; i++) {
+//            System.err.println(Arrays.toString(heights[i]));
+//        }
+
         int max = 0;
         for (int i = 0; i<rows; i++) {
             int[] hs = heights[i];
@@ -34,6 +38,15 @@ public class MaximalRectangle {
     }
 	
 	public static void main(String[] args) {
+        MaximalRectangle obj = new MaximalRectangle();
+        char[][] matrix = {
+            {'1', '0', '1', '0', '0'},
+            {'1', '0', '1', '1', '1'},
+            {'1', '1', '1', '1', '1'},
+            {'1', '0', '0', '1', '0'}
+        };
+
+        obj.maximalRectangle(matrix);
 	}
 
 }

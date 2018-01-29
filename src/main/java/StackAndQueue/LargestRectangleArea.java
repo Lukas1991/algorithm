@@ -7,6 +7,8 @@ public class LargestRectangleArea {
 	/**
 	 * 84. Largest Rectangle in Histogram
 	 * Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+     * stack里放递增序列的index
+     * 遇到第一个递减序列, 把stack里比它大的都pop, 边pop计算pop出来的可以构成的面积
 	 */
 	 public static int largestRectangleArea(int[] heights) {
 	        //stack keep indexes
@@ -27,7 +29,7 @@ public class LargestRectangleArea {
 	                    int width = stack.isEmpty() ? i : i - stack.peek() - 1;
 	                    int area = heights[topIndex] * width;
 	                    max = Math.max(max, area);
-	                    System.err.println("height= " + heights[topIndex] + " width= " + width + " current index height: " + heights[i]);
+                        //System.err.println("height= " + heights[topIndex] + " width= " + width + " current index height: " + heights[i]);
 	                }
 	                stack.push(i);
 	            }
