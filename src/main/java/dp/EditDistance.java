@@ -14,7 +14,7 @@ package dp;
 public class EditDistance {
 
     /**
-     * dp[i][j]表示 以i-1,j-1结尾的substring, min steps to convert from word1 sub to word2 sub
+     * dp[i][j]表示 表示A的前i个字符match B的前j个字符的min step. 以i-1,j-1结尾的substring, min steps to convert from word1 sub to word2 sub
      * return dp[word1 len][word2 len]
      */
     public int minDistance(String word1, String word2) {
