@@ -31,4 +31,26 @@ public class CoinChange {
             return dp[amount];
         }
     }
+
+    /**
+     * Coin Change 2, 多少种取法
+     * You are given coins of different denominations and a total amount of money.
+     * Write a function to compute the number of combinations that make up that amount.
+     * You may assume that you have infinite number of each kind of coin.
+     */
+    public int change(int amount, int[] coins) {
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;
+
+        //注意内外层顺序
+        for (int j = 0; j < coins.length; j++) {
+            for (int i = coins[j]; i <= amount; i++) {
+                if (i - coins[j] >= 0) {
+                    dp[i] += dp[i - coins[j]];
+                }
+            }
+        }
+
+        return dp[amount];
+    }
 }
