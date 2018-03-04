@@ -46,29 +46,32 @@ public class FindMinInRotatedArray {
      * 反正面试考的不是你在这个题上会不会用二分法。这个题的考点是你想不想得到最坏情况。
      */
     public int findMinDuplicate(int[] nums) {
-        int start = 0;
-        int end = nums.length - 1;
-
-        //the only difference!
-        while (nums[end] == nums[start] && start < end) {
-            end--;
+        if (nums == null || nums.length == 0) {
+            return -1;
         }
 
-        while (start < end) {
-            if (nums[start] < nums[end]) {
-                return nums[start];
+        int start = 0, end = nums.length - 1;
+        //跟变化的nums[end]比
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == nums[end]) {
+                // if mid equals to end, that means it's fine to remove end
+                // the smallest element won't be removed
+                end--;
+            } else if (nums[mid] > nums[end]) {
+                start = mid;
             } else {
-                int mid = (start + end) / 2;
-                //注意有等于，例如[2,1]
-                if (nums[start] <= nums[mid]) {
-                    start = mid + 1;
-                } else {
-                    end = mid;
-                }
+                end = mid;
             }
         }
 
-        return nums[start];
+        //有等号
+        if (nums[start] <= nums[end]) {
+            return nums[start];
+        } else {
+            return nums[end];
+        }
     }
 
     //O(n)
