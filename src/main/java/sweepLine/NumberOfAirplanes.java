@@ -1,8 +1,9 @@
-package array;
+package sweepLine;
+
+import tools.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
-import tools.Interval;
 
 /**
  * Given an interval list which are flying and landing time of the flight. How many airplanes are on the sky at most?
