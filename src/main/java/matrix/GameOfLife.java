@@ -57,6 +57,161 @@ public class GameOfLife {
         return count;
     }
 
+    int[] table;
+
+    //9个点，用9个bit表示9个live or die， max value is 111,111,111 = 511, min value is 0, so the size is 512(= 2^9).
+    public void createLookupTable() {
+        table = new int[512];
+        for (int i = 0; i < 512; i++) {
+            int lives = Integer.bitCount(i);
+            int me = (i & 16) > 0 ? 1 : 0; //n4
+
+            if (lives == 3 || (lives == 4 && me == 1)) { //lives可能包括n4他自己
+                table[i] = 1;
+            }
+        }
+    }
+
+    /**
+     * n8, n5, n2, a
+     * n7, n4, n1, b
+     * n6, n3, n0, c
+     * 每次读一行，保留前两行，总共存3行. 新的值，存入buffer里，buffer保留最近两行的值
+     * 每次新读一行，(用newline, preLine, prepreLine的current state)计算前一行preLine的next state。计算完prepreline的current state无用了，替换prepreline的值为next state
+     */
+    public void gameOfLifeReadLineByLine(int[][] board) {
+        if (board.length == 0 || board[0].length == 0) {
+            return;
+        }
+
+        createLookupTable();
+
+        int m = board.length;
+        int n = board[0].length;
+
+        int[][] buffer = new int[2][n];
+
+        int[] prepreLine = null;
+        int[] preLine = readLine(board, 0);
+        int[] newLine;
+
+        int i = 1; //line number
+
+        do {
+            newLine = readLine(board, i);
+
+            int env = addRightCol(0, 0, prepreLine, preLine, newLine);
+
+            for (int j = 0; j < n; j++) {
+                env = (env % 64) * 8; //之前的右边两列左移
+
+                if (j + 1 < n) {
+                    env = addRightCol(env, j + 1, prepreLine, preLine, newLine);
+                }
+
+                buffer[(i + 1) % 2][j] = table[env];
+            }
+
+            //save the next state for prepreLine
+            if (prepreLine != null) {
+                for (int j = 0; j < n; j++) {
+                    prepreLine[j] = buffer[i % 2][j];
+                }
+            }
+
+            prepreLine = preLine;
+            preLine = newLine;
+            i++;
+
+        } while (newLine != null);
+
+        //save the next state for prepreLine, which is the last line
+        if (prepreLine != null) {
+            for (int j = 0; j < n; j++) {
+                prepreLine[j] = buffer[i % 2][j];
+            }
+        }
+
+    }
+
+    int[] readLine(int[][] board, int line) {
+        if (line < board.length) {
+            return board[line];
+        } else {
+            return null;
+        }
+    }
+
+    int addRightCol(int env, int newCol, int[] prepreLine, int[] preLine, int[] newLine) {
+        //加上右边的第三列
+        if (prepreLine != null && prepreLine[newCol] == 1) {
+            env += 4;
+        }
+
+        if (preLine[newCol] == 1) {
+            env += 2;
+        }
+
+        if (newLine != null && newLine[newCol] == 1) {
+            env += 1;
+        }
+
+        return env;
+    }
+
+    //可以把board全读进memory的时候
+    public void gameOfLife2(int[][] board) {
+        if (board.length == 0 || board[0].length == 0) {
+            return;
+        }
+
+        createLookupTable();
+
+        int m = board.length;
+        int n = board[0].length;
+
+        int[][] buffer = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            int env = 0;
+            if (i - 1 >= 0 && board[i - 1][0] == 1) {
+                env += 4;
+            }
+
+            if (board[i][0] == 1) {
+                env += 2;
+            }
+
+            if (i + 1 < m && board[i + 1][0] == 1) {
+                env += 1;
+            }
+
+            for (int j = 0; j < n; j++) {
+                env = (env % 64) * 8; //之前的右边两列左移
+                //加上右边的第三列
+                if (i - 1 >= 0 && j + 1 < n && board[i - 1][j + 1] == 1) {
+                    env += 4;
+                }
+
+                if (j + 1 < n && board[i][j + 1] == 1) {
+                    env += 2;
+                }
+
+                if (i + 1 < m && j + 1 < n && board[i + 1][j + 1] == 1) {
+                    env += 1;
+                }
+
+                buffer[i][j] = table[env];
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] = buffer[i][j];
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
 

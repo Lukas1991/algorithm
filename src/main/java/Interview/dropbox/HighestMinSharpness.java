@@ -179,6 +179,15 @@ public class HighestMinSharpness {
         System.err.println(obj.highestMinVal3(grid2)); //2
     }
 //读三行，算中间哪行的dp, 方法是错的！
+    /**
+     * For a very large board we could rotate the board clockwise by 90 degrees. Then process line by line.
+     To analyze the rotate strategy let's simplify the board to N*N. If we read a row and write to N rows
+     we have N disk seeks for reads and N*N disk seeks for writes. If we read a col and write to a row we
+     have N*N disk seeks for read and N disk seeks for write. We could balance the two. Say the mem can
+     fit K*K cells. We could read K rows of length K then rotate in mem then write to K rows of length K.
+     For this operation we have K disk seeks for read and K disk seeks for write. There are `N*N/(K*K)`
+     blocks so in total we have `N*N/K` disk seeks for read and `N*N/K` disk seeks for write.
+     */
 
 // Follow up:
 //如果图片是1million*1million的怎么办，整张图片读不进内存，我答说dp结构可以改成一维的，然后每次只读一列。小哥说每次读一列的第一个字符非常耗时，因为要不断的跳读指针，
