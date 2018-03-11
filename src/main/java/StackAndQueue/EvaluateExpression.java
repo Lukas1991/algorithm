@@ -3,6 +3,7 @@ package StackAndQueue;
 import java.util.Stack;
 
 /**
+ * Basic Calculator 3.
  * Given an expression string array, return the final result of this expression.
  * The expression contains integer, +, -, *, /, (, ).
  */
@@ -12,16 +13,18 @@ public class EvaluateExpression {
      * Use two stacks, value stack and op stack
      *
      * if meet a number, push to values
-     * if meet an operator, if ops.peek() has higher or same preference, calculate the ops in the stacks, and then push it.
+     * if meet an operator, if the operator has lower or same precedence than ops.peek(), calculate the ops in the stacks, and then push it.
      * if (, push
      * if ), calculate the ops in the stacks until meet (
      *
-     * In the end, check if stack is empty
+     * In the end, check if stack is empty.
+     *
+     * Use Long for values to avoid integer overflow, like 0-2147483648
      */
     public int evaluate(String expression) {
         char[] arr = expression.toCharArray();
 
-        Stack<Integer> values = new Stack<>();
+        Stack<Long> values = new Stack<>();
         Stack<Character> ops = new Stack<>();
 
         for (int i = 0; i < arr.length; i++) {
@@ -36,13 +39,13 @@ public class EvaluateExpression {
                     value += arr[i];
                 }
 
-                values.push(Integer.valueOf(value));
+                values.push(Long.valueOf(value));
             } else if (c == '(') {
                 ops.push(c);
             } else if (c == ')') {
 
                 while (ops.peek() != '(') {
-                    int newValue = cal(ops.pop(), values.pop(), values.pop());
+                    long newValue = cal(ops.pop(), values.pop(), values.pop());
                     values.push(newValue);
                 }
 
@@ -51,8 +54,8 @@ public class EvaluateExpression {
             } else if (isOp(c)) {
 
                 //if c is + or -, and top of ops is * or /
-                while (!ops.isEmpty() && hasHigherOrSamePreference(c, ops.peek())) {
-                    int newValue = cal(ops.pop(), values.pop(), values.pop());
+                while (!ops.isEmpty() && lowerOrSamePrecedence(c, ops.peek())) {
+                    long newValue = cal(ops.pop(), values.pop(), values.pop());
                     values.push(newValue);
                 }
 
@@ -62,18 +65,18 @@ public class EvaluateExpression {
 
         // ops stack contains + or -
         while (!ops.isEmpty()) {
-            int newValue = cal(ops.pop(), values.pop(), values.pop());
+            long newValue = cal(ops.pop(), values.pop(), values.pop());
             values.push(newValue);
         }
 
         if (values.isEmpty()) {
             return 0;
         } else {
-            return values.pop();
+            return values.pop().intValue();
         }
     }
 
-    private int cal(char c, int b, int a) {
+    private long cal(char c, long b, long a) {
         switch (c) {
             case '+':
                 return a + b;
@@ -95,28 +98,29 @@ public class EvaluateExpression {
         return c == '*' || c == '/' || c == '+' || c == '-';
     }
 
-    //op2 is at the top of stack, return true if op2 has higher or same preference. otherwise return false
-    private boolean hasHigherOrSamePreference(char op1, char op2) {
-        if ((op2 == '*' || op2 == '/') && (op1 == '+' || op1 == '-')) {
-            return true;
-        } else if ((op2 == '*' || op2 == '/') && (op1 == '*' || op1 == '/')) {
-            return true;
-        } else if ((op2 == '+' || op2 == '-') && (op1 == '+' || op1 == '-')) {
-            return true;
-        } else {
+    //op1 is the op to push in the stack.
+    //if op1 is Precedence lower than opOnStack, or has same
+    private boolean lowerOrSamePrecedence(char op1, char opOnStack) {
+//        if ((opOnStack == '*' || opOnStack == '/') && (op1 == '+' || op1 == '-')) {
+//            return true;
+//        } else if ((opOnStack == '*' || opOnStack == '/') && (op1 == '*' || op1 == '/')) {
+//            return true;
+//        } else if ((opOnStack == '+' || opOnStack == '-') && (op1 == '+' || op1 == '-')) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+
+        //same logic as above
+        if (opOnStack == '(' || opOnStack == ')') {
             return false;
         }
 
-        //same logic as above
-//        if (op2 == '(' || op2 == ')') {
-//            return false;
-//        }
-//
-//        if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) {
-//            return false;
-//        } else {
-//            return true;
-//        }
+        if ((op1 == '*' || op1 == '/') && (opOnStack == '+' || opOnStack == '-')) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static void main(String[] args) {
@@ -127,7 +131,9 @@ public class EvaluateExpression {
         res = obj.evaluate("2 * 6 - ((2 + 3) * 7 - 2) / (1+2)"); //1
         System.err.println(res);
 
-        res = obj.evaluate("(999/3/3/3) + (1+9/3)"); //1
+        res = obj.evaluate("(999/3/3/3) + (1+9/3)"); //41
         System.err.println(res);
+
+        System.err.println(obj.evaluate("0-2147483648"));
     }
 }
