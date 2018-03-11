@@ -39,12 +39,12 @@ public class HasAccess {
 
     /**
      * /A
-     * |____/B
-     * |____/C  <--access
-     * |____/D
-     * |____/E  <--access
-     * |____/F
-     * |____/G
+     * _|____/B
+     * ____|____/C  <--access
+     * ____|____/D
+     * _|____/E  <--access
+     * ____|____/F
+     * _______|____/G
      */
     public static void main(String[] args) {
         HasAccess obj = new HasAccess();
