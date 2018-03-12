@@ -11,6 +11,8 @@ import java.util.Set;
  * get: Provide a number which is not assigned to anyone.
  * check: Check if a number is available or not.
  * release: Recycle or release a number.
+ *
+ * queue + HashSet, O(1) time, O(n) space
  */
 public class PhoneDirectory {
 
