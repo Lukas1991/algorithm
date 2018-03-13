@@ -10,21 +10,18 @@ public class HitCounter3 {
     int N;
     int[] counts;
     int sum;
-
-    int lastIndex;
     int lastTime;
 
     public HitCounter3() {
         N = 300;
         counts = new int[N];
-        lastIndex = 0;
         lastTime = 0;
         sum = 0;
     }
 
     public void hit(int timestamp) {
         moveIndex(timestamp);
-        counts[lastIndex]++;
+        counts[timestamp % N]++;
         sum++;
     }
 
@@ -37,10 +34,12 @@ public class HitCounter3 {
     void moveIndex(int timestamp) {
         int gap = Math.min(timestamp - lastTime, N);
 
+        int index = lastTime % N;
+
         for (int i = 0; i < gap; i++) {
-            lastIndex = (lastIndex + 1) % N; //move index 1 step
-            sum -= counts[lastIndex];
-            counts[lastIndex] = 0; //clear cell
+            index = (index + 1) % N; //move index 1 step
+            sum -= counts[index];
+            counts[index] = 0; //clear cell
         }
 
         lastTime = timestamp;
@@ -50,9 +49,14 @@ public class HitCounter3 {
         HitCounter3 obj = new HitCounter3();
         obj.hit(1);
         obj.hit(2);
-        obj.hit(2);
         obj.hit(3);
+        obj.hit(3);
+        System.err.println(obj.getHits(3)); //4
+        System.err.println(obj.getHits(4)); //4
 
-        System.err.println(obj.getHits(200)); //4
+        obj.hit(300);
+
+        System.err.println(obj.getHits(300)); //5
+        System.err.println(obj.getHits(301)); //4
     }
 }
