@@ -1,6 +1,8 @@
 package Interview.dropbox;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -187,6 +189,15 @@ public class StrStr {
         }
 
         return true;
+    }
+
+    void StringToBytes() throws IOException {
+        String source = "Valid Sudoku";
+
+        InputStream is = new ByteArrayInputStream(source.getBytes());
+        byte[] buffer = new byte[1024];
+
+        is.read(buffer);
     }
 
     public static void main(String[] args) throws IOException {

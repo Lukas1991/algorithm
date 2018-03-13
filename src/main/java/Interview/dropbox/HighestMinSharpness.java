@@ -43,9 +43,6 @@ public class HighestMinSharpness {
                         max = Math.max(max, dp[x][c - 1]);
                     }
                 }
-//                for(int x = Math.max(0, r-1); x <= Math.min(rows-1, r+1); x++) {
-//                    max = Math.max(max, dp[x][c-1]);
-//                }
 
                 // update the highest min value on current position
                 dp[r][c] = Math.min(max, grid[r][c]); //注意是grid[r][c]
@@ -94,10 +91,6 @@ public class HighestMinSharpness {
 
                 dp[r][c % 2] = Math.min(max, grid[r][c]); //!!!
             }
-        }
-
-        for (int[] arr : dp) {
-            System.err.println(Arrays.toString(arr));
         }
 
         int res = 0;
@@ -178,15 +171,17 @@ public class HighestMinSharpness {
         System.err.println(obj.highestMinVal2(grid2));//2
         System.err.println(obj.highestMinVal3(grid2)); //2
     }
-//读三行，算中间哪行的dp, 方法是错的！
+
     /**
+     * Follow up:
      * For a very large board we could rotate the board clockwise by 90 degrees. Then process line by line.
-     To analyze the rotate strategy let's simplify the board to N*N. If we read a row and write to N rows
-     we have N disk seeks for reads and N*N disk seeks for writes. If we read a col and write to a row we
-     have N*N disk seeks for read and N disk seeks for write. We could balance the two. Say the mem can
-     fit K*K cells. We could read K rows of length K then rotate in mem then write to K rows of length K.
-     For this operation we have K disk seeks for read and K disk seeks for write. There are `N*N/(K*K)`
-     blocks so in total we have `N*N/K` disk seeks for read and `N*N/K` disk seeks for write.
+     To analyze the rotate strategy let's simplify the board to N*N.
+     If we read a row and write to a col (N rows), we have N disk seeks for reads and N*N disk seeks for writes.
+     If we read a col(N rows) and write to a row, we have N*N disk seeks for read and N disk seeks for write.
+
+     We could balance the two. Say the memory can fit K*K cells. We could read K rows of length K then rotate in memory then write to K rows of length K.
+     For this operation we have K disk seeks for read and K disk seeks for write. There are `N*N/(K*K)` blocks.
+     so in total we have `N*N/K` disk seeks for read and `N*N/K` disk seeks for write.
      */
 
 // Follow up:
@@ -196,5 +191,5 @@ public class HighestMinSharpness {
 //然后小哥就说还可以再优化，他说这有一个balance，读行输出列，写文件就很耗时，读列输出行，读文件就很耗时（主要问题是 写指针或读指针跳转到下一行 所带来的时间消耗），
 //结果是每次根据内存大小读一个接近正方形的矩形，将他们写到新文件，再读下一块矩形。这样的话，读写指针跳转次数就最小了。
 
-
+//读三行，算中间哪行的dp, 方法是错的！
 }
