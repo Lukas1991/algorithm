@@ -69,7 +69,7 @@ public class WordBreak {
 
 
     /**
-     * Use a cache.
+     * Use a cache. 记忆划搜索
      * Time complexity : O(n^3). Size of recursion tree can go up to n^2. The creation of list takes n time.
      * Space complexity : O(n^3). size of map can go up to n, and each value can contains a string list of size n.
      *
