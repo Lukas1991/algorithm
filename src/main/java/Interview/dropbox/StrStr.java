@@ -1,10 +1,10 @@
 package Interview.dropbox;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 //* / % same level of precedence
@@ -101,7 +101,7 @@ public class StrStr {
     }
 
     //If file is too large, read N bytes every time to a buffer
-    public boolean matchFileTooLarge(byte[] target) throws IOException {
+    public boolean matchFileTooLarge(String filePath, byte[] target) throws IOException {
         int m = target.length;
         int targetHash = 0;
         for (int i = 0; i < m; i++) {
@@ -117,14 +117,18 @@ public class StrStr {
         int hash = 0;
         int read;
 
-        byte[] preBuffer = new byte[m]; //size=target length
-        int N = 1000;
+        int N = 1024;//N > m
         byte[] buffer = new byte[N];
+        byte[] preBuffer = new byte[N]; //size can also be m. have to shift last m bytes in buffer to preBuffer
+        int readTimes = 0;
 
+        FileInputStream inputStream = new FileInputStream(filePath);
         do {
-            read = readN(buffer, N);
 
-            for (int i = 0; i < buffer.length; i++) {
+            read = inputStream.read(buffer);
+            readTimes++;
+
+            for (int i = 0; i < Math.min(buffer.length, read); i++) {
                 hash = (hash * 31 + buffer[i]) % BASE;
 
                 if (i - m >= 0) {
@@ -139,14 +143,14 @@ public class StrStr {
                         }
                     }
 
-                } else {
-                    hash = hash - preBuffer[i] * power % BASE;
+                } else if (readTimes > 1) {
+                    hash = hash - preBuffer[N - m + i] * power % BASE;
                     if (hash < 0) {
                         hash += BASE;
                     }
 
                     if (hash == targetHash) {
-                        if (compare(preBuffer, target, i + 1, m - 1, 0, m - i - 2) &&
+                        if (compare(preBuffer, target, N - m + i + 1, N - 1, 0, m - i - 2) &&
                                 compare(buffer, target, 0, i, m - i - 1, m - 1)) {
                             return true;
                         }
@@ -154,21 +158,11 @@ public class StrStr {
                 }
             }
 
-            //shift last m bytes to preBuffer
-            for (int k = 0; k < m; k++) {
-                preBuffer[k] = buffer[N - m + k];
-            }
+            preBuffer = buffer.clone();
 
         } while (read != -1);
 
         return false;
-    }
-
-    //Return the number of characters read, or -1 if the end of the has reached
-    //buffer Destination buffer
-    //len   Maximum number of characters to read
-    int readN(byte[] buffer, int len) {
-        return 1000;//-1 if end
     }
 
     boolean compare(byte[] source, byte[] target, int sStart, int sEnd, int tStart, int tEnd) {
@@ -202,13 +196,17 @@ public class StrStr {
 
     public static void main(String[] args) throws IOException {
         StrStr obj = new StrStr();
+        //String target = "Regular Expression Matching";
         String target = "Valid Sudoku";
 
-        Path path = Paths.get("/Users/chuyu/gitRepo/algorithm/src/main/resources/data.txt");
-        byte[] source = Files.readAllBytes(path);
+        String filePath = "/Users/chuyu/gitRepo/algorithm/src/main/resources/data.txt";
+
+        byte[] source = Files.readAllBytes(Paths.get(filePath));
 
         boolean match = obj.match(target.getBytes(), source);
+        System.err.println(match);
 
+        match = obj.matchFileTooLarge(filePath, target.getBytes());
         System.err.println(match);
     }
 }
