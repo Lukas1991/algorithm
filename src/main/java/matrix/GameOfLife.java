@@ -32,7 +32,7 @@ public class GameOfLife {
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                board[i][j] = (board[i][j] & 2) >> 1;
+                board[i][j] = board[i][j] >> 1;
             }
         }
 
@@ -171,33 +171,15 @@ public class GameOfLife {
         int n = board[0].length;
 
         int[][] buffer = new int[m][n];
+
         for (int i = 0; i < m; i++) {
-            int env = 0;
-            if (i - 1 >= 0 && board[i - 1][0] == 1) {
-                env += 4;
-            }
-
-            if (board[i][0] == 1) {
-                env += 2;
-            }
-
-            if (i + 1 < m && board[i + 1][0] == 1) {
-                env += 1;
-            }
+            int env = addRightThree(0, 0, i, board);
 
             for (int j = 0; j < n; j++) {
                 env = (env % 64) * 8; //之前的右边两列左移
                 //加上右边的第三列
-                if (i - 1 >= 0 && j + 1 < n && board[i - 1][j + 1] == 1) {
-                    env += 4;
-                }
-
-                if (j + 1 < n && board[i][j + 1] == 1) {
-                    env += 2;
-                }
-
-                if (i + 1 < m && j + 1 < n && board[i + 1][j + 1] == 1) {
-                    env += 1;
+                if (j + 1 < n) {
+                    env = addRightThree(env, j + 1, i, board);
                 }
 
                 buffer[i][j] = table[env];
@@ -211,6 +193,21 @@ public class GameOfLife {
         }
     }
 
+    int addRightThree(int env, int newCol, int i, int[][] board) {
+        if (i - 1 >= 0 && board[i - 1][newCol] == 1) {
+            env += 4;
+        }
+
+        if (board[i][newCol] == 1) {
+            env += 2;
+        }
+
+        if (i + 1 < board.length && board[i + 1][newCol] == 1) {
+            env += 1;
+        }
+
+        return env;
+    }
 
     public static void main(String[] args) {
         GameOfLife gameOfLife = new GameOfLife();
