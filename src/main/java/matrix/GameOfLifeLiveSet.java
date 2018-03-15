@@ -12,19 +12,28 @@ import java.util.Set;
 // I/O API: int[] readLine(), void writeLine(int[] array)
 public class GameOfLifeLiveSet {
 
-    int[] readLine() {
-        return new int[200];
+    int[] readLine(int[][] board, int l) {
+        if (l < board.length) {
+            return board[l];
+        } else {
+            return null;
+        }
     }
 
-    void writeLine(int[] array) {
-
+    void writeLine(int[][] board, int[] array, int l) {
+        board[l] = array;
     }
 
-    public void gameOfLife() {
+    public void gameOfLife(int[][] board) {
+        if (board == null || board.length == 0 || board[0].length == 0) {
+            return;
+        }
         int[] prev = null, cur = null, next = null;
         int[] pointer = null;
 
-        while ((pointer = readLine()) != null) {
+        int rl = 0;
+        int wl = 0;
+        while ((pointer = readLine(board, rl++)) != null) {
             if (cur == null) {
                 cur = pointer;
                 continue;
@@ -40,14 +49,14 @@ public class GameOfLifeLiveSet {
                 tmpBoard[0] = cur.clone();
                 tmpBoard[1] = next.clone();
                 int[][] nextStateBoard = updateBoard(tmpBoard);
-                writeLine(nextStateBoard[0]);
+                writeLine(board, nextStateBoard[0], wl++);
             } else {
                 int[][] tmpBoard = new int[3][];
                 tmpBoard[0] = prev.clone();
                 tmpBoard[1] = cur.clone();
                 tmpBoard[2] = next.clone();
                 int[][] nextStateBoard = updateBoard(tmpBoard);
-                writeLine(nextStateBoard[1]);
+                writeLine(board, nextStateBoard[1], wl++);
             }
 
             prev = cur;
@@ -56,11 +65,19 @@ public class GameOfLifeLiveSet {
         }
 
         // Last row
-        int[][] tmpBoard = new int[2][];
-        tmpBoard[0] = prev.clone();
-        tmpBoard[1] = cur.clone();
-        int[][] nextStateBoard = updateBoard(tmpBoard);
-        writeLine(nextStateBoard[1]);
+        if (prev != null) {
+            int[][] tmpBoard = new int[2][];
+            tmpBoard[0] = prev.clone();
+            tmpBoard[1] = cur.clone();
+            int[][] nextStateBoard = updateBoard(tmpBoard);
+            writeLine(board, nextStateBoard[1], wl++);
+        } else {
+            //only 1 line
+            int[][] tmpBoard = new int[1][];
+            tmpBoard[0] = cur.clone();
+            int[][] nextStateBoard = updateBoard(tmpBoard);
+            writeLine(board, nextStateBoard[0], wl++);
+        }
     }
 
     public class Coord {
@@ -119,6 +136,7 @@ public class GameOfLifeLiveSet {
 
     // Private helper that computes the live cells in the next state given the current state
     private Set<Coord> updateLive(Set<Coord> lives, int m, int n) {
+        //value is neighbours live count
         Map<Coord, Integer> neighbours = new HashMap<>();
 
         // Update the number of live neighbours of each cell
@@ -154,6 +172,25 @@ public class GameOfLifeLiveSet {
         }
 
         return newLives;
+    }
+
+    public static void main(String[] args) {
+        int[][] board = {
+                {1, 1},
+                {1, 0}
+        };
+
+        GameOfLifeLiveSet obj = new GameOfLifeLiveSet();
+        obj.gameOfLife(board);
+
+        System.err.println("after:");
+
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                System.err.print(board[i][j] + ", ");
+            }
+            System.err.println();
+        }
     }
 }
 
