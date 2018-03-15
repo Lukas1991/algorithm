@@ -1,11 +1,6 @@
 package dp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class WordBreak {
 
@@ -82,35 +77,32 @@ public class WordBreak {
         Set<String> dict = new HashSet<>(wordDict);
         List<String> empty = new ArrayList<>();
         empty.add("");
-        map.put(s.length(), empty);
-        return word_Break(s, dict, 0);
+        cache.put("", empty);
+        return helper(s, dict);
     }
 
-    //key - start index, value -  word break of s.substring(start)
-    HashMap<Integer, List<String>> map = new HashMap<>();
+    //key - string, value -  word break of string
+    HashMap<String, List<String>> cache = new HashMap<>();
 
-    public List<String> word_Break(String s, Set<String> wordDict, int start) {
-        if (map.containsKey(start)) {
-            return map.get(start);
+    public List<String> helper(String s, Set<String> wordDict) {
+        if (cache.containsKey(s)) {
+            return cache.get(s);
         }
         List<String> res = new ArrayList<>();
 
-        for (int end = start + 1; end <= s.length(); end++) {
-            String sub = s.substring(start, end);
-            if (wordDict.contains(sub)) {
-                List<String> list = word_Break(s, wordDict, end);
+        for (int i = 1; i <= s.length(); i++) {
+            String left = s.substring(0, i);
+            String right = s.substring(i);
 
-                for (String l : list) {
-                    if (l.equals("")) {
-                        res.add(sub);
-                    } else {
-                        res.add(sub + " " + l);
-                    }
+            if (wordDict.contains(left)) {
+                List<String> list = helper(right, wordDict);
+                for (String str : list) {
+                    res.add(left + " " + str);
                 }
             }
         }
 
-        map.put(start, res);
+        cache.put(s, res);
         return res;
     }
 
