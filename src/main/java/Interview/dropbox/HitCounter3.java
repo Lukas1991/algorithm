@@ -31,6 +31,7 @@ public class HitCounter3 {
     }
 
     //clear the cells between current timestamp and lastTime. update sum. move index to current timestamp's cell
+    //[...|last|XXXXX|current| ...] the cells between are stale because they are not updated.
     void moveIndex(int timestamp) {
         int gap = Math.min(timestamp - lastTime, N);
 

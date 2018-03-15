@@ -1,15 +1,32 @@
 package Interview.dropbox;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 public class HitCounter1 {
 
+//    int TIME_WINDOW;
+//    private Queue<Integer> q;
+//
+//    public HitCounter(){
+//        TIME_WINDOW = 300;
+//        q = new LinkedList<>();
+//    }
+//
+//    public void hit(int timestamp){
+//        q.offer(timestamp);
+//    }
+//
+//    public int getHits(int timestamp){
+//        while(!q.isEmpty() && timestamp - q.peek() >= TIME_WINDOW)
+//            q.poll();
+//
+//        return q.size();
+//    }
+
     int N;
+    //key is time, value is count of hits
     Map<Integer, Integer> hitMap;
+    //queue store timeStamps
     Queue<Integer> queue;
 
     public HitCounter1() {
@@ -19,16 +36,18 @@ public class HitCounter1 {
     }
 
     public void hit(int timestamp) {
-        move(timestamp);
+        move(timestamp);//也可以不move
+
         if (hitMap.containsKey(timestamp)) {
-            int hit = hitMap.get(timestamp) + 1;
-            hitMap.put(timestamp, hit);
+            hitMap.put(timestamp, hitMap.get(timestamp) + 1);
         } else {
             hitMap.put(timestamp, 1);
+
             queue.offer(timestamp);
         }
     }
 
+    //remove stale timestamp
     void move(int timestamp) {
         while (!queue.isEmpty() && timestamp - queue.peek() >= N) {
             int time = queue.poll();
