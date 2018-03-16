@@ -1,14 +1,45 @@
 package Interview.dropbox;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 //* / % same level of precedence
+
+/**
+ * powers = 31 ^ target length
+ * hash = (hash * 31 + ADD) % mod
+ * hash = hash - DELETE * powers % mode
+ * if (hash < 0) {
+ * hash += mode;
+ * }
+ */
 public class StrStr {
+
+    public int strStr1(String source, String target) {
+        if (source == null || target == null) return -1;
+        if (target.length() == 0) return 0;
+
+        for (int i = 0; i <= source.length() - target.length(); i++) {
+            int j = 0;
+            for (; j < target.length(); j++) {
+                if (source.charAt(i + j) != target.charAt(j)) {
+                    break;
+                }
+            }
+
+            //target all match
+            if (j == target.length()) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     public static final int BASE = 1000000; //HASH_SIZE is the capacity of the hash table
 
@@ -185,13 +216,75 @@ public class StrStr {
         return true;
     }
 
-    void StringToBytes() throws IOException {
-        String source = "Valid Sudoku";
 
-        InputStream is = new ByteArrayInputStream(source.getBytes());
-        byte[] buffer = new byte[1024];
+    //byte[] target = targetStr.getBytes();
+    //Read 1 byte a time
+    public boolean matchFileTooLarge2(String filePath, byte[] target) throws IOException {
+        int m = target.length;
+        int targetHash = 0;
+        for (int i = 0; i < m; i++) {
+            targetHash = (targetHash * 31 + target[i]) % BASE;
+        }
 
-        is.read(buffer);
+        //31^m
+        int power = 1;
+        for (int i = 0; i < m; i++) {
+            power = power * 31 % BASE;
+        }
+
+        Queue<Byte> queue = new LinkedList<>();
+
+        FileInputStream inputStream = null;
+        int hash = 0;
+        int read = 0;
+        byte b1;
+
+        try {
+            inputStream = new FileInputStream(filePath);
+
+            while ((read = inputStream.read()) != -1) {
+
+                b1 = (byte) read;
+                queue.offer(b1);
+                hash = (hash * 31 + b1) % BASE;
+
+                if (queue.size() > m) {
+                    int front = queue.poll();
+                    hash = hash - front * power % BASE;
+                    if (hash < 0) {
+                        hash += BASE;
+                    }
+                }
+
+                if (hash == targetHash) {
+                    if (compare(queue, target)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException ex) {
+
+        } finally {
+            if (inputStream != null)
+                inputStream.close();
+        }
+
+        return false;
+    }
+
+    boolean compare(Queue<Byte> queue, byte[] target) {
+        if (queue.size() != target.length) return false;
+
+        Iterator<Byte> it = queue.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            if (it.next() != target[i]) {
+                return false;
+            }
+            i++;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) throws IOException {
@@ -207,6 +300,9 @@ public class StrStr {
         System.err.println(match);
 
         match = obj.matchFileTooLarge(filePath, target.getBytes());
+        System.err.println(match);
+
+        match = obj.matchFileTooLarge2(filePath, target.getBytes());
         System.err.println(match);
     }
 }
