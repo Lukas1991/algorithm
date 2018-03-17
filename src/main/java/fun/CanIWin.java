@@ -20,7 +20,7 @@ public class CanIWin {
             return true;
         }
 
-        used = new boolean[maxChoosableInteger];
+        used = new boolean[maxChoosableInteger + 1];
         return helper(desiredTotal);
     }
 
@@ -29,23 +29,23 @@ public class CanIWin {
             return false;
         }
 
-        int key = format(used);
+        int key = hash(used);
 
         if (map.containsKey(key)) {
             return map.get(key);
         } else {
-            for (int i = 1; i <= used.length; i++) {
-                if (!used[i - 1]) {
-                    used[i - 1] = true;
+            for (int i = 1; i < used.length; i++) {
+                if (!used[i]) {
+                    used[i] = true;
                     //if opponent win, try another card not used
                     boolean oppoWin = helper(desiredTotal - i);
                     if (!oppoWin) {
                         //If opponent always lose, then I win
                         map.put(key, true);
-                        used[i - 1] = false;
+                        used[i] = false;
                         return true;
                     }
-                    used[i - 1] = false;
+                    used[i] = false;
                 }
             }
             map.put(key, false);
@@ -54,7 +54,7 @@ public class CanIWin {
     }
 
     // transfer boolean[] to an Integer
-    public int format(boolean[] used) {
+    public int hash(boolean[] used) {
         int num = 0;
         for (boolean b : used) {
             num <<= 1;
