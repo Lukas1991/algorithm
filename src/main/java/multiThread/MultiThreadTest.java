@@ -1,4 +1,4 @@
-package tools;
+package multiThread;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,31 +1,50 @@
 package multiThread;
 
-import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Random;
 
-public class ProducerConsumerTestWaitNotify {
+public class ProducerConsumerTestWaitNotify2 {
 
     static class Processor {
 
-        public void produce() throws InterruptedException {
-            synchronized (this) {  //lock of processor
-                System.out.println("Producer thread running ...");
-                wait(); // hand over the lock this block acquire, let this block lose the control of the lock
+        private LinkedList<Integer> list = new LinkedList<>();
+        private final int LIMIT = 10;
 
-                //this thread will resume when this block acquire the lock again (other thread calls notify())
-                System.out.println("Resumed.");
+        private Object lock = new Object(); //lock for the list
+
+        public void produce() throws InterruptedException {
+            int val = 0;
+
+            while (true) {
+                synchronized (lock) {
+
+                    while (list.size() == LIMIT) {
+                        lock.wait();
+                    }
+
+                    list.add(val++);
+                    lock.notify();
+                }
             }
         }
 
         public void consume() throws InterruptedException {
-            Scanner scanner = new Scanner(System.in);
 
-            Thread.sleep(2000);
+            Random random = new Random();
 
-            synchronized (this) { // lock on the same as above - the processor lock
-                System.out.println("Waiting for return key.");
-                scanner.nextLine();
-                System.out.println("Return key pressed.");
-                notify();
+            while (true) {
+                synchronized (lock) {
+
+                    while (list.size() == 0) {
+                        lock.wait();
+                    }
+
+                    int val = list.removeFirst();
+                    System.err.println("List size is: " + list.size() + ", removed value : " + val);
+                    lock.notify();
+                }
+
+                Thread.sleep(random.nextInt(1000));
             }
         }
     }
