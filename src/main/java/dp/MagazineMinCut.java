@@ -1,5 +1,11 @@
 package dp;
 
+/**
+ * 微软面经, 背景是用剪刀在magzine上剪英文单词或者字母，假设剪一个单词下来需要剪4刀。输入是一个String magzine和一个string note,
+ * 要求用minnimum cut从magzine中剪出letters然后拼成note。
+ * 比如说magzine是"Hi Bob", note是"Bob", min cut就是4, 因为只要把Bob这个单词减下来就行了。
+ * 如果note是"ib"，那么min cut就是8，因为需要分别把i和b剪下来。
+ */
 public class MagazineMinCut {
 
     public static int getMinCut(String magazine, String note) {
