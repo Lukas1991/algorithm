@@ -16,7 +16,7 @@ public class HungryRoommate implements Runnable {
             eat();
 
             try {
-                Thread.sleep(5);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -27,38 +27,39 @@ public class HungryRoommate implements Runnable {
     public void eat() {
 
         FridgeItem toEat = fridge.getFridgeItem(preference);
-        if (toEat.currentCount > 0) {
 
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (toEat.semaphore.tryAcquire()) {
+            if (toEat.eat()) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                toEat.semaphore.release();
+                return;
             }
 
-            toEat.eat();
+            toEat.semaphore.release();
         } else {
-
             for (String key : fridge.map.keySet()) {
                 if (!key.equals(preference)) {
                     toEat = fridge.getFridgeItem(key);
 
+                    if (toEat.semaphore.tryAcquire()) {
+                        if (toEat.eat()) {
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
-
-                    if (toEat.currentCount > 0) {
-
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            toEat.semaphore.release();
+                            break;
                         }
-
-                        toEat.eat();
-                        break;
+                        toEat.semaphore.release();
                     }
                 }
             }
-
-
         }
 
     }

@@ -26,17 +26,22 @@ public class NiceRoomate implements Runnable {
         for (FridgeItem q : fridge.map.values()) {
             FridgeItem toStock = q;
 
-            if (toStock.currentCount < toStock.maxCount) {
+            if (q.semaphore.tryAcquire()) {
 
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (toStock.restorck()) {
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    q.semaphore.release();
+                    break;
+                } else {
+                    q.semaphore.release();
                 }
-
-                toStock.restorck();
-                break;
             }
+
         }
     }
 }

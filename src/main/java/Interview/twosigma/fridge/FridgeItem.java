@@ -1,20 +1,38 @@
 package Interview.twosigma.fridge;
 
+import java.util.concurrent.Semaphore;
+
 public class FridgeItem {
     int maxCount;
     int currentCount;
+    Semaphore semaphore;
 
     public FridgeItem(int maxCount) {
         this.maxCount = maxCount;
         this.currentCount = maxCount;
+        this.semaphore = new Semaphore(maxCount);
     }
 
-    public void eat() {
-        currentCount--;
+    public boolean eat() {
+        synchronized (this) {
+            if (currentCount > 0) {
+                currentCount--;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
-    public void restorck() {
-        currentCount++;
+    public boolean restorck() {
+        synchronized (this) {
+            if (currentCount < maxCount) {
+                currentCount++;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public String toString() {
