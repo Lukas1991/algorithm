@@ -4,7 +4,7 @@ public class PhoneDirectoryArray {
 
     int max;
     int firstLeafIndex;
-    boolean[] array;
+    boolean[] array;//space O(2N-1)
 
     //O(n) to build tree
     public PhoneDirectoryArray(int maxNumbers) {
