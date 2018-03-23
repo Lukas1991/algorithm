@@ -3,17 +3,40 @@ package Interview.dropbox;
 public class PhoneDirectoryArray {
 
     int max;
+    int firstLeafIndex;
     boolean[] array;
 
+    //O(n) to build tree
     public PhoneDirectoryArray(int maxNumbers) {
-        array = new boolean[getPowOf2(maxNumbers) * 2 - 1];
         max = maxNumbers;
-        buildTree(0, 0, getPowOf2(maxNumbers));
+
+        //转换成平衡二叉树，比maxNumbers大的2的N次方
+        int balancedLeafs = getPowOf2(maxNumbers);
+        array = new boolean[balancedLeafs * 2 - 1];
+        firstLeafIndex = balancedLeafs - 1;
+        buildTree(0);
+    }
+
+    void buildTree(int index) {
+        if (index >= firstLeafIndex) {
+            //is leaf
+            if (index < firstLeafIndex + max) {
+                array[index] = true;
+            } else {
+                array[index] = false;
+            }
+        } else {
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+            buildTree(left);
+            buildTree(right);
+            array[index] = array[left] || array[right];
+        }
     }
 
     int getPowOf2(int n) {
-        int base = 0;
-        int cur = 1;
+        int base = 1;
+        int cur = 2;
         while (cur < n) {
             base++;
             cur *= 2;
@@ -28,130 +51,85 @@ public class PhoneDirectoryArray {
      * log(N)
      */
     public int get() {
-        int num = findAvai(0, 0, max);
-        if (num == -1) {
-            return -1;
-        } else {
-            modify(0, 0, max, num, false);
-            return num;
-        }
-    }
-
-    int findAvai(int root, int start, int end) {
-        if (!array[root]) {
+        if (!array[0]) {
             return -1;
         }
 
-        if (start == end && array[root]) {
-            return start;
-        }
+        int index = findAvaiIndex(0);
+        array[index] = false;
 
-        int left = 2 * root + 1;
-        int right = 2 * root + 2;
-        int mid = (start + end) / 2;
-
-        if (array[left]) {
-            return findAvai(left, start, mid);
-        } else {
-            return findAvai(right, mid + 1, end);
-        }
-
+        int parent = (index - 1) / 2;
+        modify(parent);
+        //return the number
+        return index - firstLeafIndex;
     }
 
-    void modify(int node, int start, int end, int num, boolean value) {
-        if (start == num && end == num) {
-            array[node] = value;
-            return;
+    int findAvaiIndex(int index) {
+        while (index < firstLeafIndex) {
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+
+            if (array[left]) {
+                index = left;
+            } else {
+                index = right;
+            }
         }
 
-        int left = 2 * node + 1;
-        int right = 2 * node + 2;
-        int mid = (start + end) / 2;
-
-        if (num <= mid) {
-            modify(left, start, mid, num, value);
-        } else {
-            modify(right, mid + 1, end, num, value);
-        }
-
-        array[node] = array[left] || array[right];
+        return index;
     }
 
+    //modify的都non-leaf
+    void modify(int index) {
+        while (index >= 0) {
+            int left = 2 * index + 1;
+            int right = 2 * index + 2;
+
+            if (left < array.length && right < array.length) {
+                array[index] = array[left] || array[right];
+            } else {
+                array[index] = array[left];
+            }
+            //不可能没有左，但是有右
+
+            //防止死循环
+            if (index == 0) {
+                break;
+            }
+            index = (index - 1) / 2;
+        }
+    }
+
+    //O(1)
     public boolean check(int number) {
         if (number < 0 || number >= max) {
             return false;
         }
-
-        return query(0, number, number);
+        int index = firstLeafIndex + number;
+        return array[index];
     }
 
+    //O(logn)
     public void release(int number) {
         if (number < 0 || number >= max) {
             return;
         }
-        modify(0, 0, max, number, true);
+        int index = firstLeafIndex + number;
+        array[index] = true;
+        int parent = (index - 1) / 2;
+        modify(parent);
     }
 
-    boolean query(int root, int start, int end) {
-        if (!array[root]) {
-            return false;
-        }
-
-        if (start == end) {
-            return array[root];
-        }
-
-        int mid = (start + end) / 2;
-
-        int left = 2 * root + 1;
-        int right = 2 * root + 2;
-
-        boolean hasAvai = false;
-        if (mid >= start) {
-            hasAvai |= query(left, start, end);
-        }
-
-        if (hasAvai) {
-            return true;
-        }
-
-        if (mid < end) {
-            hasAvai |= query(right, start, end);
-        }
-
-        return hasAvai;
-    }
-
-    void buildTree(int root, int start, int end) {
-
-        if (start > end || root >= array.length) {
-            //array[root] = false;
-            return;
-        }
-
-        if (start == end) {
-            array[root] = start > max ? false : true;
-            return;
-        }
-
-        int left = 2 * root + 1;
-        int right = 2 * root + 2;
-        int mid = (start + end) / 2;
-
-        buildTree(left, start, mid);
-        buildTree(right, mid + 1, end);
-
-        if (left < array.length) {
-            array[root] |= array[left];
-        }
-
-        if (right < array.length) {
-            array[root] |= array[right];
-        }
-    }
 
     public static void main(String[] args) {
+        test();
+        test1();
+        test2();
+    }
+
+    static void test() {
         PhoneDirectoryArray obj = new PhoneDirectoryArray(3);
+
         System.err.println(obj.get());  //0
 
         System.err.println(obj.get());  //1
@@ -161,6 +139,21 @@ public class PhoneDirectoryArray {
         System.err.println(obj.check(2));  //false
         obj.release(2);
         System.err.println(obj.check(2));  //true
+    }
 
+    static void test1() {
+        PhoneDirectoryArray obj = new PhoneDirectoryArray(1);
+        System.err.println(obj.get());  //0
+        System.err.println(obj.get());  //-1
+    }
+
+    static void test2() {
+        PhoneDirectoryArray obj = new PhoneDirectoryArray(5);
+        System.err.println(obj.get());  //0
+        System.err.println(obj.get());  //1
+        System.err.println(obj.get()); //2
+        System.err.println(obj.get()); //3
+        System.err.println(obj.get()); //4
+        System.err.println(obj.get()); //-1
     }
 }

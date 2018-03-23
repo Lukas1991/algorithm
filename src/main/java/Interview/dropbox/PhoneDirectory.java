@@ -18,6 +18,7 @@ public class PhoneDirectory {
 
     Set<Integer> used = new HashSet<>();
     Queue<Integer> available = new LinkedList<>();
+    int minAvailable = 0;
     int max = 0;
 
     /**
@@ -26,9 +27,11 @@ public class PhoneDirectory {
      * @param maxNumbers - The maximum numbers that can be stored in the phone directory.
      */
     public PhoneDirectory(int maxNumbers) {
-        for (int i = 0; i < maxNumbers; i++) {
-            available.offer(i);
-        }
+        //O(n) for constructor
+//        for (int i = 0; i < maxNumbers; i++) {
+//            available.offer(i);
+//        }
+        minAvailable = 0;  //O(1) for constructor
         this.max = maxNumbers;
     }
 
@@ -37,12 +40,19 @@ public class PhoneDirectory {
      *
      * @return - Return an available number. Return -1 if none is available.
      */
+    //O(1)
     public int get() {
-        if (available.isEmpty()) {
+        if (minAvailable > max && available.isEmpty()) {
             return -1;
         } else {
+            if (available.isEmpty()) {
+                available.offer(minAvailable);
+                minAvailable++;
+            }
+
             int num = available.poll();
             used.add(num);
+
             return num;
         }
     }
