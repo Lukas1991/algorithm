@@ -3,7 +3,7 @@ package Tree;
 /**
  * 450. Delete Node in a BST
  */
-public class DeleteNode {
+public class DeleteNodeInBST {
 
     /**
      * Once the node is found, have to handle the below 4 cases
