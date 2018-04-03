@@ -1,4 +1,4 @@
-package Recursion;
+package backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,17 +15,17 @@ public class Subsets {
      */
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-
-        helper(res, new ArrayList<>(), 0, nums);
+        Arrays.sort(nums);
+        helper(nums, 0, new ArrayList<>(), res);
         return res;
     }
 
-    private void helper(List<List<Integer>> res, List<Integer> tmp, int start, int[] nums) {
+    void helper(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
         res.add(new ArrayList<>(tmp));
 
         for (int i = start; i < nums.length; i++) {
             tmp.add(nums[i]);
-            helper(res, tmp, i + 1, nums);
+            helper(nums, i + 1, tmp, res);
             tmp.remove(tmp.size() - 1);
         }
     }
@@ -43,20 +43,20 @@ public class Subsets {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
 
-        helper2(res, new ArrayList<>(), 0, nums);
+        helper2(nums, 0, new ArrayList<>(), res);
         return res;
     }
 
-    private void helper2(List<List<Integer>> res, List<Integer> tmp, int start, int[] nums) {
+    void helper2(int[] nums, int start, List<Integer> tmp, List<List<Integer>> res) {
         res.add(new ArrayList<>(tmp));
 
         for (int i = start; i < nums.length; i++) {
-            tmp.add(nums[i]);
-            helper2(res, tmp, i + 1, nums);
-            tmp.remove(tmp.size() - 1);
-            while (i + 1 < nums.length && nums[i + 1] == nums[i]) {
-                i++;
+            if (i > start && nums[i] == nums[i - 1]) {
+                continue;
             }
+            tmp.add(nums[i]);
+            helper2(nums, i + 1, tmp, res);
+            tmp.remove(tmp.size() - 1);
         }
     }
 
