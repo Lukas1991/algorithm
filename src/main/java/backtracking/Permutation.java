@@ -1,4 +1,4 @@
-package array;
+package backtracking;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,6 @@ public class Permutation {
                 tmp.remove(tmp.size() - 1);
             }
         }
-        return;
     }
     
     /**
@@ -103,7 +102,7 @@ public class Permutation {
     
 	public String getPermutation(int n, int k) {
         StringBuilder sb = new StringBuilder();
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
         for(int i=1; i<=n; i++){
             list.add(i);
         }
@@ -137,8 +136,8 @@ public class Permutation {
 	
 	public static void main(String[] args) {
 		Permutation obj = new Permutation();
-		int[] arr = {2,3};
-		System.out.println(obj.permute(arr));
+        int[] arr = {1, 2, 2};
+        System.out.println(obj.permuteUnique(arr));
 		//System.out.println(obj.factorial(0));
 		//System.out.println(obj.factorial(1));
 		//System.out.println(obj.factorial(2));
