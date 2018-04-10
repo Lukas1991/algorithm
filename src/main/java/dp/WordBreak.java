@@ -1,6 +1,11 @@
 package dp;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class WordBreak {
 
@@ -37,29 +42,43 @@ public class WordBreak {
     }
 
     /**
-     * Use dp[], dp[k]==true indicates ends at k, s.substring(0,k) can be segmented using dictionary.
+     * Use dp[], dp[i]==true indicates ends at i, s.substring(0,i) can be segmented using dictionary.
      * Initial state dp[0] == true, return dp[s.length()].
      * Time complexity : O(n^2).
      * Space complexity : O(n).
      */
-    public boolean wordBreak1DP(String s, List<String> wordDict) {
-        Set<String> dict = new HashSet<>(wordDict);
+    public boolean wordBreak1DP(String s, Set<String> dict) {
         int n = s.length();
 
-        boolean dp[] = new boolean[n + 1];
-        dp[0] = true; //set initial state to be true
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;//set initial state to be true
+
+        int maxLen = getMaxLength(dict);
 
         for (int i = 1; i <= n; i++) {
-            for (int k = 0; k < i; k++) {
-                if (dp[k] && dict.contains(s.substring(k, i))) {
-                    dp[i] = true;
+            for (int j = i - 1; j >= 0; j--) {
+                int len = i - j;
+                if (len > maxLen) {
                     break;
                 }
 
+                String sub = s.substring(j, i);
+                if (dp[j] && dict.contains(sub)) {
+                    dp[i] = true;
+                    break;
+                }
             }
         }
 
         return dp[n];
+    }
+
+    private int getMaxLength(Set<String> dict) {
+        int maxLength = 0;
+        for (String word : dict) {
+            maxLength = Math.max(maxLength, word.length());
+        }
+        return maxLength;
     }
 
 
