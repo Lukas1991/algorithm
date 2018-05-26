@@ -59,7 +59,7 @@ public class ExcelSum {
     void topologicalSort(int r, int c) {
         for (int i = 0; i < formulas.length; i++) {
             for (int j = 0; j < formulas[0].length; j++) {
-                if (formulas[i][j] != null && formulas[i][j].cells)
+                //if (formulas[i][j] != null && formulas[i][j].cells)
 
             }
         }
