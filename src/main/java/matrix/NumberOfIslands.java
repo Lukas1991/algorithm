@@ -1,5 +1,6 @@
 package matrix;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -75,45 +76,48 @@ public class NumberOfIslands {
     }
 
     //-------------- BFS ------------------------------
-    public int numIslandsBFS(boolean[][] grid) {
+    public int numIslandsBFS(char[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return 0;
         }
 
-        int n = grid.length;
-        int m = grid[0].length;
         int count = 0;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j]) {
-                    markByBFS(grid, i, j);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    //dfs(grid, i, j, visited);
+                    bfs(grid, i, j, visited);
                     count++;
                 }
-
             }
         }
+
         return count;
     }
 
-    private void markByBFS(boolean[][] grid, int i, int j) {
-        int[] dx = {0, 1, -1, 0};
-        int[] dy = {1, 0, 0, -1};
+    void bfs(char[][] grid, int i, int j, boolean[][] visited) {
+        int[] dx = {0, 0, 1, -1};
+        int[] dy = {1, -1, 0, 0};
 
-        Queue<int[]> queue = new LinkedList<>();
+        Queue<Point> queue = new LinkedList<>();
 
-        queue.offer(new int[] {i, j});
-        grid[i][j] = false;
+        Point start = new Point(i, j);
+        queue.offer(start);
+        visited[i][j] = true;
 
         while (!queue.isEmpty()) {
-            int[] coor = queue.poll();
-            for (int k = 0; k < 4; k++) {
-                int x = coor[0] + dx[k];
-                int y = coor[1] + dy[k];
+            Point p = queue.poll();
 
-                if (inBound(x, y, grid.length, grid[0].length) && grid[x][y]) {
-                    grid[x][y] = false;
-                    queue.offer(new int[] {x, y});
+            for (int k = 0; k < 4; k++) {
+                int x = dx[k] + p.x;
+                int y = dy[k] + p.y;
+                Point p1 = new Point(x, y);
+
+                if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == '1' && !visited[x][y]) {
+                    queue.offer(p1);
+                    visited[x][y] = true;
                 }
             }
         }
