@@ -1,6 +1,8 @@
 package matrix;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MatrixMultiply {
 
@@ -13,24 +15,46 @@ public class MatrixMultiply {
 	/**
 	 * If A is an n × m matrix and B is an m × p matrix, the matrix product C is defined to be the n × p matrix.
 	 * Cij = sum of Aik * Bkj, k from 1 to m
+     * A的i行 * B的j列
      */
-	public static int[][] multiply(int[][] A, int[][] B) {
-		int n = A.length;
-		int m = A[0].length;
-		int p = B[0].length;
+    public int[][] multiplyNaive(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = B[0].length;
 
-		int[][] C = new int[n][p];
+        int t = A[0].length; // should be the same as B.length
 
-		for (int i = 0; i < n; i++) {
-			for (int k = 0; k < m; k++) {
-				if (A[i][k] != 0) {
+        int[][] C = new int[rows][cols];
 
-					for (int j = 0; j < p; j++) {
-						if (B[k][j] != 0) {
-							C[i][j] += A[i][k] * B[k][j];
-						}
-					}
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
 
+                for (int k = 0; k < t; k++) {
+                    C[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+
+        return C;
+    }
+
+    //优化1
+    //第二，三个for 换位置。 一维优化，skip A[i][k] == 0
+    public int[][] multiply(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = B[0].length;
+
+        int t = A[0].length; // should be the same as B.length
+
+        int[][] C = new int[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int k = 0; k < t; k++) {
+                if (A[i][k] == 0) {
+                    continue;
+                }
+
+                for (int j = 0; j < cols; j++) {
+                    C[i][j] += A[i][k] * B[k][j];
 				}
 			}
 		}
@@ -38,17 +62,55 @@ public class MatrixMultiply {
 		return C;
 	}
 
-	public static int[][] multiply2(int[][] A, int[][] B) {
-		int aColumns = A[0].length;
-		int bRows = B.length;
-		if (aColumns != bRows) {
-			return null;
+    //继续优化，优化2
+    //二维维优化，skip A[i][k] == 0 && B[k][j] == 0
+    //保存B中非0的位, 所以也skip B[k][j] == 0
+    public int[][] multiply2(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = B[0].length;
+        int t = A[0].length; //=B.length
+
+        int[][] res = new int[rows][cols];
+
+        //make a copy of B's not zero elements's index
+        List<List<Integer>> bList = new ArrayList<>();
+        for (int i = 0; i < B.length; i++) {
+            bList.add(new ArrayList());
+            for (int j = 0; j < B[0].length; j++) {
+                if (B[i][j] != 0) {
+                    bList.get(i).add(j);
+                }
+            }
 		}
 
-		boolean[] aRowZero = new boolean[A.length];
-		for (int i = 0; i < A.length; i++) {
+        for (int i = 0; i < rows; i++) {
+            for (int k = 0; k < t; k++) {
+                if (A[i][k] == 0) {
+                    continue;
+                }
+
+                List<Integer> bRow = bList.get(k);
+                for (int x = 0; x < bRow.size(); x++) {
+                    int j = bRow.get(x);
+                    res[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+
+        return res;
+    }
+
+    //空间上优化，新开两个一维数组。貌似不是最优解。。。
+    public static int[][] multiply3(int[][] A, int[][] B) {
+        int rows = A.length;
+        int cols = B[0].length;
+
+        int t = A[0].length; //=B.length
+
+        boolean[] aRowZero = new boolean[rows];
+        for (int i = 0; i < rows; i++) {
 			boolean hasNum = false;
-			for (int j = 0; j < aColumns; j++) {
+            for (int j = 0; j < A[0].length; j++) {
 				if (A[i][j] != 0) {
 					hasNum = true;
 					break;
@@ -57,11 +119,10 @@ public class MatrixMultiply {
 			aRowZero[i] = !hasNum;
 		}
 
-		int bColumns = B[0].length;
-		boolean[] bColumnZero = new boolean[bColumns];
-		for (int j = 0; j < bColumns; j++) {
+        boolean[] bColumnZero = new boolean[cols];
+        for (int j = 0; j < cols; j++) {
 			boolean hasNum = false;
-			for (int i = 0; i < bRows; i++) {
+            for (int i = 0; i < B.length; i++) {
 				if (B[i][j] != 0) {
 					hasNum = true;
 					break;
@@ -72,21 +133,15 @@ public class MatrixMultiply {
 
 		int[][] res = new int[A.length][B[0].length];
 
-		for (int i = 0; i < A.length; i++) { // row
-			int[] rows = A[i];
-
-			for (int j = 0; j < B[0].length; j++) { // column
+        for (int i = 0; i < rows; i++) { //row
+            for (int j = 0; j < cols; j++) { // column
 
 				if (aRowZero[i] || bColumnZero[j]) {
-					res[i][j] = 0;
-				} else {
-					int[] columns = new int[bRows];
+                    continue;
+                }
 
-					for (int k = 0; k < bRows; k++) {
-						columns[k] = B[k][j];
-					}
-
-					res[i][j] = getMultiply(rows, columns);
+                for (int k = 0; k < t; k++) {
+                    res[i][j] += A[i][k] * B[k][j];
 				}
 			}
 		}
@@ -103,6 +158,8 @@ public class MatrixMultiply {
 	}
 
 	public static void main(String[] args) {
+        MatrixMultiply obj = new MatrixMultiply();
+
 		int[][] A = { { 1, 0, 0 }, { -1, 0, 3 } };
 		// int[][] A = {
 		// {1, -5}
@@ -115,7 +172,7 @@ public class MatrixMultiply {
 
 		int[][] B = { { 7, 0, 0 }, { 0, 0, 0 }, { 0, 0, 1 } };
 
-		int[][] res = multiply(A, B);
+        int[][] res = obj.multiply(A, B);
 
 		for (int[] row : res) {
 			System.err.println(Arrays.toString(row));
