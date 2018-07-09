@@ -1,11 +1,6 @@
 package dp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class WordBreak {
 
@@ -94,9 +89,6 @@ public class WordBreak {
      */
     public List<String> wordBreak2(String s, List<String> wordDict) {
         Set<String> dict = new HashSet<>(wordDict);
-        List<String> empty = new ArrayList<>();
-        empty.add("");
-        cache.put("", empty);
         return helper(s, dict);
     }
 
@@ -114,9 +106,13 @@ public class WordBreak {
             String right = s.substring(i);
 
             if (wordDict.contains(left)) {
-                List<String> list = helper(right, wordDict);
-                for (String str : list) {
-                    res.add(left + " " + str);
+                if (right.isEmpty()) {
+                    res.add(left);
+                } else {
+                    List<String> tmp = helper(right, wordDict);
+                    for (String str : tmp) {
+                        res.add(left + " " + str);
+                    }
                 }
             }
         }
@@ -134,8 +130,10 @@ public class WordBreak {
         dict.add("and");
         dict.add("sand");
         dict.add("dog");
+        dict.add("a");
 
         String str = "catsanddog";
+        //String str = "a";
 
         System.err.println(obj.wordBreak1Best(str, dict));
         List<String> res = obj.wordBreak2(str, dict);
