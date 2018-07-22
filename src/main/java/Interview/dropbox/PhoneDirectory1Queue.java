@@ -14,10 +14,10 @@ import java.util.Set;
  *
  * queue + HashSet, O(1) time, O(n) space
  */
-public class PhoneDirectory {
+public class PhoneDirectory1Queue {
 
     Set<Integer> used = new HashSet<>();
-    Queue<Integer> available = new LinkedList<>();
+    Queue<Integer> queue = new LinkedList<>();
     int minAvailable = 0;
     int max = 0;
 
@@ -26,7 +26,7 @@ public class PhoneDirectory {
      *
      * @param maxNumbers - The maximum numbers that can be stored in the phone directory.
      */
-    public PhoneDirectory(int maxNumbers) {
+    public PhoneDirectory1Queue(int maxNumbers) {
         //O(n) for constructor
 //        for (int i = 0; i < maxNumbers; i++) {
 //            available.offer(i);
@@ -42,19 +42,20 @@ public class PhoneDirectory {
      */
     //O(1)
     public int get() {
-        if (minAvailable > max && available.isEmpty()) {
+        if (minAvailable >= max && queue.isEmpty()) { // >= max !!
             return -1;
-        } else {
-            if (available.isEmpty()) {
-                available.offer(minAvailable);
-                minAvailable++;
-            }
-
-            int num = available.poll();
-            used.add(num);
-
-            return num;
         }
+
+        int n;
+        if (!queue.isEmpty()) {
+            n = queue.poll();
+        } else {
+            n = minAvailable;
+            minAvailable++;
+        }
+
+        used.add(n);
+        return n;
     }
 
     /**
@@ -74,7 +75,7 @@ public class PhoneDirectory {
     public void release(int number) {
         if (used.contains(number)) {
             used.remove(number);
-            available.offer(number);
+            queue.offer(number);
         }
     }
 

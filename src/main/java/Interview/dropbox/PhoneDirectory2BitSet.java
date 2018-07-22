@@ -3,7 +3,8 @@ package Interview.dropbox;
 import java.util.BitSet;
 
 // Bitset: O(n) time, O(1) space
-public class PhoneDirectoryBitSet {
+//1 bit per number
+public class PhoneDirectory2BitSet {
     BitSet bitSet;
     int max = 0;
     int index = 0;
@@ -13,7 +14,7 @@ public class PhoneDirectoryBitSet {
      *
      * @param maxNumbers - The maximum numbers that can be stored in the phone directory.
      */
-    public PhoneDirectoryBitSet(int maxNumbers) {
+    public PhoneDirectory2BitSet(int maxNumbers) {
         bitSet = new BitSet(maxNumbers);
         max = maxNumbers;
     }
@@ -50,7 +51,7 @@ public class PhoneDirectoryBitSet {
      */
     //number 超出范围时，bitset.get return false
     public void release(int number) {
-        if (bitSet.get(number)) {
+        if (!check(number)) {
             bitSet.clear(number);
             index = Math.min(index, number);
         }
