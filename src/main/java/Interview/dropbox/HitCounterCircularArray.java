@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * It is possible that several hits arrive roughly at the same time.  此方法支持
  */
 public class HitCounterCircularArray {
-    private final Object LOCK = new Object();
+    private static final Object LOCK = new Object();
     int N;
     AtomicInteger[] counts;
     AtomicInteger sum = new AtomicInteger(0);

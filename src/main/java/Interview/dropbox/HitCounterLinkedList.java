@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HitCounterLinkedList {
 
-    private final Object LOCK = new Object();
+    private static final Object LOCK = new Object();
     LinkedList<AtomicInteger> queue;
     AtomicInteger sum = new AtomicInteger();
 
