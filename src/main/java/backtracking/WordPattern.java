@@ -68,8 +68,8 @@ public class WordPattern {
         } else {
 
             // pattern character does not exist in the map
-            for (int k = si; k < str.length(); k++) {
-                String sub = str.substring(si, k + 1);
+            for (int k = si + 1; k <= str.length(); k++) {
+                String sub = str.substring(si, k);
 
                 if (!map.values().contains(sub)) {
                     // create or update it
@@ -89,6 +89,5 @@ public class WordPattern {
             // we've tried our best but still no luck
             return false;
         }
-
     }
 }
