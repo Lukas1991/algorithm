@@ -1,33 +1,49 @@
 package Interview.dropbox;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 此方法仅限 timestamp 递增（可以相等，一个时间多个Hit）
  * you may assume that calls are being made to the system in chronological order (ie, the timestamp is monotonically increasing).
  * You may assume that the earliest timestamp starts at 1
  * It is possible that several hits arrive roughly at the same time.  此方法支持
  */
-public class HitCounter3 {
+public class HitCounterCircularArray {
+    private final Object LOCK = new Object();
     int N;
-    int[] counts;
-    int sum;
-    int lastTime;
+    AtomicInteger[] counts;
+    AtomicInteger sum = new AtomicInteger(0);
+    private volatile int lastTime;
 
-    public HitCounter3() {
+    public HitCounterCircularArray() {
         N = 300;
-        counts = new int[N];
+        counts = new AtomicInteger[N];
         lastTime = 0;
-        sum = 0;
+        for (int i = 0; i < N; i++) {
+            counts[i] = new AtomicInteger(0);
+        }
     }
 
     public void hit(int timestamp) {
-        moveIndex(timestamp);
-        counts[timestamp % N]++;
-        sum++;
+
+        if (lastTime != timestamp) {
+            synchronized (LOCK) {
+                moveIndex(timestamp);
+            }
+        }
+
+        counts[timestamp % N].incrementAndGet();
+        sum.incrementAndGet();
     }
 
     public int getHits(int timestamp) {
-        moveIndex(timestamp);
-        return sum;
+        if (lastTime != timestamp) {
+            synchronized (LOCK) {
+                moveIndex(timestamp);
+            }
+        }
+
+        return sum.get();
     }
 
     //clear the cells between current timestamp and lastTime. update sum. move index to current timestamp's cell
@@ -39,15 +55,15 @@ public class HitCounter3 {
 
         for (int i = 0; i < gap; i++) {
             index = (index + 1) % N; //move index 1 step
-            sum -= counts[index];
-            counts[index] = 0; //clear cell
+            sum.addAndGet(counts[index].get() * -1);
+            counts[index].set(0); //clear cell
         }
 
         lastTime = timestamp;
     }
 
     public static void main(String[] args) {
-        HitCounter3 obj = new HitCounter3();
+        HitCounterCircularArray obj = new HitCounterCircularArray();
         obj.hit(1);
         obj.hit(2);
         obj.hit(3);
