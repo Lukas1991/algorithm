@@ -40,12 +40,12 @@ public class PhoneDirectory3BitSetSegmentTree {
      * @return - Return an available number. Return -1 if none is available.
      */
     public int get() {
-        int left = 0, right = maxNumber - 1;
-        int curNode = 0;
-
-        if (bitset.get(curNode)) { //all are used
+        if (bitset.get(0)) { //all are used
             return -1;
         }
+
+        int left = 0, right = maxNumber - 1;
+        int curNode = 0;
 
         while (left < right) {
             int mid = (left + right) / 2;
@@ -75,7 +75,9 @@ public class PhoneDirectory3BitSetSegmentTree {
     }
 
     private boolean getStatus(int number, int curNode, int left, int right) {
-        if (bitset.get(curNode)) return false;
+        if (bitset.get(curNode)) {
+            return false;  //fast return !!!
+        }
 
         //current is the leaf
         if (left == right) return !bitset.get(curNode);
