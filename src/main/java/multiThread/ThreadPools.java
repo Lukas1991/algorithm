@@ -1,12 +1,23 @@
 package multiThread;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class ThreadPools {
 
     static class ProcessorThread implements Runnable {
+        //Test synchronizedList
+        static List<Integer> list = Collections.synchronizedList(new ArrayList<>());
+        //static List<Integer> list = new ArrayList<>();
 
         private int id;
 
@@ -19,11 +30,11 @@ public class ThreadPools {
             System.out.println("Starting: " + id);
 
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            list.add(1);
             System.out.println("Completed: " + id);
         }
     }
@@ -40,12 +51,13 @@ public class ThreadPools {
         executor.shutdown();
 
         try {
-            executor.awaitTermination(10, TimeUnit.SECONDS);
+            executor.awaitTermination(100, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         System.out.println("All tasks completed.");
+        System.out.println(ProcessorThread.list.toString());
     }
 
     //thread return a value
@@ -90,8 +102,8 @@ public class ThreadPools {
     public static void main(String[] args) {
         submitTest();
 
-        System.out.println("Callable Test ...");
-        callableTest();
+        //System.out.println("Callable Test ...");
+        //callableTest();
     }
 }
 

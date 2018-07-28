@@ -1,7 +1,16 @@
 package Interview.dropbox;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -14,10 +23,10 @@ public class WebCrawlerTest extends Thread {
 
     private static BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
-    //private Map<String, Boolean> visited = new ConcurrentHashMap<>();
-    private static HashMap<String, Boolean> visited = new HashMap<>();
+    private static Map<String, Boolean> visited = new ConcurrentHashMap<>();
+    //private static HashMap<String, Boolean> visited = new HashMap<>();
 
-    private static List<String> results = Collections.synchronizedList(new ArrayList<>());
+    private static List<String> results = Collections.synchronizedList(new ArrayList<>());  //!!!!!
 
     public static List<String> getResults() {
         return results;
@@ -38,15 +47,11 @@ public class WebCrawlerTest extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            try {
+        try {
+            while (true) {
                 counter.decrementAndGet();
                 String url = queue.take();
                 counter.incrementAndGet();
-
-                if (visited.containsKey(url)) {
-                    continue;
-                }
 
 //                String domain = "";
 //                try {
@@ -57,23 +62,27 @@ public class WebCrawlerTest extends Thread {
 //                }
 //              domain.endsWith("wikipedia.org")
 
-                visited.put(url, true);
-                results.add(url);
-
-                List<String> urls = parse(url);
-                for (String u : urls) {
-                    if (!visited.containsKey(u) && u.endsWith("wikipedia.org")) {
-                        queue.put(u);
-                    }
+                if (!visited.containsKey(url)) {
+                    bfs(url);
                 }
 
-            } catch (InterruptedException e) {
-                Thread.interrupted();
-            } catch (Exception e) {
-
-
             }
+        } catch (InterruptedException e) {
+            System.err.println("interrupted counter is : " + counter.get());
+            Thread.interrupted();
+        } catch (Exception e) {
+        }
+    }
 
+    private void bfs(String url) throws InterruptedException {
+        visited.put(url, true);
+        results.add(url);
+
+        List<String> urls = parse(url);
+        for (String u : urls) {
+            if (!visited.containsKey(u) && u.endsWith("wikipedia.org")) {
+                queue.put(u);
+            }
         }
     }
 
@@ -88,21 +97,35 @@ public class WebCrawlerTest extends Thread {
         return list;
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        WebCrawlerTest webCrawlerTest = new WebCrawlerTest();
+    public static void test1() {
+        int threadNum = 5;
+        WebCrawlerTest.init("wikipedia.org", threadNum);
+        WebCrawlerTest[] pool = new WebCrawlerTest[threadNum];
 
+        for (int i = 0; i < threadNum; i++) {
+            pool[i] = new WebCrawlerTest();
+            pool[i].start();
+        }
+
+        while (WebCrawlerTest.getCounter() > 0) {
+            //
+        }
+
+        for (int i = 0; i < threadNum; i++) {
+            pool[i].stop();
+        }
+        System.out.println("All tasks stoped.");
+        System.out.println(WebCrawlerTest.getResults().size());
+    }
+
+    public static void test2() {
         int threadNum = 5;
         WebCrawlerTest.init("wikipedia.org", threadNum);
 
-//        WebCrawlerTest[] pool = new WebCrawlerTest[threadNum];
-//        for (int i = 0; i < threadNum; i++) {
-//            pool[i] = new WebCrawlerTest();
-//            pool[i].start();
-//        }
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
         for (int i = 0; i < threadNum; i++) {
-            executor.submit(() -> webCrawlerTest.run());
+            executor.submit(new WebCrawlerTest());
         }
 
         System.out.println("All tasks submitted.");
@@ -111,27 +134,30 @@ public class WebCrawlerTest extends Thread {
             //
         }
 
-//        for (int i = 0; i < threadNum; i++) {
-//            pool[i].stop();
-//        }
-//
         //all threads are waiting.
         System.out.println("All tasks waiting.");
 
-
-        executor.shutdown();
-
         try {
-            executor.awaitTermination(1, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+                System.out.println("shut donw now.");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException ex) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("All tasks completed." + executor.isTerminated());
 
         System.out.println(WebCrawlerTest.getResults().size());
-//        System.out.println(webCrawlerTest.getResults());
-//        System.out.println(webCrawlerTest.queue.size());
-//        System.out.println(webCrawlerTest.visited.size());
+        //System.out.println(WebCrawlerTest.getResults());
+        System.out.println(WebCrawlerTest.queue.size());
+        System.out.println(WebCrawlerTest.visited.size());
+        System.out.println("Counter: " + WebCrawlerTest.getCounter());
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        test1();
+        //test2();
     }
 }
